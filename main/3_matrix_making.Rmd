@@ -1,0 +1,181 @@
+---
+title: "Matrix Making"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Read in necessary files
+
+```{r}
+
+readRDS("../intermediate_files/rds/ak_physeqs.rds")
+readRDS("../intermediate_files/rds/ro_physeqs.rds")
+readRDS("../intermediate_files/rds/ak_unrarefied.rds")
+readRDS("../intermediate_files/rds/ro_unrarefied.rds")
+readRDS("../intermediate_files/rds/host_names.rds")
+
+
+```
+
+
+
+## Condense individual OTU tables into a single column (merge plots)
+
+Here, we want to make a table that shows all the ASVs in every host and soil.
+Hosts/soil are columns and ASVs are rows.
+
+```{r}
+
+# in the otu table, rows are samples (plots) and columns are ASVs
+# this function returns a single column matrix that has ASV names and
+# corresponding abundance values for each host or soil
+rare_make_matrix <- function(physeq) {
+  single_col_matrix <- as(colSums(otu_table(physeq)), "matrix")
+  return(single_col_matrix)
+}
+
+unrare_make_matrix <- function(physeq) {
+  single_col_matrix <- as(rowSums(otu_table(physeq)), "matrix")
+  return(single_col_matrix)
+}
+
+
+# run above function on the list of rarefied physeq objects for each habitat
+rare_ro_mats <- lapply(ro_physeqs, rare_make_matrix)
+rare_ak_mats <- lapply(ak_physeqs, rare_make_matrix)
+
+unrare_ro_mats <- lapply(ro_unrarefied, unrare_make_matrix)
+unrare_ak_mats <- lapply(ak_unrarefied, unrare_make_matrix)
+
+
+
+# name the columns by host
+for (a_host in host_names) {
+  colnames(rare_ro_mats[[a_host]]) <- a_host
+  colnames(rare_ak_mats[[a_host]]) <- a_host
+  colnames(unrare_ro_mats[[a_host]]) <- a_host
+  colnames(unrare_ak_mats[[a_host]]) <- a_host
+}
+
+
+```
+
+## Merge the columns into one OTU table
+
+```{r}
+
+# Not a great solution! But it's the only one I could come up with
+# merge() only takes two inputs at a time and we had problems with Reduce()
+
+multi_merge_matrix <- function(matrix_list) {
+  
+  r <- merge(matrix_list[["A. koa"]], matrix_list[["C. trigynum"]], by="row.names", all=TRUE)
+# ASVs become a row, change back to rownames
+rownames(r) <- r[,1]
+# remove the column where the ASVs just were so the next merge works
+r[,1] <- NULL
+
+  for (i in 3:7) {
+  r <- merge(r, matrix_list[[i]], by="row.names", all=T)
+  rownames(r) <- r[,1]
+  r[,1] <- NULL
+  }
+
+r <- as(r, "matrix")
+
+r[is.na(r)] <- 0
+
+return(r)
+
+}
+
+
+rare_ro_full_mat <- multi_merge_matrix(rare_ro_mats)
+
+rare_ak_full_mat <- multi_merge_matrix(rare_ak_mats)
+
+unrare_ro_full_mat <- multi_merge_matrix(unrare_ro_mats)
+
+unrare_ak_full_mat <- multi_merge_matrix(unrare_ak_mats)
+
+
+
+
+# save for later
+saveRDS(rare_ro_full_mat, "../intermediate_files/rds/rare_ro_full_mat.rds")
+write.csv(rare_ro_full_mat, "../intermediate_files/csv/rare_ro_full_mat.csv")
+
+
+saveRDS(rare_ak_full_mat, "../intermediate_files/rds/rare_ak_full_mat.rds")
+write.csv(rare_ak_full_mat, "../intermediate_files/csv/rare_ak_full_mat.csv")
+
+
+saveRDS(unrare_ro_full_mat, "../intermediate_files/rds/unrare_ro_full_mat.rds")
+write.csv(unrare_ro_full_mat, "../intermediate_files/csv/unrare_ro_full_mat.csv")
+
+
+saveRDS(unrare_ak_full_mat, "../intermediate_files/rds/unrare_ak_full_mat.rds")
+write.csv(unrare_ak_full_mat, "../intermediate_files/csv/unrare_ak_full_mat.csv")
+```
+
+
+## Make presence absence matrix
+
+```{r}
+
+make_presence_absence <- function(matrix) {
+  
+  pa_matrix <- matrix
+  
+  # makes presence absence (turns any value > 0 into 1)
+  matrix[matrix > 0] <- 1
+  
+  return(matrix)
+  
+}
+
+
+rare_ro_mat_pa <- make_presence_absence(rare_ro_full_mat)
+
+rare_ak_mat_pa <- make_presence_absence(rare_ak_full_mat)
+
+unrare_ro_mat_pa <- make_presence_absence(unrare_ro_full_mat)
+
+unrare_ak_mat_pa <- make_presence_absence(unrare_ak_full_mat)
+
+
+
+
+# save for later
+saveRDS(rare_ro_mat_pa, "../intermediate_files/rds/rare_ro_mat_pa.rds")
+write.csv(rare_ro_mat_pa, "../intermediate_files/csv/rare_ro_mat_pa.csv")
+
+saveRDS(rare_ak_mat_pa, "../intermediate_files/rds/rare_ak_mat_pa.rds")
+write.csv(rare_ak_mat_pa, "../intermediate_files/csv/rare_ak_mat_pa.csv")
+
+saveRDS(unrare_ro_mat_pa, "../intermediate_files/rds/unrare_ro_mat_pa.rds")
+write.csv(unrare_ro_mat_pa, "../intermediate_files/csv/unrare_ro_mat_pa.csv")
+
+saveRDS(unrare_ak_mat_pa, "../intermediate_files/rds/unrare_ak_mat_pa.rds")
+write.csv(unrare_ak_mat_pa, "../intermediate_files/csv/unrare_ak_mat_pa.csv")
+
+
+
+
+
+# make copy of abundance matrix for presence absence
+ak_full_mat_pa <- ak_full_mat
+
+# makes presence absence (turns any value > 0 into 1)
+ak_full_mat_pa[ak_full_mat_pa > 0] <- 1
+
+# save for later
+saveRDS(ak_full_mat_pa, "../intermediate_files/rds/ak_full_mat_pa.rds")
+write.csv(ak_full_mat_pa, "../intermediate_files/csv/ak_full_mat_pa.csv")
+
+```
+

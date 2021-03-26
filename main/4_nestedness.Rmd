@@ -1,0 +1,24 @@
+---
+title: "Nestedness"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Read in necessary files
+
+```{r}
+
+readRDS("../intermediate_files/rds/rare_ro_mat_pa.rds")
+readRDS("../intermediate_files/rds/rare_ak_mat_pa.rds")
+readRDS("../intermediate_files/rds/host_names.rds")
+
+
+```
+
+For the nestedness plots, we use rarefied data (sequencing depth normalized by plot).
+
+
