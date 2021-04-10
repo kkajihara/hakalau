@@ -16,14 +16,17 @@ Make smaller phyloseq objects based on sample type and merge by plot so the root
 
 ```{r}
 
-readRDS("../intermediate_files/rds/unrarefied_physeq.rds")
-readRDS("../intermediate_files/rds/host_names.rds")
+# a phyloseq object
+unrarefied_physeq <- readRDS("../intermediate_files/rds/unrarefied_physeq.rds")
+
+# a vector of host names and soil
+host_names <- readRDS("../intermediate_files/rds/host_names.rds")
 
 
 ```
 
 
-## Subset samples
+## Subset samples and merge by plot
 
 ```{r}
 
@@ -110,7 +113,7 @@ saveRDS(rarefied_physeqs, "../intermediate_files/rds/rarefied_physeqs.rds")
 
 ```
 
-### Split by Habitat
+### Split rarefied physeq objects by habitat
 
 ```{r}
 

@@ -1,0 +1,246 @@
+---
+title: "Soil + Host Barplots"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(tibble)
+library(dplyr)
+library(ggplot2)
+
+```
+
+### Read in necessary files
+
+```{r}
+
+# count data frames from unrarefied data
+ro_barplot_df <- readRDS("../intermediate_files/rds/ro_barplot_df.rds")
+
+ak_barplot_df <- readRDS("../intermediate_files/rds/ak_barplot_df.rds")
+
+# taxonomy table from full unrarefied physeq object 
+full_tax_table_df <- readRDS("../intermediate_files/rds/full_tax_table_df.rds")
+
+# a vector of host names + soil
+host_names <- readRDS("../intermediate_files/rds/host_names.rds")
+
+```
+
+
+
+```{r}
+
+ro_soil_and_hosts <- list()
+
+
+host_names_no_soil <- host_names[1:6]
+
+
+# makes a data frame per host including ASVs, counts, relative abundance, family, and host names
+get_soil_host_asvs <- function (a_host, barplot_df, taxonomy_df) {
+  
+  # for each host, subset ASVs that are shared between a host and soil
+  soil_host_subset <- barplot_df[barplot_df[a_host] > 0 &
+                                   barplot_df["Soil"] > 0, ]
+  
+  # make asv rownames into a column
+  soil_host_subset <- rownames_to_column(soil_host_subset, "ASV")
+  # make a new df with asv names and host sample asv counts as columns
+  soil_host_subset <- select(soil_host_subset, ASV, a_host)
+  # take sum of all unique host sample sequences
+  total_host_sum <- sum(barplot_df[[a_host]])
+  # make new relative abundance column by dividing unique count by total
+  soil_host_subset <- mutate(soil_host_subset, rel_abun=((soil_host_subset[[a_host]] / total_host_sum) * 100))
+  # make new column taking family from tax_table where asv names match in both dfs
+  soil_host_subset$Family <- full_tax_table_df$Family[match(soil_host_subset$ASV, full_tax_table_df$ASV)]
+  # make new column with host name filling all cells
+  soil_host_subset$Host <- rep(a_host, nrow(soil_host_subset))
+  # make new column with ASV total per host filling all cells
+  soil_host_subset$Total <- rep(sum(soil_host_subset[[a_host]]), nrow(soil_host_subset))
+  # change host colname for future rbind
+  colnames(soil_host_subset)[2] <- "Count"
+
+  return(soil_host_subset)
+  
+}
+
+
+# run function
+
+ro_soil_host_asvs <- lapply(host_names_no_soil, 
+                         get_soil_host_asvs, 
+                         ro_barplot_df, 
+                         full_tax_table_df)
+
+names(ro_soil_host_asvs) <- host_names_no_soil
+
+
+ak_soil_host_asvs <- lapply(host_names_no_soil, 
+                         get_soil_host_asvs, 
+                         ak_barplot_df, 
+                         full_tax_table_df)
+
+names(ak_soil_host_asvs) <- host_names_no_soil
+
+```
+
+## Identify Core ASVs
+
+In this case, "core" refers to ASVs unique to the same host in both habitats
+
+```{r}
+
+core_soil_host_asvs <- list()
+
+  
+for (a_host in host_names) {
+  
+  core_asvs_by_host <- intersect(ro_soil_host_asvs[[a_host]]$ASV,
+                                 ak_soil_host_asvs[[a_host]]$ASV)
+  
+  core_soil_host_list <- 
+    ro_soil_host_asvs[[a_host]][
+      ro_soil_host_asvs[[a_host]]$ASV %in% core_asvs_by_host, ]
+  
+  core_soil_host_asvs[[a_host]] <- core_soil_host_list$ASV
+  
+}
+  
+
+core_soil_host_names <- unique(unlist(core_soil_host_asvs, use.names = F))
+
+saveRDS(core_soil_host_names, "../intermediate_files/rds/core_soil_host_names.rds")
+
+
+```
+
+## Making Core Column
+
+Previously I appended "_core" to each family name, so the names of objects and functions have "append" in them. Ignore that! We are now creating a "Core" column in the dataframe that will say "Yes" if an ASV is core and "No" if it is not. The ggplot alpha value will depend on this column.
+
+
+```{r}
+
+append_core_soil_host <- function (a_host, list_of_dfs) {
+
+  # append "_core" to a family name if the ASV is present in both communities
+  list_of_dfs[[a_host]] <- mutate(list_of_dfs[[a_host]],
+                        Core = ifelse(ASV %in% core_soil_host_names,
+                                        paste("Yes"),
+                                        paste("No")))
+
+}
+
+
+ro_sh_core_appended <- lapply(host_names_no_soil, 
+                           append_core_soil_host,
+                           ro_soil_host_asvs)
+
+names(ro_sh_core_appended) <- host_names_no_soil
+
+
+
+ak_sh_core_appended <- lapply(host_names_no_soil, 
+                           append_core_soil_host,
+                           ak_soil_host_asvs)
+
+names(ak_sh_core_appended) <- host_names_no_soil
+
+```
+
+## rbind
+
+```{r}
+
+ro_soil_host_rbind <- do.call("rbind", ro_sh_core_appended)
+
+saveRDS(ro_soil_host_rbind, "../intermediate_files/rds/ro_soil_host_rbind.rds")
+write.csv(ro_soil_host_rbind, "../intermediate_files/csv/ro_soil_host_rbind.csv")
+
+
+ak_soil_host_rbind <- do.call("rbind", ak_sh_core_appended)
+
+saveRDS(ak_soil_host_rbind, "../intermediate_files/rds/ak_soil_host_rbind.rds")
+write.csv(ak_soil_host_rbind, "../intermediate_files/csv/ak_soil_host_rbind.csv")
+
+
+
+## Getting ASV counts for bar labels
+
+sums_for_bars <- function (rbind_df) {
+  rbind_sums <- rbind_df %>%
+    group_by(Host) %>%
+    summarise(count=length(ASV), abund=sum(rel_abun))
+}
+
+
+ro_soil_host_bar_sums <- sums_for_bars(ro_soil_host_rbind)
+
+ak_soil_host_bar_sums <- sums_for_bars(ak_soil_host_rbind)
+
+
+```
+
+## Plotting
+
+```{r}
+
+source("../src/bar_plotting.R")
+
+### arguments to the barplotting function:
+# the rbinded dataframe of relative abundances for all hosts and soil
+# the summarized data frame containing ASV counts to be used as bar labels
+# the upper limit for the y axis (number)
+# the vector of color names from bar_plotting.R
+# the title for the plot (string)
+
+
+ro_soil_host_bar <- core_barplot(ro_soil_host_rbind,
+                                 ro_soil_host_bar_sums,
+                                 100,
+                                 colors_ten_families,
+                                 "\nRemnant Forest")
+
+ak_soil_host_bar <- core_barplot(ak_soil_host_rbind,
+                                 ak_soil_host_bar_sums,
+                                 100,
+                                 colors_ten_families,
+                                 "\nRestored Forest")
+
+combined_soil_host_bar <- two_barplots(ro_soil_host_bar, ak_soil_host_bar)
+
+
+ggsave("../figures/core_soil_host_barplot.png", width = 11, height = 7)
+
+
+# arguments are the same for noncore function
+
+ro_soho_bar_noncore <- noncore_barplot(ro_soil_host_rbind,
+                                 ro_soil_host_bar_sums,
+                                 100,
+                                 colors_ten_families,
+                                 "\nRemnant Forest")
+
+ak_soho_bar_noncore <- noncore_barplot(ak_soil_host_rbind,
+                                 ak_soil_host_bar_sums,
+                                 100,
+                                 colors_ten_families,
+                                 "\nRestored Forest")
+
+combined_soho_bar_noncore <- two_barplots(ro_soho_bar_noncore, ak_soho_bar_noncore)
+
+ggsave("../figures/soil_host_barplot.png", width = 11, height = 7)
+
+
+```
+
+
+

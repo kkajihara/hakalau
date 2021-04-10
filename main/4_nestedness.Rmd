@@ -7,18 +7,76 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Libraries
+
+```{r}
+
+library(vegan)
+
+```
 
 ### Read in necessary files
 
 ```{r}
 
-readRDS("../intermediate_files/rds/rare_ro_mat_pa.rds")
-readRDS("../intermediate_files/rds/rare_ak_mat_pa.rds")
-readRDS("../intermediate_files/rds/host_names.rds")
+# presence absence matrices from data rarefied at the plot level
+rare_ro_mat_pa <- readRDS("../intermediate_files/rds/rare_ro_mat_pa.rds")
+rare_ak_mat_pa <- readRDS("../intermediate_files/rds/rare_ak_mat_pa.rds")
 
 
 ```
 
 For the nestedness plots, we use rarefied data (sequencing depth normalized by plot).
+
+
+```{r}
+
+# transpose presence absence matrices so that hosts are rows, ASVs are columns
+
+nestedness_ro_mat <- t(rare_ro_mat_pa)
+
+nestedness_ak_mat <- t(rare_ak_mat_pa)
+
+
+# calculate nested temp and nodf on a presence absence matrix with hosts as rows, ASVs as columns
+
+ro_nest_temp <- nestedtemp(nestedness_ro_mat)
+
+ro_nodf <- nestednodf(nestedness_ro_mat)
+  
+ak_nest_temp <- nestedtemp(nestedness_ak_mat)
+
+ak_nodf <- nestednodf(nestedness_ak_mat)
+
+
+# nestedness plot - names argument shows row names, hides col names
+plot(veg_nest_ak, names = c(TRUE, FALSE), kind="incidence", col=c("white", "grey"))
+
+
+# determine significance of nestedness temperature using method "quasiswap" which maintains species and row frequencies, compared against 1000 randomized null communities
+
+ro_nest_signif <- oecosimu(nestedness_ro_mat, nestedtemp, "quasiswap", nsimul = 1000)
+
+ak_nest_signif <- oecosimu(nestedness_ak_mat, nestedtemp, "quasiswap", nsimul = 1000)
+
+
+
+# Plot
+
+pdf("figures/nestedness.pdf")
+
+par(mfrow=c(2,1), mai=c(.1,1.5,1,.5), oma=c(.1,1,.1,.1))
+
+plot(ro_nest_temp, names = c(TRUE, FALSE), kind="incidence", col=c("white", "grey"), main="A) Remnant Forest")
+
+mtext("Nested Temp=34.6, P=0.612, NODF=31.8")
+
+plot(ak_nest_temp, names = c(TRUE, FALSE), kind="incidence", col=c("white", "grey"), main="B) Restored Forest")
+
+mtext("Nested Temp=37.3, P=0.0001, NODF=30.4")
+
+dev.off()
+
+```
 
 

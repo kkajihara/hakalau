@@ -1,0 +1,270 @@
+---
+title: "Host/Soil-specific Barplots"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(tibble)
+library(dplyr)
+library(ggplot2)
+
+```
+
+### Read in necessary files
+
+```{r}
+
+# count matrices from unrarefied data
+unrare_ro_full_mat <-
+  readRDS("../intermediate_files/rds/unrare_ro_full_mat.rds")
+
+unrare_ak_full_mat <-
+  readRDS("../intermediate_files/rds/unrare_ak_full_mat.rds")
+
+# taxonomy table from full unrarefied physeq object 
+full_tax_table_df <- readRDS("../intermediate_files/rds/full_tax_table_df.rds")
+
+# a vector of host names + soil
+host_names <- readRDS("../intermediate_files/rds/host_names.rds")
+
+```
+
+## Data Formatting
+
+```{r}
+
+# rename and convert matrices to data frames
+ro_barplot_df <- as.data.frame(unrare_ro_full_mat)
+ak_barplot_df <- as.data.frame(unrare_ak_full_mat)
+
+
+saveRDS(ro_barplot_df, "../intermediate_files/rds/ro_barplot_df.rds")
+saveRDS(ak_barplot_df, "../intermediate_files/rds/ak_barplot_df.rds")
+
+
+```
+
+## Prepare data frames for host- and soil-specific ASVs
+
+```{r}
+
+get_unique_asvs <- function (a_host, barplot_df, taxonomy_df) {
+  
+  # subset host specific ASVs by host. Counts for all other hosts should be 0, 
+  # so the rowsum == the host count
+  unique_subset <- barplot_df[rowSums(barplot_df)==barplot_df[[a_host]],]
+  
+  # make asv rownames into a column
+  unique_subset <- rownames_to_column(unique_subset, "ASV")
+  
+  # make a new df with asv names and host sample asv counts as columns
+  unique_subset <- select(unique_subset, ASV, a_host)
+  
+  # take sum of all unique host sample sequences
+  total_host_sum <- sum(barplot_df[[a_host]])
+  
+  # make new relative abundance column by dividing unique count by total
+  unique_subset <- mutate(unique_subset, rel_abun=((unique_subset[[a_host]] / total_host_sum) * 100))
+  
+  # make new column taking family from tax_table 
+  # where asv names match in both dfs
+  unique_subset$Family <- 
+    taxonomy_df$Family[match(unique_subset$ASV, taxonomy_df$ASV)]
+  
+  # make new column with host name filling all cells
+  unique_subset$Host <- rep(a_host, nrow(unique_subset))
+  
+  # make new column with ASV total per host filling all cells
+  unique_subset$Total <- rep(sum(unique_subset[[a_host]]), nrow(unique_subset))
+  
+  # change host colname for future rbind
+  colnames(unique_subset)[2] <- "Count"
+  
+  return(unique_subset)
+
+}
+
+
+# run function
+
+ro_unique_asvs <- lapply(host_names, 
+                         get_unique_asvs, 
+                         ro_barplot_df, 
+                         full_tax_table_df)
+
+names(ro_unique_asvs) <- host_names
+
+saveRDS(ro_unique_asvs, "../intermediate_files/rds/ro_unique_asvs.rds")
+
+
+ak_unique_asvs <- lapply(host_names, 
+                         get_unique_asvs, 
+                         ak_barplot_df, 
+                         full_tax_table_df)
+
+names(ak_unique_asvs) <- host_names
+
+saveRDS(ak_unique_asvs, "../intermediate_files/rds/ak_unique_asvs.rds")
+
+```
+
+## Identify Core ASVs
+
+In this case, "core" refers to ASVs unique to the same host in both habitats
+
+```{r}
+
+core_unique_asvs <- list()
+
+  
+for (a_host in host_names) {
+  
+  core_asvs_by_host <- intersect(ro_unique_asvs[[a_host]]$ASV,
+                                 ak_unique_asvs[[a_host]]$ASV)
+  
+  core_unique_list <- 
+    ro_unique_asvs[[a_host]][
+      ro_unique_asvs[[a_host]]$ASV %in% core_asvs_by_host, ]
+  
+  core_unique_asvs[[a_host]] <- core_unique_list$ASV
+  
+}
+  
+
+core_unique_names <- unlist(core_unique_asvs, use.names = F)
+
+
+```
+
+## Making Core Column
+
+Previously I appended "_core" to each family name, so the names of objects and functions have "append" in them. Ignore that! We are now creating a "Core" column in the dataframe that will say "Yes" if an ASV is core and "No" if it is not. The ggplot alpha value will depend on this column.
+
+```{r}
+
+append_core <- function (a_host, list_of_dfs) {
+
+  # append "_core" to a family name if the ASV is present in both communities
+  list_of_dfs[[a_host]] <- mutate(list_of_dfs[[a_host]],
+                        Core = ifelse(ASV %in% core_unique_names,
+                                        paste("Yes"),
+                                        paste("No")))
+
+}
+
+# run function and rename items
+ro_core_appended <- lapply(host_names, 
+                           append_core,
+                           ro_unique_asvs)
+
+names(ro_core_appended) <- host_names
+
+
+# run function and rename items
+ak_core_appended <- lapply(host_names, 
+                           append_core,
+                           ak_unique_asvs)
+
+names(ak_core_appended) <- host_names
+
+
+
+```
+
+## rbind
+
+```{r}
+
+ro_unique_rbind <- do.call("rbind", ro_core_appended)
+
+saveRDS(ro_unique_rbind, "../intermediate_files/rds/ro_unique_rbind.rds")
+write.csv(ro_unique_rbind, "../intermediate_files/csv/ro_unique_rbind.csv")
+
+
+ak_unique_rbind <- do.call("rbind", ak_core_appended)
+
+saveRDS(ak_unique_rbind, "../intermediate_files/rds/ak_unique_rbind.rds")
+write.csv(ak_unique_rbind, "../intermediate_files/csv/ak_unique_rbind.csv")
+
+
+## Getting ASV counts for bar labels
+
+sums_for_bars <- function (rbind_df) {
+  rbind_sums <- rbind_df %>%
+    group_by(Host) %>%
+    summarise(count=length(ASV), abund=sum(rel_abun))
+}
+
+
+ro_unique_bar_sums <- sums_for_bars(ro_unique_rbind)
+
+ak_unique_bar_sums <- sums_for_bars(ak_unique_rbind)
+
+
+```
+
+## Plotting
+
+```{r}
+
+source("../src/bar_plotting.R")
+
+### arguments to the barplotting function:
+# the rbinded dataframe of relative abundances for all hosts and soil
+# the summarized data frame containing ASV counts to be used as bar labels
+# the upper limit for the y axis (number)
+# the vector of color names from bar_plotting.R
+# the title for the plot (string)
+
+
+ro_unique_bar <- core_barplot(ro_unique_rbind,
+                                 ro_unique_bar_sums,
+                                 8,
+                                 colors_ten_families,
+                                 "\nRemnant Forest")
+
+ak_unique_bar <- core_barplot(ak_unique_rbind,
+                                 ak_unique_bar_sums,
+                                 8,
+                                 colors_ten_families,
+                                 "\nRestored Forest")
+
+# arrange side by side
+combined_unique_bar <- two_barplots(ro_unique_bar, ak_unique_bar)
+
+# export
+ggsave("../figures/core_unique_asv_barplot.png", width = 11.5, height = 7)
+
+
+
+# arguments for the noncore (non-shaded) barplot are the same as above
+
+ro_unique_bar_noncore <- noncore_barplot(ro_unique_rbind,
+                                 ro_unique_bar_sums,
+                                 8,
+                                 colors_ten_families,
+                                 "\nRemnant Forest")
+
+ak_unique_bar_noncore <- noncore_barplot(ak_unique_rbind,
+                                 ak_unique_bar_sums,
+                                 8,
+                                 colors_ten_families,
+                                 "\nRestored Forest")
+
+combined_unique_bar_noncore <- two_barplots(ro_unique_bar_noncore, ak_unique_bar_noncore)
+
+ggsave("../figures/unique_asv_barplot.png", width = 11.5, height = 7)
+
+
+```
+
+
+
+

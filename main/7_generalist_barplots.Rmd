@@ -1,0 +1,262 @@
+---
+title: "Generalist Barplots"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(tibble)
+library(dplyr)
+library(ggplot2)
+
+```
+
+### Read in necessary files
+
+```{r}
+
+# count data frames from unrarefied data
+ro_barplot_df <- readRDS("../intermediate_files/rds/ro_barplot_df.rds")
+
+ak_barplot_df <- readRDS("../intermediate_files/rds/ak_barplot_df.rds")
+
+# taxonomy table from full unrarefied physeq object 
+full_tax_table_df <- readRDS("../intermediate_files/rds/full_tax_table_df.rds")
+
+# a vector of host names + soil
+host_names <- readRDS("../intermediate_files/rds/host_names.rds")
+
+```
+
+## Prepare data frame for ASVs shared between all hosts and soil
+
+```{r}
+
+get_shared_asvs <- function (a_host, barplot_df, taxonomy_df) {
+  
+  # subset host specific ASVs by host. Counts for all other hosts should be 0, 
+  # so the rowsum == the host count
+  shared_subset <- barplot_df[apply(barplot_df, 1, function(row) all(row!=0)),]
+  
+  # make asv rownames into a column
+  shared_subset <- rownames_to_column(shared_subset, "ASV")
+  
+  # make a new df with asv names and host sample asv counts as columns
+  shared_subset <- select(shared_subset, ASV, a_host)
+  
+  # take sum of all shared host sample sequences
+  total_host_sum <- sum(barplot_df[[a_host]])
+  
+  # make new relative abundance column by dividing shared count by total
+  shared_subset <- mutate(shared_subset, rel_abun=((shared_subset[[a_host]] / total_host_sum) * 100))
+  
+  # make new column taking family from tax_table 
+  # where asv names match in both dfs
+  shared_subset$Family <- 
+    taxonomy_df$Family[match(shared_subset$ASV, taxonomy_df$ASV)]
+  
+  # make new column with host name filling all cells
+  shared_subset$Host <- rep(a_host, nrow(shared_subset))
+  
+  # make new column with ASV total per host filling all cells
+  shared_subset$Total <- rep(sum(shared_subset[[a_host]]), nrow(shared_subset))
+  
+  # change host colname for future rbind
+  colnames(shared_subset)[2] <- "Count"
+  
+  return(shared_subset)
+
+}
+
+
+# run function
+
+ro_shared_asvs <- lapply(host_names, 
+                         get_shared_asvs, 
+                         ro_barplot_df, 
+                         full_tax_table_df)
+
+names(ro_shared_asvs) <- host_names
+
+
+ak_shared_asvs <- lapply(host_names, 
+                         get_shared_asvs, 
+                         ak_barplot_df, 
+                         full_tax_table_df)
+
+names(ak_shared_asvs) <- host_names
+
+
+
+```
+
+## Identify Core ASVs
+
+In this case, "core" refers to ASVs unique to the same host in both habitats
+
+```{r}
+
+ro_shared_names <- ro_shared_asvs[["A. koa"]]$ASV
+
+ak_shared_names <- ak_shared_asvs[["A. koa"]]$ASV
+
+core_shared_names <- intersect(ro_shared_names, ak_shared_names)
+
+
+```
+
+## Making Core Column
+
+Previously I appended "_core" to each family name, so the names of objects and functions have "append" in them. Ignore that! We are now creating a "Core" column in the dataframe that will say "Yes" if an ASV is core and "No" if it is not. The ggplot alpha value will depend on this column.
+
+```{r}
+
+append_core_shared <- function (a_host, list_of_dfs) {
+
+  # append "_core" to a family name if the ASV is present in both communities
+  list_of_dfs[[a_host]] <- mutate(list_of_dfs[[a_host]],
+                        Core = ifelse(ASV %in% core_shared_names,
+                                        paste("Yes"),
+                                        paste("No")))
+
+}
+
+
+ro_shared_core_appended <- lapply(host_names, 
+                           append_core_shared,
+                           ro_shared_asvs)
+
+names(ro_shared_core_appended) <- host_names
+
+
+
+ak_shared_core_appended <- lapply(host_names, 
+                           append_core_shared,
+                           ak_shared_asvs)
+
+names(ak_shared_core_appended) <- host_names
+
+```
+
+## rbind
+
+```{r}
+
+ro_shared_rbind <- do.call("rbind", ro_shared_core_appended)
+
+saveRDS(ro_shared_rbind, "../intermediate_files/rds/ro_shared_rbind.rds")
+write.csv(ro_shared_rbind, "../intermediate_files/csv/ro_shared_rbind.csv")
+
+
+ak_shared_rbind <- do.call("rbind", ak_shared_core_appended)
+
+saveRDS(ak_shared_rbind, "../intermediate_files/rds/ak_shared_rbind.rds")
+write.csv(ak_shared_rbind, "../intermediate_files/csv/ak_shared_rbind.csv")
+
+
+
+```
+
+## Plotting
+
+```{r}
+
+source("../src/bar_plotting.R")
+
+### arguments to the barplotting function:
+# the rbinded dataframe of relative abundances for all hosts and soil
+# the upper limit for the y axis (number)
+# the vector of color names from bar_plotting.R
+# the title for the plot (string)
+
+
+ro_shared_bar <- core_barplot_nosum(ro_shared_rbind,
+                                 100,
+                                 colors_ten_families,
+                                 "\nRemnant Forest")
+
+ak_shared_bar <- core_barplot_nosum(ak_shared_rbind,
+                                 100,
+                                 colors_ten_families,
+                                 "\nRestored Forest")
+
+combined_shared_bar <- two_barplots(ro_shared_bar, ak_shared_bar)
+
+
+ggsave("../figures/core_shared_asv_barplot.png", width = 11.5, height = 7)
+
+# arguments for noncore are the same as above
+
+ro_shared_bar_noncore <- noncore_nosum(ro_shared_rbind,
+                                 100,
+                                 colors_ten_families,
+                                 "\nRemnant Forest")
+
+ak_shared_bar_noncore <- noncore_nosum(ak_shared_rbind,
+                                 100,
+                                 colors_ten_families,
+                                 "\nRestored Forest")
+
+combined_shared_bar_noncore <- two_barplots(ro_shared_bar_noncore, ak_shared_bar_noncore)
+
+ggsave("../figures/shared_asv_barplot.png", width = 11.5, height = 7)
+
+
+```
+
+
+## 2x2 Barplot (generalist and specialist)
+
+```{r}
+
+# unique barplots go in the bottom row, so no titles are needed
+
+### arguments include:
+# the rbinded dataframe of relative abundances for all hosts and soil
+# the summarized data frame containing ASV counts to be used as bar labels
+# the upper limit for the y axis (number)
+# the vector of color names from bar_plotting.R
+
+ro_unique_bar_notitle <- core_barplot_notitle(ro_unique_rbind,
+                                              ro_unique_bar_sums,
+                                              8,
+                                              colors_ten_families)
+
+ak_unique_bar_notitle <- core_barplot_notitle(ak_unique_rbind,
+                                              ak_unique_bar_sums,
+                                              8,
+                                              colors_ten_families)
+
+
+# first arrange side by side plots for shared and unique ASVs to get
+# common legends for both (different families are present in each grouping)
+
+both_shared_barplots <- ggarrange(ro_shared_bar, ak_shared_bar, labels=c("A)", "B)"), hjust=-0.5, vjust = 5.5, common.legend = TRUE, legend = "right")
+
+both_unique_barplots <- ggarrange(ro_unique_bar_notitle, ak_unique_bar_notitle, labels=c("C)", "D)"), hjust=-0.5, vjust = 1, common.legend = TRUE, legend = "right")
+
+
+
+# combine the pre-arranged side by side plots to make a 2x2 plot
+all_barplots <- ggarrange(both_shared_barplots, both_unique_barplots, ncol=1, nrow=2, heights = c(1.1, 1)) +
+                  theme(plot.margin = margin(0,0,0.5,0.5, "cm"))
+all_barplots <- annotate_figure(all_barplots,
+                                left = text_grob("Relative Abundance (%)",
+                                                 rot = 90,
+                                                 size = 16,
+                                                 hjust = 0.2),
+                                bottom = text_grob("Host", size = 16, hjust = 2.7, vjust=-1))
+
+ggsave("../figures/gen_spec_barplots.png", width=11, height=13)
+
+```
+
+
+
+

@@ -1,0 +1,99 @@
+---
+title: "PERMANOVA and Beta Dispersion"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(vegan)
+
+```
+
+
+## Read in necessary files
+
+```{r}
+
+# data frame of transposed unrarefied otu table (samples as rows, ASVs as columns)
+# with 3 additional colummns for SampleID, Habitat, and Host
+rarefied_nmds_data <- readRDS("../intermediate_files/rds/rarefied_nmds_data.rds")
+
+# matrix of the above data frame excluding the 3 metadata columns
+# basically just the transposed unrarefied otu table
+rarefied_nmds_mat <- readRDS("../intermediate_files/rds/rarefied_nmds_mat.rds")
+
+# long data frame with NMDS coordinates for all samples and columns for
+# host and habitat
+rare_nmds_scores <- readRDS("../intermediate_files/rds/rare_nmds_scores.rds")
+
+```
+
+## PERMANOVA
+
+```{r}
+
+# run PERMANOVA on the otu table with habitat as the independent variable
+rare_adon_habitat <- adonis(rarefied_nmds_mat ~ rare_nmds_scores$Habitat, permutations = 9999, method = "bray")
+
+# run PERMANOVA with host as the independent variable
+rare_adon_host <- adonis(rarefied_nmds_mat ~ rare_nmds_scores$Host, permutations = 9999, method = "bray")
+
+# run for habitat and host
+rare_adon_hab_and_host <- adonis(rarefied_nmds_mat ~ rare_nmds_scores$Habitat + rare_nmds_scores$Host, permutations = 9999, method = "bray")
+
+
+# export
+capture.output(rare_adon_habitat, file="../outputs/indiv_permanova_habitat.txt")
+
+capture.output(rare_adon_host, file="../outputs/indiv_permanova_host.txt")
+
+capture.output(rare_adon_hab_and_host, file="../outputs/indiv_permanova_habitat_and_host.txt")
+
+```
+
+
+
+## Beta Dispersion
+
+```{r}
+
+## Host
+
+# compute bray-curtis distances on the otu table
+rare_dist <- vegdist(rarefied_nmds_mat)
+
+# calculate beta dispersion 
+rare_host_bd <- betadisper(rare_dist, rarefied_nmds_data$Host)
+
+# run anova on betadisp results
+rare_bd_host_anova <- anova(rare_host_bd)
+
+
+# export
+capture.output(rare_host_bd, file="../outputs/indiv_betadisp_host_output.txt")
+
+capture.output(rare_betadisp_anova, file="../outputs/indiv_betadisp_host_anova.txt")
+
+
+
+## Habitat
+# see comments above
+
+rare_habitat_bd <- betadisper(rare_dist, rarefied_nmds_data$Habitat)
+
+rare_betadisp_anova <- anova(rare_habitat_bd)
+
+
+
+capture.output(rare_habitat_bd, file="../outputs/indiv_betadisp_output.txt")
+
+capture.output(rare_betadisp_anova, file="../outputs/indiv_betadisp_anova.txt")
+
+```
+

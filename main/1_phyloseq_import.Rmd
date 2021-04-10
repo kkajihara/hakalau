@@ -66,18 +66,9 @@ unrarefied_physeq <- qza_to_phyloseq(
   metadata="../data/haka-metadata.tsv")
 
 
-unrarefied_physeq
-
-```
-
-
-### Change ASV names for convenience purposes
-
-```{r}
 # Change the taxa names to "ASV1, ASV2, etc." for working convenience
 taxa_names(unrarefied_physeq) <- paste0("ASV", seq(ntaxa(unrarefied_physeq)))
 
-saveRDS(unrarefied_physeq, "../intermediate_files/rds/unrarefied_physeq.rds")
 
 ```
 
@@ -94,11 +85,8 @@ sample_data(unrarefied_physeq)$host <- sub(pattern = "Rubus hawaiiensis",
                                        replacement = "Rubus hawaiensis", 
                                        x = sample_data(unrarefied_physeq)$host)
 
-```
 
 ## Add NewSampleType Column to sample_data
-
-```{r}
 
 # Make data frame from sample data
 sd_df <- as.data.frame(as(sample_data(unrarefied_physeq), "data.frame"))
@@ -117,18 +105,30 @@ sd_df <- sd_df %>%
   (SampleType=="soil") ~ "Soil",
   TRUE ~ NA_character_)) %>% column_to_rownames('sampleid')
 
-
+# reassign this data frame with the new column to be the sample_data 
+# in the physeq object
 sample_data(unrarefied_physeq)$NewSampleType <- sample_data(sd_df)$NewSampleType
 
+
+
+## Remove ASVs present in zero samples
+
+unrarefied_physeq <- prune_taxa(taxa_sums(unrarefied_physeq) > 0, unrarefied_physeq)
+
+saveRDS(unrarefied_physeq, "../intermediate_files/rds/unrarefied_physeq.rds")
+
 ```
+
 
 
 ## Subset Unrarefied Data by Host/Soil
 
 ```{r}
 
+# initialize list for physeq objects
 unrarefied_subsets <- list()
 
+# make and save vector of host names + soil
 host_names <- c("A. koa",
                 "C. trigynum",
                 "Grass",
@@ -140,15 +140,19 @@ host_names <- c("A. koa",
 saveRDS(host_names, "../intermediate_files/rds/host_names.rds")
 
 
-
-
 for (a_host in host_names) {
+  # subset by host or soil
   unrare_subset <- subset_samples(unrarefied_physeq, NewSampleType==a_host)
+  # remove empty taxa
   unrare_subset <- prune_taxa(taxa_sums(unrare_subset) > 0, unrare_subset)
   unrarefied_subsets[[a_host]] <- unrare_subset
 }
 
+saveRDS(unrarefied_subsets, "../intermediate_files/rds/unrarefied_subsets.rds")
 
+
+
+### Do the same subsetting process but make lists by habitat
 
 ro_unrarefied <- list()
 
@@ -159,6 +163,7 @@ for (a_host in host_names) {
 }
 
 saveRDS(ro_unrarefied, "../intermediate_files/rds/ro_unrarefied.rds")
+
 
 
 ak_unrarefied <- list()
@@ -175,11 +180,19 @@ saveRDS(ak_unrarefied, "../intermediate_files/rds/ak_unrarefied.rds")
 ```
 
 
-## For Later
+## Prepare Taxonomy Table for Later
 
 ```{r}
 
+# extract taxonomy table and convert to data frame
 full_tax_table_df <- as.data.frame(tax_table(unrarefied_physeq))
+
+# format taxonomy table
+full_tax_table_df <- full_tax_table_df %>% rownames_to_column("ASV")
+
+# where family = Paraglomerales, change to Glomeromycotina
+# Paraglomerales is an order, not a family. Issue stems from NCBI taxonomy.
+full_tax_table_df$Family <- gsub("Paraglomerales", "Glomeromycotina", full_tax_table_df$Family)
 
 saveRDS(full_tax_table_df, "../intermediate_files/rds/full_tax_table_df.rds")
 

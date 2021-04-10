@@ -1,0 +1,224 @@
+---
+title: "Venn"
+output: ''
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Euler plot
+
+Proportional venn diagram. Takes a data frame or matrix of presence-absence data with ASVs as row names and sample types as col names
+
+Making these to visualize the overlap between remnant and restored ASVs found in a given host!
+
+
+
+## Libraries
+
+```{r}
+
+library(eulerr)
+
+```
+
+## Read in necessary files
+
+```{r}
+
+# abundance data frames for each habitat with ASVs as rows and hosts/soil
+# as columns
+ro_barplot_df <- readRDS("../intermediate_files/rds/ro_barplot_df.rds")
+ak_barplot_df <- readRDS("../intermediate_files/rds/ak_barplot_df.rds")
+
+```
+
+
+## All ASVs
+
+```{r}
+ak_asvs <- ak_barplot_df[1]
+
+ro_asvs <- ro_barplot_df[1]
+
+asv_name_df <- merge(ak_asvs, 
+                      ro_asvs, 
+                      by="row.names", 
+                      all=T)
+
+
+# extract unique ASV names for a host
+ak_present_asv_names <- ak_barplot_df[1]
+ak_present_asv_names$ASV <- rownames(ak_present_asv_names)
+ak_present_asv_names <- ak_present_asv_names[2]
+
+ro_present_asv_names <- ro_barplot_df[1]
+ro_present_asv_names$ASV <- rownames(ro_present_asv_names)
+ro_present_asv_names <- ro_present_asv_names[2]
+
+
+
+present_asv_name_df <- merge(ro_present_asv_names, 
+                            ak_present_asv_names, 
+                            by="row.names", 
+                            all=T)
+
+present_asv_name_df <- present_asv_name_df[,2:3]
+names(present_asv_name_df) <- c("Remnant", "Restored")
+
+present_asv_name_bool <- present_asv_name_df
+  
+present_asv_name_bool$Restored <- ifelse(
+  is.na(present_asv_name_bool$Restored), F, T)
+present_asv_name_bool$Remnant <- ifelse(
+  is.na(present_asv_name_bool$Remnant), F, T)
+
+present_asv_euler <- euler(present_asv_name_bool)
+present_euler_plot <- plot(present_asv_euler, fills=TRUE, quantities=TRUE)
+
+present_asv_venn_list[[a_host]] <- present_euler_plot
+
+
+
+png("figures/all_asv_venn.png", width=5, height=4)
+present_euler_plot
+dev.off()
+
+
+
+
+
+present_asv_venn_list <- list()
+
+for (a_host in host_names) {
+  
+  # extract unique ASV names for a host
+  ak_present_asv_names <- ak_barplot_df[ak_barplot_df[a_host]!=0,
+                         a_host,
+                         drop=F]
+  ak_present_asv_names$ASV <- rownames(ak_present_asv_names)
+  ak_present_asv_names <- ak_present_asv_names[2]
+  
+  ro_present_asv_names <- ro_barplot_df[ro_barplot_df[a_host]!=0,
+                         a_host,
+                         drop=F]
+  ro_present_asv_names$ASV <- rownames(ro_present_asv_names)
+  ro_present_asv_names <- ro_present_asv_names[2]
+  
+  
+  
+  present_asv_name_df <- merge(ak_present_asv_names, 
+                              ro_present_asv_names, 
+                              by="row.names", 
+                              all=T)
+  
+  present_asv_name_df <- present_asv_name_df[,2:3]
+  names(present_asv_name_df) <- c("Restored", "Remnant")
+  
+  present_asv_name_bool <- present_asv_name_df
+    
+  present_asv_name_bool$Restored <- ifelse(
+    is.na(present_asv_name_bool$Restored), F, T)
+  present_asv_name_bool$Remnant <- ifelse(
+    is.na(present_asv_name_bool$Remnant), F, T)
+  
+  present_asv_euler <- euler(present_asv_name_bool)
+  present_euler_plot <- plot(present_asv_euler, fills=TRUE, quantities=TRUE)
+  
+  present_asv_venn_list[[a_host]] <- present_euler_plot
+  
+}
+
+```
+
+
+## Unique ASVs
+
+```{r}
+
+unique_venn_list <- list()
+
+for (a_host in host_names) {
+  
+  # extract unique ASV names for a host (first column)
+  ak_unique_asv_names <- ak_unique_asvs[[a_host]][1]
+  rownames(ak_unique_asv_names) <- ak_unique_asv_names$ASV
+  
+  ro_unique_asv_names <- ro_unique_asvs[[a_host]][1]
+  rownames(ro_unique_asv_names) <- ro_unique_asv_names$ASV
+  
+  
+  unique_asv_name_df <- merge(ak_unique_asv_names, 
+                              ro_unique_asv_names, 
+                              by="row.names", 
+                              all=T)
+  
+  unique_asv_name_df <- unique_asv_name_df[,2:3]
+  names(unique_asv_name_df) <- c("Restored", "Remnant")
+  
+  unique_asv_name_bool <- unique_asv_name_df
+    
+  unique_asv_name_bool$Restored <- ifelse(
+    is.na(unique_asv_name_bool$Restored), F, T)
+  unique_asv_name_bool$Remnant <- ifelse(
+    is.na(unique_asv_name_bool$Remnant), F, T)
+  
+  unique_asv_euler <- euler(unique_asv_name_bool)
+  unique_euler_plot <- plot(unique_asv_euler, fills=TRUE, quantities=TRUE)
+  
+  unique_venn_list[[a_host]] <- unique_euler_plot
+  
+}
+
+
+  
+  unique_asv_euler <- euler(unique_asv_name_bool)
+  unique_euler_plot <- plot(unique_asv_euler, fills=TRUE, quantities=TRUE)
+
+```
+
+
+
+## Shared ASVs
+
+```{r}
+
+# we want a table per host of logical data with 2 columns, Restored and Remnant
+# need to extract the shared ASV names and convert to boolean
+
+# can also see 9_anova_hsd.Rmd for another method for extracting names
+
+# subset shared ASVs. 
+  # this code removes rows with any zero value
+  # all() asks "are all values true?" and apply does this to all rows
+  ak_shared_asv_names_df <- ak_barplot_df[apply(ak_barplot_df, 1, function(row) all(row!=0)),]
+  ro_shared_asv_names_df <- ro_barplot_df[apply(ro_barplot_df, 1, function(row) all(row!=0)),]
+  
+  # make asv rownames into a column
+  ak_shared_asv_names_df$ASVs <- row.names(ak_shared_asv_names_df)
+  ak_shared_asv_names <- ak_shared_asv_names_df[8]
+  
+  
+  ro_shared_asv_names_df$ASVs <- row.names(ro_shared_asv_names_df)
+  ro_shared_asv_names <- ro_shared_asv_names_df[8]
+  
+  all_shared_asv_names <- list(ak_shared_asv_names, ro_shared_asv_names)
+  all_shared_asv_names <- unique(Reduce(c, all_shared_asv_names))
+  
+  shared_asv_name_df <- merge(ak_shared_asv_names, ro_shared_asv_names, by="row.names", all=T)
+  
+  shared_asv_name_df <- shared_asv_name_df[,2:3]
+  names(shared_asv_name_df) <- c("Restored", "Remnant")
+  
+  shared_asv_name_bool <- shared_asv_name_df
+    
+  shared_asv_name_bool$Restored <- ifelse(is.na(shared_asv_name_bool$Restored), F, T)
+  shared_asv_name_bool$Remnant <- ifelse(is.na(shared_asv_name_bool$Remnant), F, T)
+  
+  shared_asv_euler <- euler(shared_asv_name_bool)
+  shared_euler <- plot(shared_asv_euler, fills=TRUE, quantities=TRUE)
+  
+```
+
+

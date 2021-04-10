@@ -1,0 +1,18 @@
+
+	Homogeneity of multivariate dispersions
+
+Call: betadisper(d = rare_dist, group = rarefied_nmds_data$Host)
+
+No. of Positive Eigenvalues: 277
+No. of Negative Eigenvalues: 522
+
+Average distance to median:
+        A. koa    C. trigynum          Grass M. lessertiana  M. polymorpha 
+        0.5708         0.5689         0.5594         0.5504         0.5707 
+ R. Hawaiensis           Soil 
+        0.5215         0.5864 
+
+Eigenvalues for PCoA axes:
+(Showing 8 of 799 eigenvalues)
+PCoA1 PCoA2 PCoA3 PCoA4 PCoA5 PCoA6 PCoA7 PCoA8 
+50.87 37.30 29.76 23.31 21.92 15.38 11.91 10.55 

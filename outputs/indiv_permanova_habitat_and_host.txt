@@ -1,0 +1,16 @@
+
+Call:
+adonis(formula = rarefied_nmds_mat ~ rare_nmds_scores$Habitat +      rare_nmds_scores$Host, permutations = 9999, method = "bray") 
+
+Permutation: free
+Number of permutations: 9999
+
+Terms added sequentially (first to last)
+
+                          Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+rare_nmds_scores$Habitat   1    13.267 13.2670  41.570 0.04483 0.0001 ***
+rare_nmds_scores$Host      6    29.876  4.9794  15.602 0.10097 0.0001 ***
+Residuals                792   252.765  0.3191         0.85420           
+Total                    799   295.908                 1.00000           
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
