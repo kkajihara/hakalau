@@ -128,6 +128,38 @@ core_barplot_nosum <- function (rbind_df, upper_limit, color_vector,
 }
 
 
+
+core_barplot_nosum_notitle <- function (rbind_df, upper_limit, color_vector) {
+  
+  bar <- 
+    ggplot(rbind_df, aes(x=Host, y=rel_abun, fill=Family, alpha=Core)) +
+    geom_bar(stat="identity", position="stack") +
+    theme(axis.text.x = element_text(angle=90, size=12, vjust=0.5, hjust=1, colour="black", face="italic"), legend.box.margin = margin(0,0,0,1, "cm"), panel.grid.major=element_blank(), panel.grid.minor=element_blank(), panel.background=element_blank(), 
+          axis.line = element_line(colour="black"),
+          axis.title.x = element_text(size=16),
+          axis.title.y = element_text(size=16),
+          legend.title = element_text(size=16),
+          legend.text = element_text(size=12, colour="black"),
+          axis.text.y = element_text(size=12, colour="black")) +
+    scale_y_continuous(limits = c(0, upper_limit), expand = c(0,0)) +
+    theme(plot.margin = unit(c(0.5,0,0,0.5), "cm")) +
+    labs(x = " ", y = " ", fill="Family") +
+    coord_cartesian(clip = "off") +
+    #geom_text(data=bar_sum_df, aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1) +
+    theme(plot.title = element_text(margin = margin(0,0,30,0),
+                                    hjust = 0.5,
+                                    size = 16,
+                                    face = "bold")) +
+    #ggtitle("\n ") +
+    #theme(plot.title=element_text(margin = margin(0,0,30,0))) +
+    scale_fill_manual(values = color_vector) +
+    guides(fill = guide_legend(order = 1),
+           alpha = guide_legend(order = 2)) +
+    scale_alpha_discrete(range = c(1, 0.5), breaks = c("Yes", "No")) 
+  
+}
+
+
 noncore_barplot <- function (rbind_df, bar_sum_df, upper_limit, color_vector,
                           title) {
   

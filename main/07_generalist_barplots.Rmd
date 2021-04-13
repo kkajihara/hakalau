@@ -258,5 +258,69 @@ ggsave("../figures/gen_spec_barplots.png", width=11, height=13)
 ```
 
 
+### 2x2 plot
+
+```{r}
+
+# don't want titles for the core plots
+
+### arguments include:
+# the rbinded dataframe of relative abundances for all hosts and soil
+# the summarized data frame containing ASV counts to be used as bar labels
+# the upper limit for the y axis (number)
+# the vector of color names from bar_plotting.R
+
+ro_shared_bar_notitle <- core_barplot_nosum_notitle(ro_shared_rbind,
+                                                    100,
+                                                    colors_ten_families)
+
+ak_shared_bar_notitle <- core_barplot_nosum_notitle(ak_shared_rbind,
+                                                    100,
+                                                    colors_ten_families)
+
+
+
+# first arrange side by side plots for shared and shared ASVs to get
+# common legends for both (different families are present in each grouping)
+
+both_shared <- ggarrange(ro_shared_bar_noncore,
+                         ak_shared_bar_noncore, 
+                         labels=c("A)", "B)"), 
+                         hjust=-0.5, 
+                         vjust = 5.5, 
+                         common.legend = TRUE, 
+                         legend = "right")
+
+both_shared_core <- ggarrange(ro_shared_bar_notitle,
+                              ak_shared_bar_notitle,
+                              labels=c("C)", "D)"),
+                              hjust=-0.5,
+                              vjust = 1,
+                              common.legend = TRUE,
+                              legend = "right")
+
+
+
+# combine the pre-arranged side by side plots to make a 2x2 plot
+all_shared_barplots <- ggarrange(both_shared,
+                                 both_shared_core,
+                                 ncol=1,
+                                 nrow=2,
+                                 heights = c(1.15, 1)) +
+                  theme(plot.margin = margin(0,0,0.5,0.5, "cm"))
+
+all_shared_barplots <- annotate_figure(all_shared_barplots,
+                                left = text_grob("Relative Abundance (%)",
+                                                 rot = 90,
+                                                 size = 16,
+                                                 hjust = 0.2),
+                                bottom = text_grob("Host", size = 16, hjust = 2.7, vjust=-1))
+
+ggsave("../figures/2x2_shared_barplots.png", width=11, height=12)
+
+
+```
+
+
 
 

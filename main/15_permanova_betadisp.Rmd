@@ -78,7 +78,7 @@ rare_bd_host_anova <- anova(rare_host_bd)
 # export
 capture.output(rare_host_bd, file="../outputs/indiv_betadisp_host_output.txt")
 
-capture.output(rare_betadisp_anova, file="../outputs/indiv_betadisp_host_anova.txt")
+capture.output(rare_bd_host_anova, file="../outputs/indiv_betadisp_host_anova.txt")
 
 
 
