@@ -57,7 +57,9 @@ plot(veg_nest_ak, names = c(TRUE, FALSE), kind="incidence", col=c("white", "grey
 
 ro_nest_signif <- oecosimu(nestedness_ro_mat, nestedtemp, "quasiswap", nsimul = 1000)
 
+
 ak_nest_signif <- oecosimu(nestedness_ak_mat, nestedtemp, "quasiswap", nsimul = 1000)
+
 
 
 

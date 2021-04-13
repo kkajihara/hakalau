@@ -38,49 +38,50 @@ ak_barplot_df <- readRDS("../intermediate_files/rds/ak_barplot_df.rds")
 ## All ASVs
 
 ```{r}
-ak_asvs <- ak_barplot_df[1]
 
-ro_asvs <- ro_barplot_df[1]
+# extract all ASV names in a habitat 
 
-asv_name_df <- merge(ak_asvs, 
-                      ro_asvs, 
-                      by="row.names", 
-                      all=T)
-
-
-# extract unique ASV names for a host
+# column number is arbitrary, just want to keep rownames (ASV names)
 ak_present_asv_names <- ak_barplot_df[1]
+# make column for ASV names
 ak_present_asv_names$ASV <- rownames(ak_present_asv_names)
+# keep only that ASV name column
 ak_present_asv_names <- ak_present_asv_names[2]
 
+# same as above
 ro_present_asv_names <- ro_barplot_df[1]
 ro_present_asv_names$ASV <- rownames(ro_present_asv_names)
 ro_present_asv_names <- ro_present_asv_names[2]
 
 
-
+# merge the two columns of ASV names by rownames (ASV names)
 present_asv_name_df <- merge(ro_present_asv_names, 
                             ak_present_asv_names, 
                             by="row.names", 
                             all=T)
 
+# rownames becomes the first column that we no longer need
 present_asv_name_df <- present_asv_name_df[,2:3]
+# rename!
 names(present_asv_name_df) <- c("Remnant", "Restored")
 
+# make a copy for changing ASV names and NAs to TRUE/FALSE
 present_asv_name_bool <- present_asv_name_df
   
+# if the value is NA, print False, otherwise print True (if the ASV exists)
 present_asv_name_bool$Restored <- ifelse(
   is.na(present_asv_name_bool$Restored), F, T)
 present_asv_name_bool$Remnant <- ifelse(
   is.na(present_asv_name_bool$Remnant), F, T)
 
+# run euler function
 present_asv_euler <- euler(present_asv_name_bool)
+# make euler plot
 present_euler_plot <- plot(present_asv_euler, fills=TRUE, quantities=TRUE)
 
-present_asv_venn_list[[a_host]] <- present_euler_plot
 
 
-
+# export
 png("figures/all_asv_venn.png", width=5, height=4)
 present_euler_plot
 dev.off()
@@ -88,7 +89,7 @@ dev.off()
 
 
 
-
+# for seeing the habitat breakdown of all ASVs present by host/soil
 present_asv_venn_list <- list()
 
 for (a_host in host_names) {
@@ -108,13 +109,13 @@ for (a_host in host_names) {
   
   
   
-  present_asv_name_df <- merge(ak_present_asv_names, 
-                              ro_present_asv_names, 
+  present_asv_name_df <- merge(ro_present_asv_names, 
+                              ak_present_asv_names, 
                               by="row.names", 
                               all=T)
   
   present_asv_name_df <- present_asv_name_df[,2:3]
-  names(present_asv_name_df) <- c("Restored", "Remnant")
+  names(present_asv_name_df) <- c("Remnant", "Restored")
   
   present_asv_name_bool <- present_asv_name_df
     
@@ -149,13 +150,13 @@ for (a_host in host_names) {
   rownames(ro_unique_asv_names) <- ro_unique_asv_names$ASV
   
   
-  unique_asv_name_df <- merge(ak_unique_asv_names, 
-                              ro_unique_asv_names, 
+  unique_asv_name_df <- merge(ro_unique_asv_names, 
+                              ak_unique_asv_names, 
                               by="row.names", 
                               all=T)
   
   unique_asv_name_df <- unique_asv_name_df[,2:3]
-  names(unique_asv_name_df) <- c("Restored", "Remnant")
+  names(unique_asv_name_df) <- c("Remnant", "Restored")
   
   unique_asv_name_bool <- unique_asv_name_df
     
@@ -171,10 +172,6 @@ for (a_host in host_names) {
   
 }
 
-
-  
-  unique_asv_euler <- euler(unique_asv_name_bool)
-  unique_euler_plot <- plot(unique_asv_euler, fills=TRUE, quantities=TRUE)
 
 ```
 
@@ -206,10 +203,13 @@ for (a_host in host_names) {
   all_shared_asv_names <- list(ak_shared_asv_names, ro_shared_asv_names)
   all_shared_asv_names <- unique(Reduce(c, all_shared_asv_names))
   
-  shared_asv_name_df <- merge(ak_shared_asv_names, ro_shared_asv_names, by="row.names", all=T)
+  shared_asv_name_df <- merge(ro_shared_asv_names,
+                              ak_shared_asv_names,
+                              by="row.names",
+                              all=T)
   
   shared_asv_name_df <- shared_asv_name_df[,2:3]
-  names(shared_asv_name_df) <- c("Restored", "Remnant")
+  names(shared_asv_name_df) <- c("Remnant", "Restored")
   
   shared_asv_name_bool <- shared_asv_name_df
     

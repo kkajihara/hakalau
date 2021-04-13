@@ -91,6 +91,7 @@ asv_regression_nonzero <- lm(log(asv_abundance) ~ log(number_of_samples),
 
 summary_stats <- summary(asv_regression_nonzero)
 
+
 ```
 
 ## Color-coding
@@ -155,6 +156,10 @@ data_for_regress$host_spec_color[rownames(data_for_regress) %in%
 
 
 ```
+
+# Attention!!!! If you are going to take this data frame and put it through Dr. Muir's code, you must change the column names as follows
+
+names(data_for_regress) <- c("sample_count", "asv_abundance", "soil_host_core_color", "unique_core_color")
 
 
 ## Plotting!

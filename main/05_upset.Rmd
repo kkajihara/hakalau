@@ -91,12 +91,9 @@ upset_ro_ak <-
   ) + ggtitle('B) Restored Forest')
   
 
-  
-# plot
-pdf("figures/upset.pdf", width=16, height=5, onefile = F)
-upset_ro_ak
-dev.off()
 
+ggsave("../figures/upset.png", width = 16, height = 5)
+  
 
 ```
 

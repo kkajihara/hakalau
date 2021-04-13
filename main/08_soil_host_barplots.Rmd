@@ -38,9 +38,6 @@ host_names <- readRDS("../intermediate_files/rds/host_names.rds")
 
 ```{r}
 
-ro_soil_and_hosts <- list()
-
-
 host_names_no_soil <- host_names[1:6]
 
 
