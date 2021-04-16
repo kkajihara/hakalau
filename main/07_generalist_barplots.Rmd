@@ -175,151 +175,54 @@ source("../src/bar_plotting.R")
 # the vector of color names from bar_plotting.R
 # the title for the plot (string)
 
-
-ro_shared_bar <- core_barplot_nosum(ro_shared_rbind,
+ro_shared_bar <- make_barplot(ro_shared_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRemnant Forest")
+                                 "\nRemnant Forest") +
+  aes(alpha = Core) +
+  # add shading for core ASVs
+  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
+  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No"))
 
-ak_shared_bar <- core_barplot_nosum(ak_shared_rbind,
+
+ak_shared_bar <- make_barplot(ak_shared_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRestored Forest")
+                                 "\nRemnant Forest") +
+  aes(alpha = Core) +
+  # add shading for core ASVs
+  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
+  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No")) 
+
 
 combined_shared_bar <- two_barplots(ro_shared_bar, ak_shared_bar)
 
 
-ggsave("../figures/core_shared_asv_barplot.png", width = 11.5, height = 7)
+ggsave("../figures/core_shared_barplot.png", width = 11, height = 7)
 
-# arguments for noncore are the same as above
 
-ro_shared_bar_noncore <- noncore_nosum(ro_shared_rbind,
+# arguments are the same for noncore function
+
+ro_shared_bar_noncore <- make_barplot(ro_shared_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRemnant Forest")
+                                 "\nRemnant Forest") 
 
-ak_shared_bar_noncore <- noncore_nosum(ak_shared_rbind,
+ak_shared_bar_noncore <- make_barplot(ak_shared_rbind,
                                  100,
                                  colors_ten_families,
                                  "\nRestored Forest")
 
+
 combined_shared_bar_noncore <- two_barplots(ro_shared_bar_noncore, ak_shared_bar_noncore)
 
-ggsave("../figures/shared_asv_barplot.png", width = 11.5, height = 7)
+# Export
+ggsave("../figures/shared_barplot.png", width = 11, height = 7)
 
 
 ```
 
 
-## 2x2 Barplot (generalist and specialist)
-
-```{r}
-
-# unique barplots go in the bottom row, so no titles are needed
-
-### arguments include:
-# the rbinded dataframe of relative abundances for all hosts and soil
-# the summarized data frame containing ASV counts to be used as bar labels
-# the upper limit for the y axis (number)
-# the vector of color names from bar_plotting.R
-
-ro_unique_bar_notitle <- core_barplot_notitle(ro_unique_rbind,
-                                              ro_unique_bar_sums,
-                                              8,
-                                              colors_ten_families)
-
-ak_unique_bar_notitle <- core_barplot_notitle(ak_unique_rbind,
-                                              ak_unique_bar_sums,
-                                              8,
-                                              colors_ten_families)
-
-
-# first arrange side by side plots for shared and unique ASVs to get
-# common legends for both (different families are present in each grouping)
-
-both_shared_barplots <- ggarrange(ro_shared_bar, ak_shared_bar, labels=c("A)", "B)"), hjust=-0.5, vjust = 5.5, common.legend = TRUE, legend = "right")
-
-both_unique_barplots <- ggarrange(ro_unique_bar_notitle, ak_unique_bar_notitle, labels=c("C)", "D)"), hjust=-0.5, vjust = 1, common.legend = TRUE, legend = "right")
-
-
-
-# combine the pre-arranged side by side plots to make a 2x2 plot
-all_barplots <- ggarrange(both_shared_barplots, both_unique_barplots, ncol=1, nrow=2, heights = c(1.1, 1)) +
-                  theme(plot.margin = margin(0,0,0.5,0.5, "cm"))
-all_barplots <- annotate_figure(all_barplots,
-                                left = text_grob("Relative Abundance (%)",
-                                                 rot = 90,
-                                                 size = 16,
-                                                 hjust = 0.2),
-                                bottom = text_grob("Host", size = 16, hjust = 2.7, vjust=-1))
-
-ggsave("../figures/gen_spec_barplots.png", width=11, height=13)
-
-```
-
-
-### 2x2 plot
-
-```{r}
-
-# don't want titles for the core plots
-
-### arguments include:
-# the rbinded dataframe of relative abundances for all hosts and soil
-# the summarized data frame containing ASV counts to be used as bar labels
-# the upper limit for the y axis (number)
-# the vector of color names from bar_plotting.R
-
-ro_shared_bar_notitle <- core_barplot_nosum_notitle(ro_shared_rbind,
-                                                    100,
-                                                    colors_ten_families)
-
-ak_shared_bar_notitle <- core_barplot_nosum_notitle(ak_shared_rbind,
-                                                    100,
-                                                    colors_ten_families)
-
-
-
-# first arrange side by side plots for shared and shared ASVs to get
-# common legends for both (different families are present in each grouping)
-
-both_shared <- ggarrange(ro_shared_bar_noncore,
-                         ak_shared_bar_noncore, 
-                         labels=c("A)", "B)"), 
-                         hjust=-0.5, 
-                         vjust = 5.5, 
-                         common.legend = TRUE, 
-                         legend = "right")
-
-both_shared_core <- ggarrange(ro_shared_bar_notitle,
-                              ak_shared_bar_notitle,
-                              labels=c("C)", "D)"),
-                              hjust=-0.5,
-                              vjust = 1,
-                              common.legend = TRUE,
-                              legend = "right")
-
-
-
-# combine the pre-arranged side by side plots to make a 2x2 plot
-all_shared_barplots <- ggarrange(both_shared,
-                                 both_shared_core,
-                                 ncol=1,
-                                 nrow=2,
-                                 heights = c(1.15, 1)) +
-                  theme(plot.margin = margin(0,0,0.5,0.5, "cm"))
-
-all_shared_barplots <- annotate_figure(all_shared_barplots,
-                                left = text_grob("Relative Abundance (%)",
-                                                 rot = 90,
-                                                 size = 16,
-                                                 hjust = 0.2),
-                                bottom = text_grob("Host", size = 16, hjust = 2.7, vjust=-1))
-
-ggsave("../figures/2x2_shared_barplots.png", width=11, height=12)
-
-
-```
 
 
 

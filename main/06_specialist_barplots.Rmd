@@ -224,17 +224,30 @@ source("../src/bar_plotting.R")
 # the title for the plot (string)
 
 
-ro_unique_bar <- core_barplot(ro_unique_rbind,
-                                 ro_unique_bar_sums,
+ro_unique_bar <- make_barplot(ro_unique_rbind,
                                  8,
                                  colors_ten_families,
-                                 "\nRemnant Forest")
+                                 "\nRemnant Forest") +
+  aes(alpha = Core) +
+  # add shading for core ASVs
+  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
+  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No")) + 
+  # add ASV count bar labels
+  geom_text(data=ro_unique_bar_sums, 
+            aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
 
-ak_unique_bar <- core_barplot(ak_unique_rbind,
-                                 ak_unique_bar_sums,
+
+ak_unique_bar <- make_barplot(ak_unique_rbind,
                                  8,
                                  colors_ten_families,
-                                 "\nRestored Forest")
+                                 "\nRestored Forest") +
+  aes(alpha = Core) +
+  # add shading for core ASVs
+  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
+  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No")) + 
+  # add ASV count bar labels
+  geom_text(data=ak_unique_bar_sums, 
+            aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
 
 # arrange side by side
 combined_unique_bar <- two_barplots(ro_unique_bar, ak_unique_bar)
@@ -266,70 +279,6 @@ ggsave("../figures/unique_asv_barplot.png", width = 11.5, height = 7)
 ```
 
 
-### 2x2 plot
-
-```{r}
-
-# don't want titles for the core plots
-
-### arguments include:
-# the rbinded dataframe of relative abundances for all hosts and soil
-# the summarized data frame containing ASV counts to be used as bar labels
-# the upper limit for the y axis (number)
-# the vector of color names from bar_plotting.R
-
-ro_unique_bar_notitle <- core_barplot_notitle(ro_unique_rbind,
-                                              ro_unique_bar_sums,
-                                              8,
-                                              colors_ten_families)
-
-ak_unique_bar_notitle <- core_barplot_notitle(ak_unique_rbind,
-                                              ak_unique_bar_sums,
-                                              8,
-                                              colors_ten_families)
-
-
-
-# first arrange side by side plots for shared and unique ASVs to get
-# common legends for both (different families are present in each grouping)
-
-both_unique <- ggarrange(ro_unique_bar_noncore,
-                         ak_unique_bar_noncore, 
-                         labels=c("A)", "B)"), 
-                         hjust=-0.5, 
-                         vjust = 5.5, 
-                         common.legend = TRUE, 
-                         legend = "right")
-
-both_unique_core <- ggarrange(ro_unique_bar_notitle,
-                              ak_unique_bar_notitle,
-                              labels=c("C)", "D)"),
-                              hjust=-0.5,
-                              vjust = 1,
-                              common.legend = TRUE,
-                              legend = "right")
-
-
-
-# combine the pre-arranged side by side plots to make a 2x2 plot
-all_unique_barplots <- ggarrange(both_unique,
-                                 both_unique_core,
-                                 ncol=1,
-                                 nrow=2,
-                                 heights = c(1.15, 1)) +
-                  theme(plot.margin = margin(0,0,0.5,0.5, "cm"))
-
-all_unique_barplots <- annotate_figure(all_unique_barplots,
-                                left = text_grob("Relative Abundance (%)",
-                                                 rot = 90,
-                                                 size = 16,
-                                                 hjust = 0.2),
-                                bottom = text_grob("Host", size = 16, hjust = 2.7, vjust=-1))
-
-ggsave("../figures/2x2_unique_barplots.png", width=11, height=12)
-
-
-```
 
 
 

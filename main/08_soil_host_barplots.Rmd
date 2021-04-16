@@ -194,23 +194,35 @@ source("../src/bar_plotting.R")
 
 ### arguments to the barplotting function:
 # the rbinded dataframe of relative abundances for all hosts and soil
-# the summarized data frame containing ASV counts to be used as bar labels
 # the upper limit for the y axis (number)
 # the vector of color names from bar_plotting.R
 # the title for the plot (string)
 
-
-ro_soil_host_bar <- core_barplot(ro_soil_host_rbind,
-                                 ro_soil_host_bar_sums,
+ro_soil_host_bar <- make_barplot(ro_soil_host_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRemnant Forest")
+                                 "\nRemnant Forest") +
+  aes(alpha = Core) +
+  # add shading for core ASVs
+  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
+  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No")) + 
+  # add ASV count bar labels
+  geom_text(data=ro_soil_host_bar_sums, 
+            aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
 
-ak_soil_host_bar <- core_barplot(ak_soil_host_rbind,
-                                 ak_soil_host_bar_sums,
+
+ak_soil_host_bar <- make_barplot(ak_soil_host_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRestored Forest")
+                                 "\nRemnant Forest") +
+  aes(alpha = Core) +
+  # add shading for core ASVs
+  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
+  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No")) + 
+  # add ASV count bar labels
+  geom_text(data=ak_soil_host_bar_sums, 
+            aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
+
 
 combined_soil_host_bar <- two_barplots(ro_soil_host_bar, ak_soil_host_bar)
 
@@ -220,90 +232,29 @@ ggsave("../figures/core_soil_host_barplot.png", width = 11, height = 7)
 
 # arguments are the same for noncore function
 
-ro_soho_bar_noncore <- noncore_barplot(ro_soil_host_rbind,
-                                 ro_soil_host_bar_sums,
+ro_soho_bar_noncore <- make_barplot(ro_soil_host_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRemnant Forest")
+                                 "\nRemnant Forest") +
+  geom_text(data=ro_soil_host_bar_sums, 
+            aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
 
-ak_soho_bar_noncore <- noncore_barplot(ak_soil_host_rbind,
-                                 ak_soil_host_bar_sums,
+ak_soho_bar_noncore <- make_barplot(ak_soil_host_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRestored Forest")
+                                 "\nRestored Forest") +
+  geom_text(data=ak_soil_host_bar_sums, 
+            aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
+
 
 combined_soho_bar_noncore <- two_barplots(ro_soho_bar_noncore, ak_soho_bar_noncore)
 
+# Export
 ggsave("../figures/soil_host_barplot.png", width = 11, height = 7)
 
 
 ```
 
-
-### 2x2 plot
-
-```{r}
-
-# don't want titles for the core plots
-
-### arguments include:
-# the rbinded dataframe of relative abundances for all hosts and soil
-# the summarized data frame containing ASV counts to be used as bar labels
-# the upper limit for the y axis (number)
-# the vector of color names from bar_plotting.R
-
-ro_soho_bar_notitle <- core_barplot_notitle(ro_soil_host_rbind,
-                                              ro_soil_host_bar_sums,
-                                              100,
-                                              colors_ten_families)
-
-ak_soho_bar_notitle <- core_barplot_notitle(ak_soil_host_rbind,
-                                              ak_soil_host_bar_sums,
-                                              100,
-                                              colors_ten_families)
-
-
-
-# first arrange side by side plots for shared and soho ASVs to get
-# common legends for both (different families are present in each grouping)
-
-both_soho <- ggarrange(ro_soho_bar_noncore,
-                         ak_soho_bar_noncore, 
-                         labels=c("A)", "B)"), 
-                         hjust=-0.5, 
-                         vjust = 5.5, 
-                         common.legend = TRUE, 
-                         legend = "right")
-
-both_soho_core <- ggarrange(ro_soho_bar_notitle,
-                              ak_soho_bar_notitle,
-                              labels=c("C)", "D)"),
-                              hjust=-0.5,
-                              vjust = 1,
-                              common.legend = TRUE,
-                              legend = "right")
-
-
-
-# combine the pre-arranged side by side plots to make a 2x2 plot
-all_soho_barplots <- ggarrange(both_soho,
-                                 both_soho_core,
-                                 ncol=1,
-                                 nrow=2,
-                                 heights = c(1.15, 1)) +
-                  theme(plot.margin = margin(0,0,0.5,0.5, "cm"))
-
-all_soho_barplots <- annotate_figure(all_soho_barplots,
-                                left = text_grob("Relative Abundance (%)",
-                                                 rot = 90,
-                                                 size = 16,
-                                                 hjust = 0.2),
-                                bottom = text_grob("Host", size = 16, hjust = 2.7, vjust=-1))
-
-ggsave("../figures/2x2_soho_barplots.png", width=11, height=12)
-
-
-```
 
 
 
