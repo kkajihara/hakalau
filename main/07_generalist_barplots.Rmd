@@ -84,6 +84,9 @@ ro_shared_asvs <- lapply(host_names,
 
 names(ro_shared_asvs) <- host_names
 
+saveRDS(ro_shared_asvs, "../intermediate_files/rds/ro_shared_asvs.rds")
+
+
 
 ak_shared_asvs <- lapply(host_names, 
                          get_shared_asvs, 
@@ -92,13 +95,14 @@ ak_shared_asvs <- lapply(host_names,
 
 names(ak_shared_asvs) <- host_names
 
+saveRDS(ak_shared_asvs, "../intermediate_files/rds/ak_shared_asvs.rds")
 
 
 ```
 
 ## Identify Core ASVs
 
-In this case, "core" refers to ASVs unique to the same host in both habitats
+In this case, "core" refers to ASVs shared to the same host in both habitats
 
 ```{r}
 
@@ -121,7 +125,7 @@ append_core_shared <- function (a_host, list_of_dfs) {
 
   # append "_core" to a family name if the ASV is present in both communities
   list_of_dfs[[a_host]] <- mutate(list_of_dfs[[a_host]],
-                        Core = ifelse(ASV %in% core_shared_names,
+                        "In Both Habitats" = ifelse(ASV %in% core_shared_names,
                                         paste("Yes"),
                                         paste("No")))
 
@@ -178,37 +182,29 @@ source("../src/bar_plotting.R")
 ro_shared_bar <- make_barplot(ro_shared_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRemnant Forest") +
-  aes(alpha = Core) +
-  # add shading for core ASVs
-  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
-  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No"))
+                                 "\nRemnant Forest") 
 
 
 ak_shared_bar <- make_barplot(ak_shared_rbind,
                                  100,
                                  colors_ten_families,
-                                 "\nRemnant Forest") +
-  aes(alpha = Core) +
-  # add shading for core ASVs
-  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
-  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No")) 
+                                 "\nRestored Forest") 
 
 
 combined_shared_bar <- two_barplots(ro_shared_bar, ak_shared_bar)
 
 
-ggsave("../figures/core_shared_barplot.png", width = 11, height = 7)
+ggsave("../figures/core_shared_barplot2.png", width = 11, height = 7)
 
 
 # arguments are the same for noncore function
 
-ro_shared_bar_noncore <- make_barplot(ro_shared_rbind,
+ro_shared_bar_noncore <- noncore_barplot(ro_shared_rbind,
                                  100,
                                  colors_ten_families,
                                  "\nRemnant Forest") 
 
-ak_shared_bar_noncore <- make_barplot(ak_shared_rbind,
+ak_shared_bar_noncore <- noncore_barplot(ak_shared_rbind,
                                  100,
                                  colors_ten_families,
                                  "\nRestored Forest")

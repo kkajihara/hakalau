@@ -1,0 +1,647 @@
+---
+title: "t_test"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(tibble)
+library(tidyr)
+library(reshape2)
+library(plyr)
+library(dplyr)
+library(phyloseq)
+
+```
+
+### Read in necessary files
+
+```{r}
+
+# vector of host names and soil
+host_names <- readRDS("../intermediate_files/rds/host_names.rds")
+
+# list of unrarefied physeq objects by host and soil
+unrarefied_subsets <- readRDS("../intermediate_files/rds/unrarefied_subsets.rds")
+
+# lists of relative abundance data frames for our three groupings
+ro_unique_asvs <- readRDS("../intermediate_files/rds/ro_unique_asvs.rds")
+ak_unique_asvs <- readRDS("../intermediate_files/rds/ak_unique_asvs.rds")
+
+
+ro_shared_asvs <- readRDS("../intermediate_files/rds/ro_shared_asvs.rds")
+ak_shared_asvs <- readRDS("../intermediate_files/rds/ak_shared_asvs.rds")
+
+
+ro_soil_host_asvs <- readRDS("../intermediate_files/rds/ro_soil_host_asvs.rds")
+ak_soil_host_asvs <- readRDS("../intermediate_files/rds/ro_soil_host_asvs.rds")
+
+# taxonomy table
+full_tax_table_df <- readRDS("../intermediate_files/rds/full_tax_table_df.rds")
+
+```
+
+## Data Prep
+
+```{r}
+
+# make one big full otu table (plots still separate) to calculate rel abun on
+# later on just subset as needed
+
+source("../src/anova_functions.R")
+
+
+```
+
+
+## Host-specific ASVs
+
+```{r}
+
+
+### arguments for this function include:
+# vector of host names
+# list of unrarefied physeq objects
+# relative abundance data frames for each habitat for the specific grouping (unique, # shared, soil-host)
+
+unique_otu_tables <- lapply(host_names, 
+                         otu_table_prep, 
+                         unrarefied_subsets,
+                         ro_unique_asvs,
+                         ak_unique_asvs)
+
+names(unique_otu_tables) <- host_names
+# make a vector of all the family names in that grouping
+family_names <- c("Acaulosporaceae",
+                  "Ambisporaceae",
+                  "Archaeosporaceae",
+                  "Claroideoglomeraceae",
+                  "Diversisporaceae", 
+                  "Geosiphonaceae",
+                  "Gigasporaceae",
+                  "Glomeraceae",
+                  "Glomeromycotina",
+                  "Paraglomeraceae")
+
+
+### arguments for this function:
+# vector of host names
+
+
+#host_relabun_by_family <- lapply(host_names, stats_prep, unique_otu_tables)
+
+#names(host_relabun_by_family) <- host_names
+
+
+
+
+ttest_prep <- function (a_host, relabun_df) {
+  
+  host_df <- relabun_df[[a_host]] %>%
+    group_by(SampleID, Habitat, Family, Host) %>%
+    dplyr::summarise(rel_abun=sum(rel_abun))
+  
+  return(host_df)
+  
+}
+
+unique_samp_tables <- lapply(host_names,
+                             ttest_prep,
+                             relabun_df = unique_otu_tables)
+
+names(unique_samp_tables) <- host_names
+
+
+# for testing
+grp <- function(a_host, df) {
+  
+  a <- df[[a_host]] %>% group_by(Habitat, Family) %>% dplyr::summarise(count=n())
+
+  return(a)
+    
+}
+
+b = lapply(host_names, grp, df = unique_samp_tables)
+
+# get rid of missing families
+unique_samp_tables[["A. koa"]] <- 
+  unique_samp_tables[["A. koa"]][!(unique_samp_tables[["A. koa"]]$Family
+                                        %in%
+                                        c("Claroideoglomeraceae", 
+                                        "Diversisporaceae", 
+                                        "Geosiphonaceae",
+                                        "Gigasporaceae")),]
+
+unique_samp_tables[["C. trigynum"]] <- 
+  unique_samp_tables[["C. trigynum"]][!(unique_samp_tables[["C. trigynum"]]$Family
+                                        %in%
+                                        c("Claroideoglomeraceae", 
+                                        "Diversisporaceae", 
+                                        "Geosiphonaceae",
+                                        "Gigasporaceae")),]
+
+unique_samp_tables[["Grass"]] <-  
+  unique_samp_tables[["Grass"]][!(unique_samp_tables[["Grass"]]$Family
+                                        %in%
+                                        c("Claroideoglomeraceae",
+                                          "Diversisporaceae", 
+                                          "Geosiphonaceae",
+                                          "Gigasporaceae")),]
+
+
+unique_samp_tables[["M. lessertiana"]] <- 
+  unique_samp_tables[["M. lessertiana"]][
+    !(unique_samp_tables[["M. lessertiana"]]$Family
+                                        %in%
+                                        c("Diversisporaceae", 
+                                          "Geosiphonaceae")),]
+
+
+unique_samp_tables[["M. polymorpha"]] <- 
+  unique_samp_tables[["M. polymorpha"]][
+    !(unique_samp_tables[["M. polymorpha"]]$Family
+                                        %in%
+                                        c("Claroideoglomeraceae", 
+                                          "Geosiphonaceae")),]
+
+
+unique_samp_tables[["R. hawaiensis"]] <- 
+  unique_samp_tables[["R. hawaiensis"]][
+    !(unique_samp_tables[["R. hawaiensis"]]$Family
+                                        %in%
+                                        c("Ambisporaceae",
+                                          "Claroideoglomeraceae",
+                                          "Diversisporaceae", 
+                                          "Geosiphonaceae",
+                                          "Gigasporaceae")),]
+  
+
+
+
+relabun_ttest <- function(family_name, relabun_df) {
+  
+  if(family_name %in% relabun_df$Family) {
+    
+    a = subset(relabun_df, Family==family_name)
+  
+    t = t.test(a$rel_abun[a$Habitat == "RO"],
+             a$rel_abun[a$Habitat == "AK"])
+  
+    return(t)
+    
+  } else {
+    
+    NULL
+    
+  }
+  
+}
+
+
+unique_ttest <- list()
+
+for (a_host in host_names) {
+  
+  ttest_apply <- lapply(family_names,
+                        relabun_ttest,
+                        relabun_df = unique_samp_tables[[a_host]])
+  
+  unique_ttest[[a_host]] <- ttest_apply
+  names(unique_ttest[[a_host]]) <- family_names
+  
+}
+
+
+
+# extract p values from t-test results
+unique_pvals <- list()
+
+for (a_host in host_names) {
+  
+  unique_p <- sapply(unique_ttest[[a_host]], function(x) x$p.value)
+  
+  unique_pvals[[a_host]] <- unique_p
+  
+}
+
+# change nulls to NAs
+unique_pvals_nonull <- lapply(host_names, null_to_na, unique_pvals)
+
+names(unique_pvals_nonull) <- host_names
+
+
+### correcting P-values for multiple comparisons
+library(multtest)
+
+adj_p_list_spec <- list()
+
+for (a_host in host_names) {
+  
+  # Set seed for repeatability
+  set.seed(20210907)
+  
+  raw_p_values = unlist(unique_pvals_nonull[[a_host]], use.names = F)
+  
+  adj_p_values = mt.rawp2adjp(raw_p_values, na.rm = T)
+  
+  unordered = adj_p_values$adjp[, c("rawp", "BH")]
+  
+  ordered = unordered[,2][order(adj_p_values$index)]
+  
+  adj_p_list_spec[[a_host]] = ordered
+  
+}
+
+
+
+
+#unique_unlisted_vals <- list()
+
+#for (a_host in host_names) {
+#  unlisted_lists <- unlist(unique_pvals_nonull[[a_host]])
+#  unique_unlisted_vals[[a_host]] <- unlisted_lists
+#}
+
+# combine vectors into one data frame
+unique_ttest_pvals <- as.data.frame(do.call("rbind",
+                                             adj_p_list_spec))
+
+
+unique_pval_table <- anova_tbl_format(unique_ttest_pvals)
+
+row.names(unique_pval_table) <- family_names
+
+
+write.csv(unique_pval_table, file="../outputs/unique_ttest_pvals_adjusted.csv")
+
+
+
+```
+
+
+## Soil Host ASVs
+
+```{r}
+
+host_names_no_soil <- host_names[1:6]
+
+soho_otu_tables <- lapply(host_names_no_soil, 
+                         otu_table_prep, 
+                         unrarefied_subsets,
+                         ro_soil_host_asvs,
+                         ak_soil_host_asvs)
+
+names(soho_otu_tables) <- host_names_no_soil
+
+
+soho_samp_tables <- lapply(host_names_no_soil,
+                             ttest_prep,
+                             relabun_df = soho_otu_tables)
+
+names(soho_samp_tables) <- host_names_no_soil
+
+
+
+#soho_abun_by_host <- soho_otu_tables
+
+soho_family_names <- c("Acaulosporaceae",
+                        "Ambisporaceae",
+                        "Archaeosporaceae",
+                        "Claroideoglomeraceae",
+                        "Diversisporaceae",
+                        "Gigasporaceae",
+                        "Glomeraceae",
+                        "Glomeromycotina",
+                        "Paraglomeraceae")
+
+
+hosts_no_diversi <- c("A. koa",
+                      "C. trigynum",
+                      "Grass",
+                      "M. polymorpha",
+                      "M. lessertiana")
+
+
+for (a_host in hosts_no_diversi) {
+  
+  soho_samp_tables[[a_host]] <-
+    soho_samp_tables[[a_host]][soho_samp_tables[[a_host]]$Family != "Diversisporaceae",]
+    
+  
+}
+
+
+
+relabun_ttest <- function(family_name, relabun_df) {
+  
+  if(family_name %in% relabun_df$Family) {
+    
+    a = subset(relabun_df, Family==family_name)
+  
+    t = t.test(a$rel_abun[a$Habitat == "RO"],
+             a$rel_abun[a$Habitat == "AK"])
+  
+    return(t)
+    
+  } else {
+    
+    NULL
+    
+  }
+  
+}
+
+
+soho_ttest <- list()
+
+for (a_host in host_names_no_soil) {
+  
+  ttest_apply <- lapply(soho_family_names,
+                        relabun_ttest,
+                        relabun_df = soho_samp_tables[[a_host]])
+  
+  soho_ttest[[a_host]] <- ttest_apply
+  names(soho_ttest[[a_host]]) <- soho_family_names
+  
+}
+
+
+
+soho_pvals <- list()
+
+for (a_host in host_names_no_soil) {
+  
+  soho_p <- sapply(soho_ttest[[a_host]], function(x) x$p.value)
+  
+  soho_pvals[[a_host]] <- soho_p
+  
+}
+
+
+soho_pvals_nonull <- lapply(host_names_no_soil, null_to_na, soho_pvals)
+
+names(soho_pvals_nonull) <- host_names_no_soil
+
+
+### correcting P-values for multiple comparisons
+adj_p_list_soho <- list()
+
+for (a_host in host_names_no_soil) {
+  
+  # Set seed for repeatability
+  set.seed(20210907)
+  
+  raw_p_values = unlist(soho_pvals_nonull[[a_host]], use.names = F)
+  
+  adj_p_values = mt.rawp2adjp(raw_p_values, na.rm = T)
+    
+  unordered = adj_p_values$adjp[, c("rawp", "BH")]
+  
+  ordered = unordered[,2][order(adj_p_values$index)]
+  
+  adj_p_list_soho[[a_host]] = ordered
+  
+}
+
+
+#soho_unlisted_vals <- list()
+
+#for (a_host in host_names_no_soil) {
+#  unlisted_lists <- unlist(soho_pvals_nonull[[a_host]])
+#  soho_unlisted_vals[[a_host]] <- unlisted_lists
+#}
+
+# combine vectors into one data frame
+soho_ttest_pvals <- as.data.frame(do.call("rbind",
+                                             adj_p_list_soho))
+
+
+soho_pval_table <- anova_tbl_format(soho_ttest_pvals)
+
+row.names(soho_pval_table) <- soho_family_names
+
+
+write.csv(soho_pval_table, file="../outputs/soho_ttest_pvals_adjusted.csv")
+
+
+
+```
+
+## Shared ASVs
+
+```{r}
+
+shared_samp_tables <- lapply(host_names, 
+                         otu_table_prep, 
+                         unrarefied_subsets,
+                         ro_shared_asvs,
+                         ak_shared_asvs)
+
+names(shared_samp_tables) <- host_names
+
+
+
+shared_family_names <- c("Acaulosporaceae",
+                        "Ambisporaceae",
+                        "Archaeosporaceae",
+                        "Claroideoglomeraceae",
+                        "Gigasporaceae",
+                        "Glomeraceae",
+                        "Glomeromycotina",
+                        "Paraglomeraceae")
+
+
+
+shared_samp_tables[["A. koa"]] <- 
+  shared_samp_tables[["A. koa"]][!(shared_samp_tables[["A. koa"]]$Family
+                                        %in%
+                                        c("Diversisporaceae",
+                                        "Gigasporaceae")),]
+
+shared_samp_tables[["C. trigynum"]] <- 
+  shared_samp_tables[["C. trigynum"]][!(shared_samp_tables[["C. trigynum"]]$Family
+                                        %in%
+                                        c("Claroideoglomeraceae", 
+                                        "Diversisporaceae")),]
+
+shared_samp_tables[["Grass"]] <-  
+  shared_samp_tables[["Grass"]][!(shared_samp_tables[["Grass"]]$Family
+                                        %in%
+                                        c("Diversisporaceae")),]
+
+
+shared_samp_tables[["M. lessertiana"]] <- 
+  shared_samp_tables[["M. lessertiana"]][
+    !(shared_samp_tables[["M. lessertiana"]]$Family
+                                        %in%
+                                        c("Diversisporaceae")),]
+
+shared_samp_tables[["M. polymorpha"]] <- 
+  shared_samp_tables[["M. polymorpha"]][
+    !(shared_samp_tables[["M. polymorpha"]]$Family
+                                        %in%
+                                        c("Acaulosporaceae",
+                                          "Diversisporaceae")),]
+
+
+
+shared_samp_tables[["R. hawaiensis"]] <- 
+  shared_samp_tables[["R. hawaiensis"]][
+    !(shared_samp_tables[["R. hawaiensis"]]$Family
+                                        %in%
+                                        c("Acaulosporaceae",
+                                          "Diversisporaceae",
+                                          "Gigasporaceae")),]
+
+
+shared_ttest <- list()
+
+for (a_host in host_names) {
+  
+  ttest_apply <- lapply(shared_family_names,
+                        relabun_ttest,
+                        relabun_df = shared_samp_tables[[a_host]])
+  
+  shared_ttest[[a_host]] <- ttest_apply
+  names(shared_ttest[[a_host]]) <- shared_family_names
+  
+}
+  
+
+
+shared_pvals <- list()
+
+for (a_host in host_names) {
+  
+  shared_p <- sapply(shared_ttest[[a_host]], function(x) x$p.value)
+  
+  shared_pvals[[a_host]] <- shared_p
+  
+}
+
+
+shared_pvals[["Grass"]] <- as.list(shared_pvals[["Grass"]])
+shared_pvals[["M. lessertiana"]] <- as.list(shared_pvals[["M. lessertiana"]])
+shared_pvals[["Soil"]] <- as.list(shared_pvals[["Soil"]])
+
+
+
+shared_pvals_nonull <- lapply(host_names, null_to_na, shared_pvals)
+
+names(shared_pvals_nonull) <- host_names
+
+
+### correcting P-values for multiple comparisons
+adj_p_list_shared <- list()
+
+for (a_host in host_names) {
+  
+  # Set seed for repeatability
+  set.seed(20210907)
+  
+  raw_p_values = unlist(shared_pvals_nonull[[a_host]], use.names = F)
+  
+  adj_p_values = mt.rawp2adjp(raw_p_values, na.rm = T)
+    
+  unordered = adj_p_values$adjp[, c("rawp", "BH")]
+  
+  ordered = unordered[,2][order(adj_p_values$index)]
+  
+  adj_p_list_shared[[a_host]] = ordered
+  
+}
+
+
+#shared_unlisted_vals <- list()
+
+#for (a_host in host_names) {
+#  unlisted_lists <- unlist(shared_pvals_nonull[[a_host]])
+#  shared_unlisted_vals[[a_host]] <- unlisted_lists
+#}
+
+# combine vectors into one data frame
+shared_ttest_pvals <- as.data.frame(do.call("rbind",
+                                             adj_p_list_shared))
+
+
+shared_pval_table <- anova_tbl_format(shared_ttest_pvals)
+
+row.names(shared_pval_table) <- shared_family_names
+
+
+write.csv(shared_pval_table, file="../outputs/shared_ttest_pvals_adjusted.csv")
+
+
+```
+
+
+## Interleaving relabun tables with p values
+
+```{r}
+
+merged_unique_relabun <- read.csv("../outputs/unique_relabun_table.csv", row.names = 1)
+
+merged_shared_relabun <- read.csv("../outputs/shared_relabun_table.csv", row.names = 1)
+
+merged_soil_host_relabun <- read.csv("../outputs/soho_relabun_table.csv", row.names = 1)
+
+
+host_index <- c(1,2,15,
+               3,4,16,
+               5,6,17,
+               7,8,18,
+               9,10,19,
+               11,12,20,
+               13,14,21)
+
+host_nosoil_index <- c(1,2,13,
+                       3,4,14,
+                       5,6,15,
+                       7,8,16,
+                       9,10,17,
+                       11,12,18)
+
+
+merge_relabun_pval <- function (relabun_table, pval_table, index) {
+  
+  merged_table <- merge(relabun_table, pval_table, by="row.names")
+  
+  merged_table <- column_to_rownames(merged_table, "Row.names")
+  
+  merged_table <- merged_table[, index]
+  
+  colnames(merged_table)[seq(3, ncol(merged_table), 3)] <- "Adj. P"
+  
+  return(merged_table)
+  
+}
+
+
+final_unique_table <- merge_relabun_pval(merged_unique_relabun,
+                                         unique_pval_table,
+                                         host_index)
+
+final_shared_table <- merge_relabun_pval(merged_shared_relabun,
+                                         shared_pval_table,
+                                         host_index)
+
+final_soho_table <- merge_relabun_pval(merged_soil_host_relabun,
+                                       soho_pval_table,
+                                       host_nosoil_index)
+
+
+
+write.csv(final_unique_table, "../outputs/unique_relabun_pval_adjusted.csv")
+
+write.csv(final_shared_table, "../outputs/shared_relabun_pval_adjusted.csv")
+
+write.csv(final_soho_table, "../outputs/soil_host_relabun_pval_adjusted.csv")
+
+```
+

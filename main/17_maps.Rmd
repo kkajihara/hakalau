@@ -1,0 +1,128 @@
+---
+title: "Maps"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+#devtools::install_github("dkahle/ggmap")
+library(ggmap)
+library(ggsn)
+
+```
+
+# Map of Hawaii
+
+```{r}
+
+# load API key
+API_key <- read.csv("KK_API.csv", header = FALSE)
+API_key <- API_key[1,1]
+
+register_google(key=API_key)
+hi_map <- get_map(location = c(-157, 20.5),
+                  zoom = 7,
+                  maptype = "satellite",
+                  color = "color")
+hi_map_for_man <- ggmap(hi_map) +
+  geom_point(aes(x = -155.320, y = 19.83), 
+             pch = 23, 
+             colour = "black",
+             fill = "red",
+             size = 2,
+             stroke = 0.5) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  scale_y_continuous(limits = c(18.8, 22.2)) +
+  scale_x_continuous(limits = c(-160.2, -154)) +
+  theme(axis.text = element_text(colour = "black", size = 10)) +
+  theme(axis.title.y = element_text(colour = "black", size = 12)) +
+  theme(axis.title.x = element_blank()) +
+  theme(plot.margin = unit(c(0.25,0.25,-0.5,0.25), "cm")) +
+  ggsn::scalebar(x.min = -160.2,
+                 x.max = -154,
+                 y.min = 18.8,
+                 y.max = 22.2,
+                 dist = 50,
+                 dist_unit = "km",
+                 transform = TRUE,
+                 st.bottom = FALSE,
+                 st.size = 2,
+                 box.fill = c("gray50", "white"),
+                 model = "WGS84",
+                 st.color = "white",
+                 border.size = 0.5)
+
+
+
+```
+# Map of Forest Plots
+
+```{r}
+
+hakalau_map <- get_map(location = c(-155.320, 19.83),
+                       zoom = 14,
+                       maptype = "satellite",
+                       color = "color")
+
+metadata <- read.table("data/haka-metadata.tsv", header = T, sep = "\t")
+meta_no_negs <- metadata[(metadata$HabitatType %in% c("Remnant Forest", "Restored Forest")),]
+
+plot_map <- ggmap(hakalau_map) +
+  geom_point(data = meta_no_negs,
+             aes(x = lon, y = lat, fill = HabitatType),
+             pch = 21,
+             stroke = 0.3,
+             colour = "white",
+             size = 3) +
+  scale_fill_manual(values = c("#eed67c", "#8a9ee5"),
+                    name = "Habitat Type") +
+  theme(legend.text = element_text(size = 10),
+        legend.title = element_text(size = 12),
+        legend.key = element_blank()) +
+  theme(plot.margin = unit(c(-0.75,0.25,0.25,0.25), "cm")) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  scale_y_continuous(limits = c(19.81, 19.84)) +
+  scale_x_continuous(limits = c(-155.328, -155.295)) +
+  theme(axis.text = element_text(colour = "black", size = 10)) +
+  theme(axis.title = element_text(colour = "black", size = 12)) +
+  theme(legend.justification = "left") +
+  ggsn::scalebar(x.min = -155.345,
+                 x.max = -155.295,
+                 y.min = 19.81,
+                 y.max = 19.84,
+                 dist = 0.5,
+                 dist_unit = "km",
+                 transform = TRUE,
+                 st.bottom = FALSE,
+                 st.size = 2,
+                 box.fill = c("gray50", "white"),
+                 model = "WGS84",
+                 st.color = "white",
+                 border.size = 0.5)
+
+
+```
+## Combine plots
+
+```{r}
+
+library(patchwork)
+
+map_figs <- hi_map_for_man + plot_map + plot_layout(ncol = 1)
+map_figs <- map_figs + 
+  plot_annotation(tag_levels = 'A', tag_suffix = ')') &
+  theme(plot.tag = element_text(face = "bold", vjust = -2.6))
+
+ggsave("../figures/map_figures.png", height = 8, width = 7)
+
+
+```
+

@@ -20,6 +20,7 @@ Making these to visualize the overlap between remnant and restored ASVs found in
 ```{r}
 
 library(eulerr)
+library(ggpubr)
 
 ```
 
@@ -35,7 +36,7 @@ ak_barplot_df <- readRDS("../intermediate_files/rds/ak_barplot_df.rds")
 ```
 
 
-## All ASVs
+## RO vs AK
 
 ```{r}
 
@@ -63,30 +64,148 @@ present_asv_name_df <- merge(ro_present_asv_names,
 # rownames becomes the first column that we no longer need
 present_asv_name_df <- present_asv_name_df[,2:3]
 # rename!
-names(present_asv_name_df) <- c("Remnant", "Restored")
+names(present_asv_name_df) <- c("Remnant Forest", "Restored Forest")
 
 # make a copy for changing ASV names and NAs to TRUE/FALSE
 present_asv_name_bool <- present_asv_name_df
   
 # if the value is NA, print False, otherwise print True (if the ASV exists)
-present_asv_name_bool$Restored <- ifelse(
-  is.na(present_asv_name_bool$Restored), F, T)
-present_asv_name_bool$Remnant <- ifelse(
-  is.na(present_asv_name_bool$Remnant), F, T)
+present_asv_name_bool$`Restored Forest` <- ifelse(
+  is.na(present_asv_name_bool$`Restored Forest`), F, T)
+present_asv_name_bool$`Remnant Forest` <- ifelse(
+  is.na(present_asv_name_bool$`Remnant Forest`), F, T)
 
 # run euler function
-present_asv_euler <- euler(present_asv_name_bool)
+all_asv_euler <- euler(present_asv_name_bool)
 # make euler plot
-present_euler_plot <- plot(present_asv_euler, fills=TRUE, quantities=TRUE)
+all_euler_plot <- plot(all_asv_euler, 
+                       fills=c("#EFE6C4", "#BEC7E6"), 
+                       quantities=TRUE,
+                       edges=FALSE)
 
 
 
-# export
-png("figures/all_asv_venn.png", width=5, height=4)
-present_euler_plot
+# export (paste in console)
+pdf("figures/all_asv_venn.pdf", width=5, height=4)
+all_euler_plot
 dev.off()
 
 
+```
+## Soil vs Roots
+
+```{r}
+
+# root
+
+ro_root_asv_names <- ro_barplot_df[1:6]
+
+ro_root_asv_names <- ro_root_asv_names[rowSums(ro_root_asv_names) > 0,]
+
+ro_root_asv_names <- ro_root_asv_names[1]
+
+
+ak_root_asv_names <- ak_barplot_df[1:6]
+
+ak_root_asv_names <- ak_root_asv_names[rowSums(ak_root_asv_names) > 0,]
+
+ak_root_asv_names <- ak_root_asv_names[1]
+
+
+
+all_root_asv_names <- merge(ro_root_asv_names, 
+                            ak_root_asv_names, 
+                            by="row.names",
+                            all=T)
+
+row.names(all_root_asv_names) <- all_root_asv_names$Row.names
+
+all_root_asv_names <- all_root_asv_names[1]
+
+names(all_root_asv_names)[1] <- "Root"
+
+
+
+# soil
+
+ro_soil_asv_names <- ro_barplot_df[7]
+
+ro_soil_asv_names$ASV <- row.names(ro_soil_asv_names)
+
+ro_soil_asv_names <- as.data.frame(ro_soil_asv_names[ro_soil_asv_names$Soil > 0,])
+
+ro_soil_asv_names <- ro_soil_asv_names[2]
+
+
+ak_soil_asv_names <- ak_barplot_df[7]
+
+ak_soil_asv_names$ASV <- row.names(ak_soil_asv_names)
+
+ak_soil_asv_names <- as.data.frame(ak_soil_asv_names[ak_soil_asv_names$Soil > 0,])
+
+ak_soil_asv_names <- ak_soil_asv_names[2]
+
+
+
+all_soil_asv_names <- merge(ro_soil_asv_names,
+                            ak_soil_asv_names,
+                            by="row.names",
+                            all=T)
+
+row.names(all_soil_asv_names) <- all_soil_asv_names$Row.names
+
+all_soil_asv_names <- all_soil_asv_names[1]
+
+names(all_soil_asv_names)[1] <- "Soil"
+
+
+
+# merge
+
+soil_vs_root_df <- merge(all_soil_asv_names,
+                         all_root_asv_names,
+                         by="row.names",
+                         all=T)
+
+soil_vs_root_df <- soil_vs_root_df[2:3]
+
+
+
+# make a copy for changing ASV names and NAs to TRUE/FALSE
+soil_root_bool <- soil_vs_root_df
+  
+# if the value is NA, print False, otherwise print True (if the ASV exists)
+soil_root_bool$Soil <- ifelse(
+  is.na(soil_root_bool$Soil), F, T)
+soil_root_bool$Root <- ifelse(
+  is.na(soil_root_bool$Root), F, T)
+
+# run euler function
+soil_root_euler <- euler(soil_root_bool)
+# make euler plot
+soil_root_plot <- plot(soil_root_euler, 
+                       fills=c("#EFE6C4", "#BEC7E6"), 
+                       quantities=TRUE,
+                       edges=FALSE)
+
+
+
+## export
+two_venn <- ggarrange(all_euler_plot, NULL, soil_root_plot, 
+                      nrow=1, 
+                      widths=c(1, 0.05, 1), 
+                      labels = c("A)", "", "B)"))
+
+ggsave("../figures/venns.png", width=10, height=3.5)
+
+
+```
+
+
+
+## All ASVs by host
+
+```{r}
 
 
 # for seeing the habitat breakdown of all ASVs present by host/soil
@@ -132,6 +251,8 @@ for (a_host in host_names) {
 }
 
 ```
+
+
 
 
 ## Unique ASVs
@@ -221,4 +342,33 @@ for (a_host in host_names) {
   
 ```
 
+
+# Checking
+
+```{r}
+
+# I know that 37% of ASVs are in soil from the venn
+# but I wanted to confirm that 63% of the remaining ASVs
+# were indeed only in hosts
+
+# it wasn't working out because I was doing it by habitat, but there
+# could have been ASVs that were in soil in one habitat and not in
+# another habitat
+
+# I needed to make all the host and soil columns from both habitats
+# into one df and remove all the ones that were in soil in both
+# of the habitats
+
+v = merge(ak_barplot_df, ro_barplot_df, by = "row.names", all = T)
+
+v = as.data.frame(v)
+
+v = column_to_rownames(v, "Row.names")
+
+v[is.na(v)] = 0
+
+
+b = v[v$Soil.x==0 & v$Soil.y==0,]
+
+```
 

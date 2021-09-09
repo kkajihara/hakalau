@@ -132,8 +132,8 @@ unrarefied_subsets <- list()
 host_names <- c("A. koa",
                 "C. trigynum",
                 "Grass",
-                "M. polymorpha",
                 "M. lessertiana",
+                "M. polymorpha",
                 "R. hawaiensis",
                 "Soil")
 

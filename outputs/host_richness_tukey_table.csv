@@ -1,0 +1,22 @@
+"","Host","diff.x","p adj.x","diff.y","p adj.y"
+"1","C. trigynum-A. koa",-5.114,0.019,-3.083,0.54
+"2","Grass-A. koa",0.149,1,2.471,0.741
+"3","Grass-C. trigynum",5.263,0.015,5.554,0.022
+"4","M. lessertiana-A. koa",1.349,0.976,-0.746,0.999
+"5","M. lessertiana-C. trigynum",6.463,0.001,2.337,0.823
+"6","M. lessertiana-Grass",1.2,0.987,-3.217,0.453
+"7","M. polymorpha-A. koa",-3.514,0.263,-4.905,0.056
+"8","M. polymorpha-C. trigynum",1.6,0.951,-1.821,0.945
+"9","M. polymorpha-Grass",-3.663,0.223,-7.376,0
+"10","M. polymorpha-M. lessertiana",-4.863,0.031,-4.158,0.179
+"11","R. hawaiensis-A. koa",-2.109,0.815,-1.146,0.992
+"12","R. hawaiensis-C. trigynum",3.006,0.464,1.937,0.916
+"13","R. hawaiensis-Grass",-2.257,0.766,-3.617,0.294
+"14","R. hawaiensis-M. lessertiana",-3.457,0.275,-0.399,1
+"15","R. hawaiensis-M. polymorpha",1.405,0.972,3.759,0.276
+"16","Soil-A. koa",-6.787,0,-6.047,0
+"17","Soil-C. trigynum",-1.673,0.806,-2.964,0.282
+"18","Soil-Grass",-6.936,0,-8.518,0
+"19","Soil-M. lessertiana",-8.136,0,-5.301,0.001
+"20","Soil-M. polymorpha",-3.274,0.088,-1.142,0.976
+"21","Soil-R. hawaiensis",-4.679,0.001,-4.901,0.001

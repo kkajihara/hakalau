@@ -29,7 +29,7 @@ ak_unique_rbind <- readRDS("../intermediate_files/rds/ak_unique_rbind.rds")
 
 # data frames of shared ASVs
 ro_shared_rbind <- readRDS("../intermediate_files/rds/ro_shared_rbind.rds")
-ak_shared_rbind <- readRDS("../intermediate_files/rds/ro_shared_rbind.rds")
+ak_shared_rbind <- readRDS("../intermediate_files/rds/ak_shared_rbind.rds")
 
 # data frames of soil host ASVs
 ro_soil_host_rbind <- 
@@ -66,7 +66,7 @@ make_relabun_table <- function (rbind_df, habitat) {
     # calculate the sum of relative abundance values for a single family within
     # a host (ex. if there are multiple Acaulosporaceae ASVs in koa, this
     # pools them all so that there is just one Acaulo relabun value for koa)
-    summarise(rel_abun_sum=round(sum(rel_abun), digits=3)) %>%
+    dplyr::summarise(rel_abun_sum=round(sum(rel_abun), digits=3)) %>%
     # swing table from long form to wide form, with families as rows and hosts
     # as columns
     dcast(Family ~ Host) %>%
@@ -167,7 +167,7 @@ write.csv(merged_unique_relabun, file="../outputs/unique_relabun_table.csv")
 
 write.csv(merged_shared_relabun, file="../outputs/shared_relabun_table.csv")
 
-write.csv(merged_soil_host_relabun, file="../outputs/shared_relabun_table.csv")
+write.csv(merged_soil_host_relabun, file="../outputs/soho_relabun_table.csv")
 
 ```
 

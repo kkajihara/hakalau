@@ -1,10 +1,9 @@
-"","Remnant A. koa","Restored A. koa","Remnant C. trigynum","Restored C. trigynum","Remnant Grass","Restored Grass","Remnant M. lessertiana","Restored M. lessertiana","Remnant M. polymorpha","Restored M. polymorpha","Remnant R. hawaiensis","Restored R. hawaiensis"
-"Acaulosporaceae",3.8,0.205,4.586,0.512,0.739,1,3.269,0.475,6.324,0.034,2.108,0.253
-"Ambisporaceae",0.133,0.326,0.213,0.051,0.528,1.272,0.688,0.681,0.199,0.141,0.112,0.092
-"Archaeosporaceae",3.711,8.429,1.592,5.868,5.273,7.932,6.6,6.481,3.761,4.649,4.616,7.293
-"Claroideoglomeraceae",1.129,1.943,0.138,0.942,0.265,3.145,0.956,1.499,0.22,2.017,0.761,1.823
-"Diversisporaceae",0.03,0.055,0,0.033,0,0.495,0.016,0,0,0.024,0.056,0.103
-"Gigasporaceae",1.785,0.196,1.14,0.235,0.488,0.117,2.903,0.76,7.064,0.373,0.959,0.313
-"Glomeraceae",79.429,78.436,80.119,84.001,72.675,75.49,59.372,64.198,70.941,85.613,80.87,76.625
-"Glomeromycotina",4.71,3.68,5.597,3.798,14.963,5.473,15.414,14.761,6.329,3.328,3.613,3.412
-"Paraglomeraceae",0.135,0.879,0.169,0.447,0.154,0.35,0.803,0.793,0.057,0.946,0.096,1.024
+"","Remnant A. koa","Restored A. koa","Remnant C. trigynum","Restored C. trigynum","Remnant Grass","Restored Grass","Remnant M. lessertiana","Restored M. lessertiana","Remnant M. polymorpha","Restored M. polymorpha","Remnant R. hawaiensis","Restored R. hawaiensis","Remnant Soil","Restored Soil"
+"Acaulosporaceae",0.41,0.057,1.063,0.036,0.392,0.018,0.69,0.18,1.075,0.004,0.086,0.006,1.054,0.076
+"Ambisporaceae",0.128,0.32,0.085,0.028,0.379,0.933,0.063,0.653,0.077,0.099,0.085,0.069,0.131,0.202
+"Archaeosporaceae",2.824,7.767,1.482,4.951,3.815,6.763,5.693,5.73,3.159,4.304,2.629,6.343,7.884,12.269
+"Claroideoglomeraceae",0.801,1.278,0.124,0.712,0.161,2.143,0.852,1.483,0.215,1.621,0.277,0.809,1.148,1.816
+"Gigasporaceae",1.173,0.121,0.978,0.204,0.451,0.074,1.798,0.686,3.694,0.163,0.58,0.186,2.04,0.456
+"Glomeraceae",69.48,73.777,79.699,81.295,63.019,69.329,57.351,61.378,68.601,82.787,62.599,69.794,23.972,29.96
+"Glomeromycotina",4.546,3.43,5.568,3.548,14.727,3.802,15.175,13.874,6.268,3.111,3.535,2.629,39.625,25.352
+"Paraglomeraceae",0.096,0.845,0.075,0.403,0.099,0.276,0.625,0.734,0.031,0.902,0.052,1.001,1.067,3.383

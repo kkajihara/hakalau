@@ -1,393 +1,393 @@
-"","ASV","Count","rel_abun","Family","Host","Total"
-"A. koa.1","ASV1007",2453,1.07385664692311,"Claroideoglomeraceae_core","A. koa",200092
-"A. koa.2","ASV1038",95,0.0415884147809604,"Archaeosporaceae_core","A. koa",200092
-"A. koa.3","ASV1135",549,0.240337260155234,"Archaeosporaceae_core","A. koa",200092
-"A. koa.4","ASV1155",79,0.0345840501862723,"Archaeosporaceae_core","A. koa",200092
-"A. koa.5","ASV1175",1237,0.541524937726821,"Archaeosporaceae","A. koa",200092
-"A. koa.6","ASV1176",3787,1.65784554500523,"Archaeosporaceae_core","A. koa",200092
-"A. koa.7","ASV1189",6141,2.68836268599871,"Archaeosporaceae_core","A. koa",200092
-"A. koa.8","ASV1195",3071,1.34440022939294,"Archaeosporaceae","A. koa",200092
-"A. koa.9","ASV1197",15,0.00656659180752006,"Archaeosporaceae","A. koa",200092
-"A. koa.10","ASV1199",101,0.0442150515039684,"Archaeosporaceae_core","A. koa",200092
-"A. koa.11","ASV1228",54,0.0236397305070722,"Archaeosporaceae","A. koa",200092
-"A. koa.12","ASV1233",311,0.136147336809249,"Archaeosporaceae_core","A. koa",200092
-"A. koa.13","ASV1240",342,0.149718293211457,"Archaeosporaceae","A. koa",200092
-"A. koa.14","ASV1250",78,0.0341462773991043,"Archaeosporaceae","A. koa",200092
-"A. koa.15","ASV1256",236,0.103314377771649,"Archaeosporaceae","A. koa",200092
-"A. koa.16","ASV1259",27,0.0118198652535361,"Archaeosporaceae","A. koa",200092
-"A. koa.17","ASV1268",220,0.0963100131769609,"Archaeosporaceae","A. koa",200092
-"A. koa.18","ASV1271",601,0.26310144508797,"Archaeosporaceae","A. koa",200092
-"A. koa.19","ASV1272",798,0.349342684160067,"Archaeosporaceae","A. koa",200092
-"A. koa.20","ASV1400",1568,0.68642773027943,"Glomeraceae","A. koa",200092
-"A. koa.21","ASV1428",18997,8.31636963783057,"Glomeraceae_core","A. koa",200092
-"A. koa.22","ASV1460",557,0.243839442452578,"Glomeraceae","A. koa",200092
-"A. koa.23","ASV1468",5669,2.48173393045542,"Glomeraceae","A. koa",200092
-"A. koa.24","ASV1476",2890,1.26516335491553,"Glomeraceae","A. koa",200092
-"A. koa.25","ASV1514",34107,14.9311164519391,"Glomeraceae_core","A. koa",200092
-"A. koa.26","ASV1534",1366,0.597997627271494,"Glomeraceae","A. koa",200092
-"A. koa.27","ASV1539",621,0.271856900831331,"Glomeraceae","A. koa",200092
-"A. koa.28","ASV1542",271,0.118636425322529,"Glomeraceae","A. koa",200092
-"A. koa.29","ASV1550",3190,1.39649519106593,"Glomeraceae","A. koa",200092
-"A. koa.30","ASV1571",3838,1.6801719571508,"Glomeraceae","A. koa",200092
-"A. koa.31","ASV1688",3600,1.57598203380481,"Glomeraceae","A. koa",200092
-"A. koa.32","ASV1689",3287,1.43895915142123,"Glomeraceae","A. koa",200092
-"A. koa.33","ASV1691",8828,3.86465816511914,"Glomeraceae","A. koa",200092
-"A. koa.34","ASV1700",6641,2.90724907958271,"Glomeraceae_core","A. koa",200092
-"A. koa.35","ASV1815",131,0.0573482351190085,"Acaulosporaceae_core","A. koa",200092
-"A. koa.36","ASV1871",276,0.120825289258369,"Gigasporaceae_core","A. koa",200092
-"A. koa.37","ASV1941",9050,3.96184372387044,"Glomeraceae","A. koa",200092
-"A. koa.38","ASV1946",7923,3.4684737927321,"Glomeraceae_core","A. koa",200092
-"A. koa.39","ASV1948",23184,10.149324297703,"Glomeraceae_core","A. koa",200092
-"A. koa.40","ASV1953",5864,2.56709962395318,"Glomeraceae_core","A. koa",200092
-"A. koa.41","ASV201",5,0.00218886393584002,"Glomeromycotina","A. koa",200092
-"A. koa.42","ASV2054",17113,7.49160570680605,"Glomeraceae_core","A. koa",200092
-"A. koa.43","ASV2055",1549,0.678110047323238,"Glomeraceae","A. koa",200092
-"A. koa.44","ASV2063",6942,3.03901868852028,"Glomeraceae_core","A. koa",200092
-"A. koa.45","ASV2072",1390,0.608504174163526,"Glomeraceae_core","A. koa",200092
-"A. koa.46","ASV208",108,0.0472794610141444,"Glomeromycotina_core","A. koa",200092
-"A. koa.47","ASV232",82,0.0358973685477763,"Glomeraceae","A. koa",200092
-"A. koa.48","ASV368",2817,1.23320594145227,"Glomeromycotina_core","A. koa",200092
-"A. koa.49","ASV37",1191,0.521387389517093,"Glomeromycotina_core","A. koa",200092
-"A. koa.50","ASV372",313,0.137022882383585,"Glomeromycotina_core","A. koa",200092
-"A. koa.51","ASV378",650,0.284552311659203,"Glomeromycotina_core","A. koa",200092
-"A. koa.52","ASV383",564,0.246903851962754,"Glomeromycotina_core","A. koa",200092
-"A. koa.53","ASV392",2188,0.957846858323593,"Glomeromycotina_core","A. koa",200092
-"A. koa.54","ASV736",730,0.319574134632643,"Ambisporaceae_core","A. koa",200092
-"A. koa.55","ASV926",1930,0.844901479234248,"Paraglomeraceae_core","A. koa",200092
-"A. koa.56","ASV979",467,0.204439891607458,"Claroideoglomeraceae_core","A. koa",200092
-"C. trigynum.1","ASV1007",961,0.582621980793481,"Claroideoglomeraceae_core","C. trigynum",150392
-"C. trigynum.2","ASV1038",154,0.0933650208555631,"Archaeosporaceae_core","C. trigynum",150392
-"C. trigynum.3","ASV1135",1052,0.637792220389951,"Archaeosporaceae_core","C. trigynum",150392
-"C. trigynum.4","ASV1155",244,0.14792899408284,"Archaeosporaceae_core","C. trigynum",150392
-"C. trigynum.5","ASV1175",165,0.100033950916675,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.6","ASV1176",1173,0.711150451062179,"Archaeosporaceae_core","C. trigynum",150392
-"C. trigynum.7","ASV1189",1788,1.08400426811524,"Archaeosporaceae_core","C. trigynum",150392
-"C. trigynum.8","ASV1195",901,0.546245998641963,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.9","ASV1197",1,0.000606266369191968,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.10","ASV1199",125,0.075783296148996,"Archaeosporaceae_core","C. trigynum",150392
-"C. trigynum.11","ASV1228",120,0.0727519643030362,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.12","ASV1233",849,0.514720147443981,"Archaeosporaceae_core","C. trigynum",150392
-"C. trigynum.13","ASV1240",208,0.126103404791929,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.14","ASV1250",16,0.00970026190707149,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.15","ASV1256",52,0.0315258511979823,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.16","ASV1259",191,0.115796876515666,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.17","ASV1268",206,0.124890872053545,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.18","ASV1271",441,0.267363468813658,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.19","ASV1272",481,0.291614123581337,"Archaeosporaceae","C. trigynum",150392
-"C. trigynum.20","ASV1400",1759,1.06642254340867,"Glomeraceae","C. trigynum",150392
-"C. trigynum.21","ASV1428",14579,8.8387573964497,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.22","ASV1460",279,0.169148317004559,"Glomeraceae","C. trigynum",150392
-"C. trigynum.23","ASV1468",3361,2.0376612668542,"Glomeraceae","C. trigynum",150392
-"C. trigynum.24","ASV1476",980,0.594141041808129,"Glomeraceae","C. trigynum",150392
-"C. trigynum.25","ASV1514",28239,17.120355999612,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.26","ASV1534",3863,2.34200698418857,"Glomeraceae","C. trigynum",150392
-"C. trigynum.27","ASV1539",419,0.254025608691435,"Glomeraceae","C. trigynum",150392
-"C. trigynum.28","ASV1542",168,0.101852750024251,"Glomeraceae","C. trigynum",150392
-"C. trigynum.29","ASV1550",1051,0.637185954020759,"Glomeraceae","C. trigynum",150392
-"C. trigynum.30","ASV1571",1167,0.707512852847027,"Glomeraceae","C. trigynum",150392
-"C. trigynum.31","ASV1688",1175,0.712362983800563,"Glomeraceae","C. trigynum",150392
-"C. trigynum.32","ASV1689",1118,0.67780580075662,"Glomeraceae","C. trigynum",150392
-"C. trigynum.33","ASV1691",2992,1.81394897662237,"Glomeraceae","C. trigynum",150392
-"C. trigynum.34","ASV1700",2306,1.39805024735668,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.35","ASV1815",59,0.0357697157823261,"Acaulosporaceae_core","C. trigynum",150392
-"C. trigynum.36","ASV1871",337,0.204311766417693,"Gigasporaceae_core","C. trigynum",150392
-"C. trigynum.37","ASV1941",9661,5.8571393927636,"Glomeraceae","C. trigynum",150392
-"C. trigynum.38","ASV1946",4793,2.9058347075371,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.39","ASV1948",11125,6.74471335726065,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.40","ASV1953",10437,6.32760209525657,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.41","ASV201",10,0.00606266369191968,"Glomeromycotina","C. trigynum",150392
-"C. trigynum.42","ASV2054",18278,11.0813366960908,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.43","ASV2055",740,0.448637113202057,"Glomeraceae","C. trigynum",150392
-"C. trigynum.44","ASV2063",12200,7.39644970414201,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.45","ASV2072",3379,2.04857406149966,"Glomeraceae_core","C. trigynum",150392
-"C. trigynum.46","ASV208",50,0.0303133184595984,"Glomeromycotina_core","C. trigynum",150392
-"C. trigynum.47","ASV232",23,0.0139441264914153,"Glomeraceae","C. trigynum",150392
-"C. trigynum.48","ASV368",1126,0.682655931710156,"Glomeromycotina_core","C. trigynum",150392
-"C. trigynum.49","ASV37",928,0.562615190610147,"Glomeromycotina_core","C. trigynum",150392
-"C. trigynum.50","ASV372",450,0.272819866136386,"Glomeromycotina_core","C. trigynum",150392
-"C. trigynum.51","ASV378",560,0.339509166747502,"Glomeromycotina_core","C. trigynum",150392
-"C. trigynum.52","ASV383",271,0.164298186051023,"Glomeromycotina_core","C. trigynum",150392
-"C. trigynum.53","ASV392",2457,1.48959646910467,"Glomeromycotina_core","C. trigynum",150392
-"C. trigynum.54","ASV736",46,0.0278882529828305,"Ambisporaceae_core","C. trigynum",150392
-"C. trigynum.55","ASV926",665,0.403167135512659,"Paraglomeraceae_core","C. trigynum",150392
-"C. trigynum.56","ASV979",213,0.129134736637889,"Claroideoglomeraceae_core","C. trigynum",150392
-"Grass.1","ASV1007",3581,1.75791700825205,"Claroideoglomeraceae_core","Grass",169763
-"Grass.2","ASV1038",398,0.19537865659992,"Archaeosporaceae_core","Grass",169763
-"Grass.3","ASV1135",660,0.323994757175747,"Archaeosporaceae_core","Grass",169763
-"Grass.4","ASV1155",59,0.0289631676869229,"Archaeosporaceae_core","Grass",169763
-"Grass.5","ASV1175",1144,0.561590912437962,"Archaeosporaceae","Grass",169763
-"Grass.6","ASV1176",3217,1.57922899065815,"Archaeosporaceae_core","Grass",169763
-"Grass.7","ASV1189",4606,2.26109068416893,"Archaeosporaceae_core","Grass",169763
-"Grass.8","ASV1195",1965,0.964620754318703,"Archaeosporaceae","Grass",169763
-"Grass.9","ASV1197",84,0.0412356963678224,"Archaeosporaceae","Grass",169763
-"Grass.10","ASV1199",38,0.0186542435949673,"Archaeosporaceae_core","Grass",169763
-"Grass.11","ASV1228",9,0.00441811032512383,"Archaeosporaceae","Grass",169763
-"Grass.12","ASV1233",82,0.0402538940733504,"Archaeosporaceae_core","Grass",169763
-"Grass.13","ASV1240",107,0.05252642275425,"Archaeosporaceae","Grass",169763
-"Grass.14","ASV1250",127,0.0623444456989696,"Archaeosporaceae","Grass",169763
-"Grass.15","ASV1256",57,0.0279813653924509,"Archaeosporaceae","Grass",169763
-"Grass.16","ASV1259",304,0.149233948759738,"Archaeosporaceae","Grass",169763
-"Grass.17","ASV1268",247,0.121252583367287,"Archaeosporaceae","Grass",169763
-"Grass.18","ASV1271",234,0.11487086845322,"Archaeosporaceae","Grass",169763
-"Grass.19","ASV1272",438,0.21501470248936,"Archaeosporaceae","Grass",169763
-"Grass.20","ASV1400",1274,0.62540806157864,"Glomeraceae","Grass",169763
-"Grass.21","ASV1428",12220,5.99881201922369,"Glomeraceae_core","Grass",169763
-"Grass.22","ASV1460",849,0.416775074003348,"Glomeraceae","Grass",169763
-"Grass.23","ASV1468",8772,4.30618486355403,"Glomeraceae","Grass",169763
-"Grass.24","ASV1476",4154,2.03920336561827,"Glomeraceae","Grass",169763
-"Grass.25","ASV1514",34085,16.7323656035384,"Glomeraceae_core","Grass",169763
-"Grass.26","ASV1534",3078,1.51099373119235,"Glomeraceae","Grass",169763
-"Grass.27","ASV1539",3820,1.87524238244145,"Glomeraceae","Grass",169763
-"Grass.28","ASV1542",2356,1.15656310288797,"Glomeraceae","Grass",169763
-"Grass.29","ASV1550",860,0.422174986622944,"Glomeraceae","Grass",169763
-"Grass.30","ASV1571",932,0.457519869223934,"Glomeraceae","Grass",169763
-"Grass.31","ASV1688",1104,0.541954866548523,"Glomeraceae","Grass",169763
-"Grass.32","ASV1689",687,0.337249088151119,"Glomeraceae","Grass",169763
-"Grass.33","ASV1691",2091,1.02647429887044,"Glomeraceae","Grass",169763
-"Grass.34","ASV1700",1745,0.856622501926787,"Glomeraceae_core","Grass",169763
-"Grass.35","ASV1815",37,0.0181633424477313,"Acaulosporaceae_core","Grass",169763
-"Grass.36","ASV1871",150,0.0736351720853972,"Gigasporaceae_core","Grass",169763
-"Grass.37","ASV1941",1378,0.676461780891182,"Glomeraceae","Grass",169763
-"Grass.38","ASV1946",11111,5.45440264693899,"Glomeraceae_core","Grass",169763
-"Grass.39","ASV1948",24855,12.2013480145503,"Glomeraceae_core","Grass",169763
-"Grass.40","ASV1953",4919,2.41474274325379,"Glomeraceae_core","Grass",169763
-"Grass.41","ASV201",18,0.00883622065024766,"Glomeromycotina","Grass",169763
-"Grass.42","ASV2054",11224,5.50987447657665,"Glomeraceae_core","Grass",169763
-"Grass.43","ASV2055",2377,1.16687202697993,"Glomeraceae","Grass",169763
-"Grass.44","ASV2063",5781,2.83789953217121,"Glomeraceae_core","Grass",169763
-"Grass.45","ASV2072",1522,0.747151546093163,"Glomeraceae_core","Grass",169763
-"Grass.46","ASV208",2596,1.27437937822461,"Glomeromycotina_core","Grass",169763
-"Grass.47","ASV232",34,0.0166906390060234,"Glomeraceae","Grass",169763
-"Grass.48","ASV368",1318,0.647007712057023,"Glomeromycotina_core","Grass",169763
-"Grass.49","ASV37",726,0.356394232893322,"Glomeromycotina_core","Grass",169763
-"Grass.50","ASV372",267,0.131070606312007,"Glomeromycotina_core","Grass",169763
-"Grass.51","ASV378",548,0.269013828685318,"Glomeromycotina_core","Grass",169763
-"Grass.52","ASV383",575,0.282268159660689,"Glomeromycotina_core","Grass",169763
-"Grass.53","ASV392",1696,0.832568345712224,"Glomeromycotina_core","Grass",169763
-"Grass.54","ASV736",1900,0.932712179748364,"Ambisporaceae_core","Grass",169763
-"Grass.55","ASV926",562,0.275886444746621,"Paraglomeraceae_core","Grass",169763
-"Grass.56","ASV979",785,0.385357400580245,"Claroideoglomeraceae_core","Grass",169763
-"M. polymorpha.1","ASV1007",1962,1.30105238028926,"Claroideoglomeraceae_core","M. polymorpha",140231
-"M. polymorpha.2","ASV1038",120,0.0795750691308413,"Archaeosporaceae_core","M. polymorpha",140231
-"M. polymorpha.3","ASV1135",1254,0.831559472417292,"Archaeosporaceae_core","M. polymorpha",140231
-"M. polymorpha.4","ASV1155",96,0.063660055304673,"Archaeosporaceae_core","M. polymorpha",140231
-"M. polymorpha.5","ASV1175",102,0.0676388087612151,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.6","ASV1176",681,0.451588517317524,"Archaeosporaceae_core","M. polymorpha",140231
-"M. polymorpha.7","ASV1189",2081,1.37996432384401,"Archaeosporaceae_core","M. polymorpha",140231
-"M. polymorpha.8","ASV1195",838,0.555699232763708,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.9","ASV1197",55,0.0364719066849689,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.10","ASV1199",77,0.0510606693589565,"Archaeosporaceae_core","M. polymorpha",140231
-"M. polymorpha.11","ASV1228",65,0.0431031624458724,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.12","ASV1233",49,0.0324931532284269,"Archaeosporaceae_core","M. polymorpha",140231
-"M. polymorpha.13","ASV1240",178,0.118036352544081,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.14","ASV1250",19,0.0125993859457165,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.15","ASV1256",8,0.00530500460872275,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.16","ASV1259",65,0.0431031624458724,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.17","ASV1268",101,0.0669756831851248,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.18","ASV1271",325,0.215515812229362,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.19","ASV1272",377,0.24999834218606,"Archaeosporaceae","M. polymorpha",140231
-"M. polymorpha.20","ASV1400",761,0.504638563404752,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.21","ASV1428",7927,5.25659644166816,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.22","ASV1460",1600,1.06100092174455,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.23","ASV1468",3277,2.17306251284806,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.24","ASV1476",1619,1.07360030769027,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.25","ASV1514",44619,29.5880000795751,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.26","ASV1534",269,0.178380779968303,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.27","ASV1539",190,0.125993859457165,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.28","ASV1542",170,0.112731347935359,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.29","ASV1550",890,0.590181762720406,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.30","ASV1571",986,0.653841818025079,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.31","ASV1688",1019,0.675724962036061,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.32","ASV1689",899,0.596149892905219,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.33","ASV1691",2512,1.66577144713894,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.34","ASV1700",1987,1.31763051969151,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.35","ASV1815",6,0.00397875345654207,"Acaulosporaceae_core","M. polymorpha",140231
-"M. polymorpha.36","ASV1871",246,0.163128891718225,"Gigasporaceae_core","M. polymorpha",140231
-"M. polymorpha.37","ASV1941",6066,4.02251974456403,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.38","ASV1946",5367,3.55899496687688,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.39","ASV1948",11664,7.73469671951777,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.40","ASV1953",6885,4.56561959138202,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.41","ASV201",4,0.00265250230436138,"Glomeromycotina","M. polymorpha",140231
-"M. polymorpha.42","ASV2054",11924,7.90710936930126,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.43","ASV2055",1535,1.01789775929868,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.44","ASV2063",9672,6.41375057194581,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.45","ASV2072",2934,1.94561044024907,"Glomeraceae_core","M. polymorpha",140231
-"M. polymorpha.46","ASV208",24,0.0159150138261683,"Glomeromycotina_core","M. polymorpha",140231
-"M. polymorpha.47","ASV232",71,0.0470819159024144,"Glomeraceae","M. polymorpha",140231
-"M. polymorpha.48","ASV368",1431,0.948932699385283,"Glomeromycotina_core","M. polymorpha",140231
-"M. polymorpha.49","ASV37",289,0.191643291490109,"Glomeromycotina_core","M. polymorpha",140231
-"M. polymorpha.50","ASV372",241,0.159813263837773,"Glomeromycotina_core","M. polymorpha",140231
-"M. polymorpha.51","ASV378",386,0.255966472370873,"Glomeromycotina_core","M. polymorpha",140231
-"M. polymorpha.52","ASV383",429,0.284480872142758,"Glomeromycotina_core","M. polymorpha",140231
-"M. polymorpha.53","ASV392",1888,1.25198108765857,"Glomeromycotina_core","M. polymorpha",140231
-"M. polymorpha.54","ASV736",149,0.0988057108374613,"Ambisporaceae_core","M. polymorpha",140231
-"M. polymorpha.55","ASV926",1360,0.901850783482868,"Paraglomeraceae_core","M. polymorpha",140231
-"M. polymorpha.56","ASV979",482,0.319626527675546,"Claroideoglomeraceae_core","M. polymorpha",140231
-"M. lessertiana.1","ASV1007",1241,1.2063769806552,"Claroideoglomeraceae_core","M. lessertiana",87150
-"M. lessertiana.2","ASV1038",461,0.448138427141052,"Archaeosporaceae_core","M. lessertiana",87150
-"M. lessertiana.3","ASV1135",2454,2.38553514144065,"Archaeosporaceae_core","M. lessertiana",87150
-"M. lessertiana.4","ASV1155",54,0.05249343832021,"Archaeosporaceae_core","M. lessertiana",87150
-"M. lessertiana.5","ASV1175",199,0.19344804121707,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.6","ASV1176",1314,1.27734033245844,"Archaeosporaceae_core","M. lessertiana",87150
-"M. lessertiana.7","ASV1189",351,0.341207349081365,"Archaeosporaceae_core","M. lessertiana",87150
-"M. lessertiana.8","ASV1195",75,0.0729075532225139,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.9","ASV1197",77,0.0748517546417809,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.10","ASV1199",116,0.112763682317488,"Archaeosporaceae_core","M. lessertiana",87150
-"M. lessertiana.11","ASV1228",24,0.0233304170312044,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.12","ASV1233",83,0.080684358899582,"Archaeosporaceae_core","M. lessertiana",87150
-"M. lessertiana.13","ASV1240",118,0.114707883736755,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.14","ASV1250",1,0.000972100709633518,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.15","ASV1256",55,0.0534655390298435,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.16","ASV1259",46,0.0447166326431418,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.17","ASV1268",92,0.0894332652862837,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.18","ASV1271",170,0.165257120637698,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.19","ASV1272",204,0.198308544765238,"Archaeosporaceae","M. lessertiana",87150
-"M. lessertiana.20","ASV1400",174,0.169145523476232,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.21","ASV1428",4395,4.27238261883931,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.22","ASV1460",541,0.525906483911733,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.23","ASV1468",1520,1.47759307864295,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.24","ASV1476",1557,1.51356080489939,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.25","ASV1514",10870,10.5667347137163,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.26","ASV1534",162,0.15748031496063,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.27","ASV1539",21,0.0204141149023039,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.28","ASV1542",40,0.0388840283853407,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.29","ASV1550",567,0.551181102362205,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.30","ASV1571",715,0.695052007387965,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.31","ASV1688",797,0.774764265577914,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.32","ASV1689",512,0.497715563332361,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.33","ASV1691",1749,1.70020414114902,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.34","ASV1700",1272,1.23651210265384,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.35","ASV1815",185,0.179838631282201,"Acaulosporaceae_core","M. lessertiana",87150
-"M. lessertiana.36","ASV1871",706,0.686303101001264,"Gigasporaceae_core","M. lessertiana",87150
-"M. lessertiana.37","ASV1941",592,0.575483620103043,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.38","ASV1946",3057,2.97171186934966,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.39","ASV1948",8597,8.35714980071936,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.40","ASV1953",7008,6.81248177311169,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.41","ASV201",65,0.0631865461261787,"Glomeromycotina","M. lessertiana",87150
-"M. lessertiana.42","ASV2054",8343,8.11023622047244,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.43","ASV2055",532,0.517157577525032,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.44","ASV2063",8090,7.86429474093516,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.45","ASV2072",1826,1.7750558957908,"Glomeraceae_core","M. lessertiana",87150
-"M. lessertiana.46","ASV208",198,0.192475940507437,"Glomeromycotina_core","M. lessertiana",87150
-"M. lessertiana.47","ASV232",203,0.197336444055604,"Glomeraceae","M. lessertiana",87150
-"M. lessertiana.48","ASV368",3776,3.67065227957616,"Glomeromycotina_core","M. lessertiana",87150
-"M. lessertiana.49","ASV37",1147,1.11499951394965,"Glomeromycotina_core","M. lessertiana",87150
-"M. lessertiana.50","ASV372",1529,1.48634198502965,"Glomeromycotina_core","M. lessertiana",87150
-"M. lessertiana.51","ASV378",894,0.869058034412365,"Glomeromycotina_core","M. lessertiana",87150
-"M. lessertiana.52","ASV383",1015,0.986682220278021,"Glomeromycotina_core","M. lessertiana",87150
-"M. lessertiana.53","ASV392",5648,5.49042480801011,"Glomeromycotina_core","M. lessertiana",87150
-"M. lessertiana.54","ASV736",672,0.653251676873724,"Ambisporaceae_core","M. lessertiana",87150
-"M. lessertiana.55","ASV926",755,0.733936035773306,"Paraglomeraceae_core","M. lessertiana",87150
-"M. lessertiana.56","ASV979",285,0.277048702245553,"Claroideoglomeraceae_core","M. lessertiana",87150
-"R. hawaiensis.1","ASV1007",1485,0.703568061326498,"Claroideoglomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.2","ASV1038",99,0.0469045374217665,"Archaeosporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.3","ASV1135",4432,2.09980717023504,"Archaeosporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.4","ASV1155",843,0.399399242894436,"Archaeosporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.5","ASV1175",1122,0.531584757446688,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.6","ASV1176",3304,1.56537971355067,"Archaeosporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.7","ASV1189",820,0.388502229149986,"Archaeosporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.8","ASV1195",295,0.139766045852739,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.9","ASV1197",10,0.0047378320628047,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.10","ASV1199",4,0.00189513282512188,"Archaeosporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.11","ASV1228",1,0.00047378320628047,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.12","ASV1233",102,0.048325887040608,"Archaeosporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.13","ASV1240",242,0.114655535919874,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.14","ASV1250",83,0.039324006121279,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.15","ASV1256",71,0.0336386076459134,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.16","ASV1259",442,0.209412177175968,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.17","ASV1268",575,0.27242534361127,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.18","ASV1271",443,0.209885960382248,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.19","ASV1272",501,0.237365386346516,"Archaeosporaceae","R. hawaiensis",170621
-"R. hawaiensis.20","ASV1400",435,0.206095694732005,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.21","ASV1428",5905,2.79768983308618,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.22","ASV1460",970,0.459569710092056,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.23","ASV1468",9222,4.3692287283185,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.24","ASV1476",5498,2.60486006813003,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.25","ASV1514",26974,12.7798282062094,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.26","ASV1534",176,0.0833858443053628,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.27","ASV1539",146,0.0691723481169487,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.28","ASV1542",86,0.0407453557401204,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.29","ASV1550",215,0.101863389350301,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.30","ASV1571",354,0.167719255023286,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.31","ASV1688",587,0.278110742086636,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.32","ASV1689",230,0.108970137444508,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.33","ASV1691",831,0.393713844419071,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.34","ASV1700",615,0.291376671862489,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.35","ASV1815",12,0.00568539847536564,"Acaulosporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.36","ASV1871",393,0.186196800068225,"Gigasporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.37","ASV1941",9305,4.40855273443978,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.38","ASV1946",13479,6.38612383745446,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.39","ASV1948",33152,15.7068608546101,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.40","ASV1953",5708,2.70435454144892,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.41","ASV201",39,0.0184775450449383,"Glomeromycotina","R. hawaiensis",170621
-"R. hawaiensis.42","ASV2054",21106,9.9996683517556,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.43","ASV2055",2564,1.21478014090313,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.44","ASV2063",7689,3.64291907309053,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.45","ASV2072",2020,0.95704207668655,"Glomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.46","ASV208",80,0.0379026565024376,"Glomeromycotina_core","R. hawaiensis",170621
-"R. hawaiensis.47","ASV232",45,0.0213202442826212,"Glomeraceae","R. hawaiensis",170621
-"R. hawaiensis.48","ASV368",1338,0.633921930003269,"Glomeromycotina_core","R. hawaiensis",170621
-"R. hawaiensis.49","ASV37",459,0.217466491682736,"Glomeromycotina_core","R. hawaiensis",170621
-"R. hawaiensis.50","ASV372",314,0.148767926772068,"Glomeromycotina_core","R. hawaiensis",170621
-"R. hawaiensis.51","ASV378",731,0.346335523791024,"Glomeromycotina_core","R. hawaiensis",170621
-"R. hawaiensis.52","ASV383",396,0.187618149687066,"Glomeromycotina_core","R. hawaiensis",170621
-"R. hawaiensis.53","ASV392",2191,1.03805900496051,"Glomeromycotina_core","R. hawaiensis",170621
-"R. hawaiensis.54","ASV736",146,0.0691723481169487,"Ambisporaceae_core","R. hawaiensis",170621
-"R. hawaiensis.55","ASV926",2113,1.00110391487063,"Paraglomeraceae_core","R. hawaiensis",170621
-"R. hawaiensis.56","ASV979",223,0.105653655000545,"Claroideoglomeraceae_core","R. hawaiensis",170621
-"Soil.1","ASV1007",7403,1.63185680748586,"Claroideoglomeraceae_core","Soil",333499
-"Soil.2","ASV1038",193,0.0425433424077768,"Archaeosporaceae_core","Soil",333499
-"Soil.3","ASV1135",11503,2.53562729386869,"Archaeosporaceae_core","Soil",333499
-"Soil.4","ASV1155",1220,0.268926827655377,"Archaeosporaceae_core","Soil",333499
-"Soil.5","ASV1175",2242,0.494208153773242,"Archaeosporaceae","Soil",333499
-"Soil.6","ASV1176",9099,2.00570918429203,"Archaeosporaceae_core","Soil",333499
-"Soil.7","ASV1189",14685,3.23704136403214,"Archaeosporaceae_core","Soil",333499
-"Soil.8","ASV1195",6878,1.51613009886367,"Archaeosporaceae","Soil",333499
-"Soil.9","ASV1197",213,0.0469519789267174,"Archaeosporaceae","Soil",333499
-"Soil.10","ASV1199",127,0.0279948418952728,"Archaeosporaceae_core","Soil",333499
-"Soil.11","ASV1228",197,0.043425069711565,"Archaeosporaceae","Soil",333499
-"Soil.12","ASV1233",4980,1.09775049321621,"Archaeosporaceae_core","Soil",333499
-"Soil.13","ASV1240",517,0.113963254014615,"Archaeosporaceae","Soil",333499
-"Soil.14","ASV1250",29,0.00639252295246388,"Archaeosporaceae","Soil",333499
-"Soil.15","ASV1256",487,0.107350299236204,"Archaeosporaceae","Soil",333499
-"Soil.16","ASV1259",349,0.0769307072555136,"Archaeosporaceae","Soil",333499
-"Soil.17","ASV1268",814,0.179431506320883,"Archaeosporaceae","Soil",333499
-"Soil.18","ASV1271",721,0.158931346507809,"Archaeosporaceae","Soil",333499
-"Soil.19","ASV1272",1405,0.309706715455577,"Archaeosporaceae","Soil",333499
-"Soil.20","ASV1400",3103,0.683999955913635,"Glomeraceae","Soil",333499
-"Soil.21","ASV1428",43899,9.67673672724868,"Glomeraceae_core","Soil",333499
-"Soil.22","ASV1460",424,0.0934630942015408,"Glomeraceae","Soil",333499
-"Soil.23","ASV1468",4428,0.97607212529345,"Glomeraceae","Soil",333499
-"Soil.24","ASV1476",3241,0.714419547894325,"Glomeraceae","Soil",333499
-"Soil.25","ASV1514",5892,1.2987843184799,"Glomeraceae_core","Soil",333499
-"Soil.26","ASV1534",1244,0.274217191478106,"Glomeraceae","Soil",333499
-"Soil.27","ASV1539",1196,0.263636463832648,"Glomeraceae","Soil",333499
-"Soil.28","ASV1542",733,0.161576528419173,"Glomeraceae","Soil",333499
-"Soil.29","ASV1550",382,0.0842049575117656,"Glomeraceae","Soil",333499
-"Soil.30","ASV1571",557,0.122780527052496,"Glomeraceae","Soil",333499
-"Soil.31","ASV1688",631,0.139092482172576,"Glomeraceae","Soil",333499
-"Soil.32","ASV1689",146,0.0321830465882664,"Glomeraceae","Soil",333499
-"Soil.33","ASV1691",1419,0.312792761018836,"Glomeraceae","Soil",333499
-"Soil.34","ASV1700",952,0.209851098301573,"Glomeraceae_core","Soil",333499
-"Soil.35","ASV1815",345,0.0760489799517254,"Acaulosporaceae_core","Soil",333499
-"Soil.36","ASV1871",2067,0.455632584232512,"Gigasporaceae_core","Soil",333499
-"Soil.37","ASV1941",6797,1.49827512096196,"Glomeraceae","Soil",333499
-"Soil.38","ASV1946",7422,1.63604501217886,"Glomeraceae_core","Soil",333499
-"Soil.39","ASV1948",28884,6.36695286065402,"Glomeraceae_core","Soil",333499
-"Soil.40","ASV1953",3775,0.832130142950039,"Glomeraceae_core","Soil",333499
-"Soil.41","ASV201",61,0.0134463413827688,"Glomeromycotina","Soil",333499
-"Soil.42","ASV2054",13988,3.08340038134706,"Glomeraceae_core","Soil",333499
-"Soil.43","ASV2055",1593,0.351147898733619,"Glomeraceae","Soil",333499
-"Soil.44","ASV2063",3799,0.837420506772768,"Glomeraceae_core","Soil",333499
-"Soil.45","ASV2072",489,0.107791162888098,"Glomeraceae_core","Soil",333499
-"Soil.46","ASV208",570,0.125646140789807,"Glomeromycotina_core","Soil",333499
-"Soil.47","ASV232",922,0.203238143523162,"Glomeraceae","Soil",333499
-"Soil.48","ASV368",64084,14.1261531339895,"Glomeromycotina_core","Soil",333499
-"Soil.49","ASV37",7597,1.67462058171959,"Glomeromycotina_core","Soil",333499
-"Soil.50","ASV372",6928,1.52715169016103,"Glomeromycotina_core","Soil",333499
-"Soil.51","ASV378",3355,0.739548776052286,"Glomeromycotina_core","Soil",333499
-"Soil.52","ASV383",1987,0.437998038156749,"Glomeromycotina_core","Soil",333499
-"Soil.53","ASV392",30428,6.70729959991624,"Glomeromycotina_core","Soil",333499
-"Soil.54","ASV736",915,0.201695120741533,"Ambisporaceae_core","Soil",333499
-"Soil.55","ASV926",15347,3.38296723280907,"Paraglomeraceae_core","Soil",333499
-"Soil.56","ASV979",837,0.184501438317664,"Claroideoglomeraceae_core","Soil",333499
+"","ASV","Count","rel_abun","Family","Host","Total","In Both Habitats"
+"A. koa.1","ASV1007",2453,1.07385664692311,"Claroideoglomeraceae","A. koa",200092,"Yes"
+"A. koa.2","ASV1038",95,0.0415884147809604,"Archaeosporaceae","A. koa",200092,"Yes"
+"A. koa.3","ASV1135",549,0.240337260155234,"Archaeosporaceae","A. koa",200092,"Yes"
+"A. koa.4","ASV1155",79,0.0345840501862723,"Archaeosporaceae","A. koa",200092,"Yes"
+"A. koa.5","ASV1175",1237,0.541524937726821,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.6","ASV1176",3787,1.65784554500523,"Archaeosporaceae","A. koa",200092,"Yes"
+"A. koa.7","ASV1189",6141,2.68836268599871,"Archaeosporaceae","A. koa",200092,"Yes"
+"A. koa.8","ASV1195",3071,1.34440022939294,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.9","ASV1197",15,0.00656659180752006,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.10","ASV1199",101,0.0442150515039684,"Archaeosporaceae","A. koa",200092,"Yes"
+"A. koa.11","ASV1228",54,0.0236397305070722,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.12","ASV1233",311,0.136147336809249,"Archaeosporaceae","A. koa",200092,"Yes"
+"A. koa.13","ASV1240",342,0.149718293211457,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.14","ASV1250",78,0.0341462773991043,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.15","ASV1256",236,0.103314377771649,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.16","ASV1259",27,0.0118198652535361,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.17","ASV1268",220,0.0963100131769609,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.18","ASV1271",601,0.26310144508797,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.19","ASV1272",798,0.349342684160067,"Archaeosporaceae","A. koa",200092,"No"
+"A. koa.20","ASV1400",1568,0.68642773027943,"Glomeraceae","A. koa",200092,"No"
+"A. koa.21","ASV1428",18997,8.31636963783057,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.22","ASV1460",557,0.243839442452578,"Glomeraceae","A. koa",200092,"No"
+"A. koa.23","ASV1468",5669,2.48173393045542,"Glomeraceae","A. koa",200092,"No"
+"A. koa.24","ASV1476",2890,1.26516335491553,"Glomeraceae","A. koa",200092,"No"
+"A. koa.25","ASV1514",34107,14.9311164519391,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.26","ASV1534",1366,0.597997627271494,"Glomeraceae","A. koa",200092,"No"
+"A. koa.27","ASV1539",621,0.271856900831331,"Glomeraceae","A. koa",200092,"No"
+"A. koa.28","ASV1542",271,0.118636425322529,"Glomeraceae","A. koa",200092,"No"
+"A. koa.29","ASV1550",3190,1.39649519106593,"Glomeraceae","A. koa",200092,"No"
+"A. koa.30","ASV1571",3838,1.6801719571508,"Glomeraceae","A. koa",200092,"No"
+"A. koa.31","ASV1688",3600,1.57598203380481,"Glomeraceae","A. koa",200092,"No"
+"A. koa.32","ASV1689",3287,1.43895915142123,"Glomeraceae","A. koa",200092,"No"
+"A. koa.33","ASV1691",8828,3.86465816511914,"Glomeraceae","A. koa",200092,"No"
+"A. koa.34","ASV1700",6641,2.90724907958271,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.35","ASV1815",131,0.0573482351190085,"Acaulosporaceae","A. koa",200092,"Yes"
+"A. koa.36","ASV1871",276,0.120825289258369,"Gigasporaceae","A. koa",200092,"Yes"
+"A. koa.37","ASV1941",9050,3.96184372387044,"Glomeraceae","A. koa",200092,"No"
+"A. koa.38","ASV1946",7923,3.4684737927321,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.39","ASV1948",23184,10.149324297703,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.40","ASV1953",5864,2.56709962395318,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.41","ASV201",5,0.00218886393584002,"Glomeromycotina","A. koa",200092,"No"
+"A. koa.42","ASV2054",17113,7.49160570680605,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.43","ASV2055",1549,0.678110047323238,"Glomeraceae","A. koa",200092,"No"
+"A. koa.44","ASV2063",6942,3.03901868852028,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.45","ASV2072",1390,0.608504174163526,"Glomeraceae","A. koa",200092,"Yes"
+"A. koa.46","ASV208",108,0.0472794610141444,"Glomeromycotina","A. koa",200092,"Yes"
+"A. koa.47","ASV232",82,0.0358973685477763,"Glomeraceae","A. koa",200092,"No"
+"A. koa.48","ASV368",2817,1.23320594145227,"Glomeromycotina","A. koa",200092,"Yes"
+"A. koa.49","ASV37",1191,0.521387389517093,"Glomeromycotina","A. koa",200092,"Yes"
+"A. koa.50","ASV372",313,0.137022882383585,"Glomeromycotina","A. koa",200092,"Yes"
+"A. koa.51","ASV378",650,0.284552311659203,"Glomeromycotina","A. koa",200092,"Yes"
+"A. koa.52","ASV383",564,0.246903851962754,"Glomeromycotina","A. koa",200092,"Yes"
+"A. koa.53","ASV392",2188,0.957846858323593,"Glomeromycotina","A. koa",200092,"Yes"
+"A. koa.54","ASV736",730,0.319574134632643,"Ambisporaceae","A. koa",200092,"Yes"
+"A. koa.55","ASV926",1930,0.844901479234248,"Paraglomeraceae","A. koa",200092,"Yes"
+"A. koa.56","ASV979",467,0.204439891607458,"Claroideoglomeraceae","A. koa",200092,"Yes"
+"C. trigynum.1","ASV1007",961,0.582621980793481,"Claroideoglomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.2","ASV1038",154,0.0933650208555631,"Archaeosporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.3","ASV1135",1052,0.637792220389951,"Archaeosporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.4","ASV1155",244,0.14792899408284,"Archaeosporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.5","ASV1175",165,0.100033950916675,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.6","ASV1176",1173,0.711150451062179,"Archaeosporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.7","ASV1189",1788,1.08400426811524,"Archaeosporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.8","ASV1195",901,0.546245998641963,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.9","ASV1197",1,0.000606266369191968,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.10","ASV1199",125,0.075783296148996,"Archaeosporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.11","ASV1228",120,0.0727519643030362,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.12","ASV1233",849,0.514720147443981,"Archaeosporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.13","ASV1240",208,0.126103404791929,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.14","ASV1250",16,0.00970026190707149,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.15","ASV1256",52,0.0315258511979823,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.16","ASV1259",191,0.115796876515666,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.17","ASV1268",206,0.124890872053545,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.18","ASV1271",441,0.267363468813658,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.19","ASV1272",481,0.291614123581337,"Archaeosporaceae","C. trigynum",150392,"No"
+"C. trigynum.20","ASV1400",1759,1.06642254340867,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.21","ASV1428",14579,8.8387573964497,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.22","ASV1460",279,0.169148317004559,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.23","ASV1468",3361,2.0376612668542,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.24","ASV1476",980,0.594141041808129,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.25","ASV1514",28239,17.120355999612,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.26","ASV1534",3863,2.34200698418857,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.27","ASV1539",419,0.254025608691435,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.28","ASV1542",168,0.101852750024251,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.29","ASV1550",1051,0.637185954020759,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.30","ASV1571",1167,0.707512852847027,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.31","ASV1688",1175,0.712362983800563,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.32","ASV1689",1118,0.67780580075662,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.33","ASV1691",2992,1.81394897662237,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.34","ASV1700",2306,1.39805024735668,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.35","ASV1815",59,0.0357697157823261,"Acaulosporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.36","ASV1871",337,0.204311766417693,"Gigasporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.37","ASV1941",9661,5.8571393927636,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.38","ASV1946",4793,2.9058347075371,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.39","ASV1948",11125,6.74471335726065,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.40","ASV1953",10437,6.32760209525657,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.41","ASV201",10,0.00606266369191968,"Glomeromycotina","C. trigynum",150392,"No"
+"C. trigynum.42","ASV2054",18278,11.0813366960908,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.43","ASV2055",740,0.448637113202057,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.44","ASV2063",12200,7.39644970414201,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.45","ASV2072",3379,2.04857406149966,"Glomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.46","ASV208",50,0.0303133184595984,"Glomeromycotina","C. trigynum",150392,"Yes"
+"C. trigynum.47","ASV232",23,0.0139441264914153,"Glomeraceae","C. trigynum",150392,"No"
+"C. trigynum.48","ASV368",1126,0.682655931710156,"Glomeromycotina","C. trigynum",150392,"Yes"
+"C. trigynum.49","ASV37",928,0.562615190610147,"Glomeromycotina","C. trigynum",150392,"Yes"
+"C. trigynum.50","ASV372",450,0.272819866136386,"Glomeromycotina","C. trigynum",150392,"Yes"
+"C. trigynum.51","ASV378",560,0.339509166747502,"Glomeromycotina","C. trigynum",150392,"Yes"
+"C. trigynum.52","ASV383",271,0.164298186051023,"Glomeromycotina","C. trigynum",150392,"Yes"
+"C. trigynum.53","ASV392",2457,1.48959646910467,"Glomeromycotina","C. trigynum",150392,"Yes"
+"C. trigynum.54","ASV736",46,0.0278882529828305,"Ambisporaceae","C. trigynum",150392,"Yes"
+"C. trigynum.55","ASV926",665,0.403167135512659,"Paraglomeraceae","C. trigynum",150392,"Yes"
+"C. trigynum.56","ASV979",213,0.129134736637889,"Claroideoglomeraceae","C. trigynum",150392,"Yes"
+"Grass.1","ASV1007",3581,1.75791700825205,"Claroideoglomeraceae","Grass",169763,"Yes"
+"Grass.2","ASV1038",398,0.19537865659992,"Archaeosporaceae","Grass",169763,"Yes"
+"Grass.3","ASV1135",660,0.323994757175747,"Archaeosporaceae","Grass",169763,"Yes"
+"Grass.4","ASV1155",59,0.0289631676869229,"Archaeosporaceae","Grass",169763,"Yes"
+"Grass.5","ASV1175",1144,0.561590912437962,"Archaeosporaceae","Grass",169763,"No"
+"Grass.6","ASV1176",3217,1.57922899065815,"Archaeosporaceae","Grass",169763,"Yes"
+"Grass.7","ASV1189",4606,2.26109068416893,"Archaeosporaceae","Grass",169763,"Yes"
+"Grass.8","ASV1195",1965,0.964620754318703,"Archaeosporaceae","Grass",169763,"No"
+"Grass.9","ASV1197",84,0.0412356963678224,"Archaeosporaceae","Grass",169763,"No"
+"Grass.10","ASV1199",38,0.0186542435949673,"Archaeosporaceae","Grass",169763,"Yes"
+"Grass.11","ASV1228",9,0.00441811032512383,"Archaeosporaceae","Grass",169763,"No"
+"Grass.12","ASV1233",82,0.0402538940733504,"Archaeosporaceae","Grass",169763,"Yes"
+"Grass.13","ASV1240",107,0.05252642275425,"Archaeosporaceae","Grass",169763,"No"
+"Grass.14","ASV1250",127,0.0623444456989696,"Archaeosporaceae","Grass",169763,"No"
+"Grass.15","ASV1256",57,0.0279813653924509,"Archaeosporaceae","Grass",169763,"No"
+"Grass.16","ASV1259",304,0.149233948759738,"Archaeosporaceae","Grass",169763,"No"
+"Grass.17","ASV1268",247,0.121252583367287,"Archaeosporaceae","Grass",169763,"No"
+"Grass.18","ASV1271",234,0.11487086845322,"Archaeosporaceae","Grass",169763,"No"
+"Grass.19","ASV1272",438,0.21501470248936,"Archaeosporaceae","Grass",169763,"No"
+"Grass.20","ASV1400",1274,0.62540806157864,"Glomeraceae","Grass",169763,"No"
+"Grass.21","ASV1428",12220,5.99881201922369,"Glomeraceae","Grass",169763,"Yes"
+"Grass.22","ASV1460",849,0.416775074003348,"Glomeraceae","Grass",169763,"No"
+"Grass.23","ASV1468",8772,4.30618486355403,"Glomeraceae","Grass",169763,"No"
+"Grass.24","ASV1476",4154,2.03920336561827,"Glomeraceae","Grass",169763,"No"
+"Grass.25","ASV1514",34085,16.7323656035384,"Glomeraceae","Grass",169763,"Yes"
+"Grass.26","ASV1534",3078,1.51099373119235,"Glomeraceae","Grass",169763,"No"
+"Grass.27","ASV1539",3820,1.87524238244145,"Glomeraceae","Grass",169763,"No"
+"Grass.28","ASV1542",2356,1.15656310288797,"Glomeraceae","Grass",169763,"No"
+"Grass.29","ASV1550",860,0.422174986622944,"Glomeraceae","Grass",169763,"No"
+"Grass.30","ASV1571",932,0.457519869223934,"Glomeraceae","Grass",169763,"No"
+"Grass.31","ASV1688",1104,0.541954866548523,"Glomeraceae","Grass",169763,"No"
+"Grass.32","ASV1689",687,0.337249088151119,"Glomeraceae","Grass",169763,"No"
+"Grass.33","ASV1691",2091,1.02647429887044,"Glomeraceae","Grass",169763,"No"
+"Grass.34","ASV1700",1745,0.856622501926787,"Glomeraceae","Grass",169763,"Yes"
+"Grass.35","ASV1815",37,0.0181633424477313,"Acaulosporaceae","Grass",169763,"Yes"
+"Grass.36","ASV1871",150,0.0736351720853972,"Gigasporaceae","Grass",169763,"Yes"
+"Grass.37","ASV1941",1378,0.676461780891182,"Glomeraceae","Grass",169763,"No"
+"Grass.38","ASV1946",11111,5.45440264693899,"Glomeraceae","Grass",169763,"Yes"
+"Grass.39","ASV1948",24855,12.2013480145503,"Glomeraceae","Grass",169763,"Yes"
+"Grass.40","ASV1953",4919,2.41474274325379,"Glomeraceae","Grass",169763,"Yes"
+"Grass.41","ASV201",18,0.00883622065024766,"Glomeromycotina","Grass",169763,"No"
+"Grass.42","ASV2054",11224,5.50987447657665,"Glomeraceae","Grass",169763,"Yes"
+"Grass.43","ASV2055",2377,1.16687202697993,"Glomeraceae","Grass",169763,"No"
+"Grass.44","ASV2063",5781,2.83789953217121,"Glomeraceae","Grass",169763,"Yes"
+"Grass.45","ASV2072",1522,0.747151546093163,"Glomeraceae","Grass",169763,"Yes"
+"Grass.46","ASV208",2596,1.27437937822461,"Glomeromycotina","Grass",169763,"Yes"
+"Grass.47","ASV232",34,0.0166906390060234,"Glomeraceae","Grass",169763,"No"
+"Grass.48","ASV368",1318,0.647007712057023,"Glomeromycotina","Grass",169763,"Yes"
+"Grass.49","ASV37",726,0.356394232893322,"Glomeromycotina","Grass",169763,"Yes"
+"Grass.50","ASV372",267,0.131070606312007,"Glomeromycotina","Grass",169763,"Yes"
+"Grass.51","ASV378",548,0.269013828685318,"Glomeromycotina","Grass",169763,"Yes"
+"Grass.52","ASV383",575,0.282268159660689,"Glomeromycotina","Grass",169763,"Yes"
+"Grass.53","ASV392",1696,0.832568345712224,"Glomeromycotina","Grass",169763,"Yes"
+"Grass.54","ASV736",1900,0.932712179748364,"Ambisporaceae","Grass",169763,"Yes"
+"Grass.55","ASV926",562,0.275886444746621,"Paraglomeraceae","Grass",169763,"Yes"
+"Grass.56","ASV979",785,0.385357400580245,"Claroideoglomeraceae","Grass",169763,"Yes"
+"M. polymorpha.1","ASV1007",1962,1.30105238028926,"Claroideoglomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.2","ASV1038",120,0.0795750691308413,"Archaeosporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.3","ASV1135",1254,0.831559472417292,"Archaeosporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.4","ASV1155",96,0.063660055304673,"Archaeosporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.5","ASV1175",102,0.0676388087612151,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.6","ASV1176",681,0.451588517317524,"Archaeosporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.7","ASV1189",2081,1.37996432384401,"Archaeosporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.8","ASV1195",838,0.555699232763708,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.9","ASV1197",55,0.0364719066849689,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.10","ASV1199",77,0.0510606693589565,"Archaeosporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.11","ASV1228",65,0.0431031624458724,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.12","ASV1233",49,0.0324931532284269,"Archaeosporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.13","ASV1240",178,0.118036352544081,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.14","ASV1250",19,0.0125993859457165,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.15","ASV1256",8,0.00530500460872275,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.16","ASV1259",65,0.0431031624458724,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.17","ASV1268",101,0.0669756831851248,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.18","ASV1271",325,0.215515812229362,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.19","ASV1272",377,0.24999834218606,"Archaeosporaceae","M. polymorpha",140231,"No"
+"M. polymorpha.20","ASV1400",761,0.504638563404752,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.21","ASV1428",7927,5.25659644166816,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.22","ASV1460",1600,1.06100092174455,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.23","ASV1468",3277,2.17306251284806,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.24","ASV1476",1619,1.07360030769027,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.25","ASV1514",44619,29.5880000795751,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.26","ASV1534",269,0.178380779968303,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.27","ASV1539",190,0.125993859457165,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.28","ASV1542",170,0.112731347935359,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.29","ASV1550",890,0.590181762720406,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.30","ASV1571",986,0.653841818025079,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.31","ASV1688",1019,0.675724962036061,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.32","ASV1689",899,0.596149892905219,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.33","ASV1691",2512,1.66577144713894,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.34","ASV1700",1987,1.31763051969151,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.35","ASV1815",6,0.00397875345654207,"Acaulosporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.36","ASV1871",246,0.163128891718225,"Gigasporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.37","ASV1941",6066,4.02251974456403,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.38","ASV1946",5367,3.55899496687688,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.39","ASV1948",11664,7.73469671951777,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.40","ASV1953",6885,4.56561959138202,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.41","ASV201",4,0.00265250230436138,"Glomeromycotina","M. polymorpha",140231,"No"
+"M. polymorpha.42","ASV2054",11924,7.90710936930126,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.43","ASV2055",1535,1.01789775929868,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.44","ASV2063",9672,6.41375057194581,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.45","ASV2072",2934,1.94561044024907,"Glomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.46","ASV208",24,0.0159150138261683,"Glomeromycotina","M. polymorpha",140231,"Yes"
+"M. polymorpha.47","ASV232",71,0.0470819159024144,"Glomeraceae","M. polymorpha",140231,"No"
+"M. polymorpha.48","ASV368",1431,0.948932699385283,"Glomeromycotina","M. polymorpha",140231,"Yes"
+"M. polymorpha.49","ASV37",289,0.191643291490109,"Glomeromycotina","M. polymorpha",140231,"Yes"
+"M. polymorpha.50","ASV372",241,0.159813263837773,"Glomeromycotina","M. polymorpha",140231,"Yes"
+"M. polymorpha.51","ASV378",386,0.255966472370873,"Glomeromycotina","M. polymorpha",140231,"Yes"
+"M. polymorpha.52","ASV383",429,0.284480872142758,"Glomeromycotina","M. polymorpha",140231,"Yes"
+"M. polymorpha.53","ASV392",1888,1.25198108765857,"Glomeromycotina","M. polymorpha",140231,"Yes"
+"M. polymorpha.54","ASV736",149,0.0988057108374613,"Ambisporaceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.55","ASV926",1360,0.901850783482868,"Paraglomeraceae","M. polymorpha",140231,"Yes"
+"M. polymorpha.56","ASV979",482,0.319626527675546,"Claroideoglomeraceae","M. polymorpha",140231,"Yes"
+"M. lessertiana.1","ASV1007",1241,1.2063769806552,"Claroideoglomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.2","ASV1038",461,0.448138427141052,"Archaeosporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.3","ASV1135",2454,2.38553514144065,"Archaeosporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.4","ASV1155",54,0.05249343832021,"Archaeosporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.5","ASV1175",199,0.19344804121707,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.6","ASV1176",1314,1.27734033245844,"Archaeosporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.7","ASV1189",351,0.341207349081365,"Archaeosporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.8","ASV1195",75,0.0729075532225139,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.9","ASV1197",77,0.0748517546417809,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.10","ASV1199",116,0.112763682317488,"Archaeosporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.11","ASV1228",24,0.0233304170312044,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.12","ASV1233",83,0.080684358899582,"Archaeosporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.13","ASV1240",118,0.114707883736755,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.14","ASV1250",1,0.000972100709633518,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.15","ASV1256",55,0.0534655390298435,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.16","ASV1259",46,0.0447166326431418,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.17","ASV1268",92,0.0894332652862837,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.18","ASV1271",170,0.165257120637698,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.19","ASV1272",204,0.198308544765238,"Archaeosporaceae","M. lessertiana",87150,"No"
+"M. lessertiana.20","ASV1400",174,0.169145523476232,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.21","ASV1428",4395,4.27238261883931,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.22","ASV1460",541,0.525906483911733,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.23","ASV1468",1520,1.47759307864295,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.24","ASV1476",1557,1.51356080489939,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.25","ASV1514",10870,10.5667347137163,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.26","ASV1534",162,0.15748031496063,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.27","ASV1539",21,0.0204141149023039,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.28","ASV1542",40,0.0388840283853407,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.29","ASV1550",567,0.551181102362205,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.30","ASV1571",715,0.695052007387965,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.31","ASV1688",797,0.774764265577914,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.32","ASV1689",512,0.497715563332361,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.33","ASV1691",1749,1.70020414114902,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.34","ASV1700",1272,1.23651210265384,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.35","ASV1815",185,0.179838631282201,"Acaulosporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.36","ASV1871",706,0.686303101001264,"Gigasporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.37","ASV1941",592,0.575483620103043,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.38","ASV1946",3057,2.97171186934966,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.39","ASV1948",8597,8.35714980071936,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.40","ASV1953",7008,6.81248177311169,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.41","ASV201",65,0.0631865461261787,"Glomeromycotina","M. lessertiana",87150,"No"
+"M. lessertiana.42","ASV2054",8343,8.11023622047244,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.43","ASV2055",532,0.517157577525032,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.44","ASV2063",8090,7.86429474093516,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.45","ASV2072",1826,1.7750558957908,"Glomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.46","ASV208",198,0.192475940507437,"Glomeromycotina","M. lessertiana",87150,"Yes"
+"M. lessertiana.47","ASV232",203,0.197336444055604,"Glomeraceae","M. lessertiana",87150,"No"
+"M. lessertiana.48","ASV368",3776,3.67065227957616,"Glomeromycotina","M. lessertiana",87150,"Yes"
+"M. lessertiana.49","ASV37",1147,1.11499951394965,"Glomeromycotina","M. lessertiana",87150,"Yes"
+"M. lessertiana.50","ASV372",1529,1.48634198502965,"Glomeromycotina","M. lessertiana",87150,"Yes"
+"M. lessertiana.51","ASV378",894,0.869058034412365,"Glomeromycotina","M. lessertiana",87150,"Yes"
+"M. lessertiana.52","ASV383",1015,0.986682220278021,"Glomeromycotina","M. lessertiana",87150,"Yes"
+"M. lessertiana.53","ASV392",5648,5.49042480801011,"Glomeromycotina","M. lessertiana",87150,"Yes"
+"M. lessertiana.54","ASV736",672,0.653251676873724,"Ambisporaceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.55","ASV926",755,0.733936035773306,"Paraglomeraceae","M. lessertiana",87150,"Yes"
+"M. lessertiana.56","ASV979",285,0.277048702245553,"Claroideoglomeraceae","M. lessertiana",87150,"Yes"
+"R. hawaiensis.1","ASV1007",1485,0.703568061326498,"Claroideoglomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.2","ASV1038",99,0.0469045374217665,"Archaeosporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.3","ASV1135",4432,2.09980717023504,"Archaeosporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.4","ASV1155",843,0.399399242894436,"Archaeosporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.5","ASV1175",1122,0.531584757446688,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.6","ASV1176",3304,1.56537971355067,"Archaeosporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.7","ASV1189",820,0.388502229149986,"Archaeosporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.8","ASV1195",295,0.139766045852739,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.9","ASV1197",10,0.0047378320628047,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.10","ASV1199",4,0.00189513282512188,"Archaeosporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.11","ASV1228",1,0.00047378320628047,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.12","ASV1233",102,0.048325887040608,"Archaeosporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.13","ASV1240",242,0.114655535919874,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.14","ASV1250",83,0.039324006121279,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.15","ASV1256",71,0.0336386076459134,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.16","ASV1259",442,0.209412177175968,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.17","ASV1268",575,0.27242534361127,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.18","ASV1271",443,0.209885960382248,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.19","ASV1272",501,0.237365386346516,"Archaeosporaceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.20","ASV1400",435,0.206095694732005,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.21","ASV1428",5905,2.79768983308618,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.22","ASV1460",970,0.459569710092056,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.23","ASV1468",9222,4.3692287283185,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.24","ASV1476",5498,2.60486006813003,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.25","ASV1514",26974,12.7798282062094,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.26","ASV1534",176,0.0833858443053628,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.27","ASV1539",146,0.0691723481169487,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.28","ASV1542",86,0.0407453557401204,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.29","ASV1550",215,0.101863389350301,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.30","ASV1571",354,0.167719255023286,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.31","ASV1688",587,0.278110742086636,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.32","ASV1689",230,0.108970137444508,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.33","ASV1691",831,0.393713844419071,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.34","ASV1700",615,0.291376671862489,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.35","ASV1815",12,0.00568539847536564,"Acaulosporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.36","ASV1871",393,0.186196800068225,"Gigasporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.37","ASV1941",9305,4.40855273443978,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.38","ASV1946",13479,6.38612383745446,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.39","ASV1948",33152,15.7068608546101,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.40","ASV1953",5708,2.70435454144892,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.41","ASV201",39,0.0184775450449383,"Glomeromycotina","R. hawaiensis",170621,"No"
+"R. hawaiensis.42","ASV2054",21106,9.9996683517556,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.43","ASV2055",2564,1.21478014090313,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.44","ASV2063",7689,3.64291907309053,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.45","ASV2072",2020,0.95704207668655,"Glomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.46","ASV208",80,0.0379026565024376,"Glomeromycotina","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.47","ASV232",45,0.0213202442826212,"Glomeraceae","R. hawaiensis",170621,"No"
+"R. hawaiensis.48","ASV368",1338,0.633921930003269,"Glomeromycotina","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.49","ASV37",459,0.217466491682736,"Glomeromycotina","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.50","ASV372",314,0.148767926772068,"Glomeromycotina","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.51","ASV378",731,0.346335523791024,"Glomeromycotina","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.52","ASV383",396,0.187618149687066,"Glomeromycotina","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.53","ASV392",2191,1.03805900496051,"Glomeromycotina","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.54","ASV736",146,0.0691723481169487,"Ambisporaceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.55","ASV926",2113,1.00110391487063,"Paraglomeraceae","R. hawaiensis",170621,"Yes"
+"R. hawaiensis.56","ASV979",223,0.105653655000545,"Claroideoglomeraceae","R. hawaiensis",170621,"Yes"
+"Soil.1","ASV1007",7403,1.63185680748586,"Claroideoglomeraceae","Soil",333499,"Yes"
+"Soil.2","ASV1038",193,0.0425433424077768,"Archaeosporaceae","Soil",333499,"Yes"
+"Soil.3","ASV1135",11503,2.53562729386869,"Archaeosporaceae","Soil",333499,"Yes"
+"Soil.4","ASV1155",1220,0.268926827655377,"Archaeosporaceae","Soil",333499,"Yes"
+"Soil.5","ASV1175",2242,0.494208153773242,"Archaeosporaceae","Soil",333499,"No"
+"Soil.6","ASV1176",9099,2.00570918429203,"Archaeosporaceae","Soil",333499,"Yes"
+"Soil.7","ASV1189",14685,3.23704136403214,"Archaeosporaceae","Soil",333499,"Yes"
+"Soil.8","ASV1195",6878,1.51613009886367,"Archaeosporaceae","Soil",333499,"No"
+"Soil.9","ASV1197",213,0.0469519789267174,"Archaeosporaceae","Soil",333499,"No"
+"Soil.10","ASV1199",127,0.0279948418952728,"Archaeosporaceae","Soil",333499,"Yes"
+"Soil.11","ASV1228",197,0.043425069711565,"Archaeosporaceae","Soil",333499,"No"
+"Soil.12","ASV1233",4980,1.09775049321621,"Archaeosporaceae","Soil",333499,"Yes"
+"Soil.13","ASV1240",517,0.113963254014615,"Archaeosporaceae","Soil",333499,"No"
+"Soil.14","ASV1250",29,0.00639252295246388,"Archaeosporaceae","Soil",333499,"No"
+"Soil.15","ASV1256",487,0.107350299236204,"Archaeosporaceae","Soil",333499,"No"
+"Soil.16","ASV1259",349,0.0769307072555136,"Archaeosporaceae","Soil",333499,"No"
+"Soil.17","ASV1268",814,0.179431506320883,"Archaeosporaceae","Soil",333499,"No"
+"Soil.18","ASV1271",721,0.158931346507809,"Archaeosporaceae","Soil",333499,"No"
+"Soil.19","ASV1272",1405,0.309706715455577,"Archaeosporaceae","Soil",333499,"No"
+"Soil.20","ASV1400",3103,0.683999955913635,"Glomeraceae","Soil",333499,"No"
+"Soil.21","ASV1428",43899,9.67673672724868,"Glomeraceae","Soil",333499,"Yes"
+"Soil.22","ASV1460",424,0.0934630942015408,"Glomeraceae","Soil",333499,"No"
+"Soil.23","ASV1468",4428,0.97607212529345,"Glomeraceae","Soil",333499,"No"
+"Soil.24","ASV1476",3241,0.714419547894325,"Glomeraceae","Soil",333499,"No"
+"Soil.25","ASV1514",5892,1.2987843184799,"Glomeraceae","Soil",333499,"Yes"
+"Soil.26","ASV1534",1244,0.274217191478106,"Glomeraceae","Soil",333499,"No"
+"Soil.27","ASV1539",1196,0.263636463832648,"Glomeraceae","Soil",333499,"No"
+"Soil.28","ASV1542",733,0.161576528419173,"Glomeraceae","Soil",333499,"No"
+"Soil.29","ASV1550",382,0.0842049575117656,"Glomeraceae","Soil",333499,"No"
+"Soil.30","ASV1571",557,0.122780527052496,"Glomeraceae","Soil",333499,"No"
+"Soil.31","ASV1688",631,0.139092482172576,"Glomeraceae","Soil",333499,"No"
+"Soil.32","ASV1689",146,0.0321830465882664,"Glomeraceae","Soil",333499,"No"
+"Soil.33","ASV1691",1419,0.312792761018836,"Glomeraceae","Soil",333499,"No"
+"Soil.34","ASV1700",952,0.209851098301573,"Glomeraceae","Soil",333499,"Yes"
+"Soil.35","ASV1815",345,0.0760489799517254,"Acaulosporaceae","Soil",333499,"Yes"
+"Soil.36","ASV1871",2067,0.455632584232512,"Gigasporaceae","Soil",333499,"Yes"
+"Soil.37","ASV1941",6797,1.49827512096196,"Glomeraceae","Soil",333499,"No"
+"Soil.38","ASV1946",7422,1.63604501217886,"Glomeraceae","Soil",333499,"Yes"
+"Soil.39","ASV1948",28884,6.36695286065402,"Glomeraceae","Soil",333499,"Yes"
+"Soil.40","ASV1953",3775,0.832130142950039,"Glomeraceae","Soil",333499,"Yes"
+"Soil.41","ASV201",61,0.0134463413827688,"Glomeromycotina","Soil",333499,"No"
+"Soil.42","ASV2054",13988,3.08340038134706,"Glomeraceae","Soil",333499,"Yes"
+"Soil.43","ASV2055",1593,0.351147898733619,"Glomeraceae","Soil",333499,"No"
+"Soil.44","ASV2063",3799,0.837420506772768,"Glomeraceae","Soil",333499,"Yes"
+"Soil.45","ASV2072",489,0.107791162888098,"Glomeraceae","Soil",333499,"Yes"
+"Soil.46","ASV208",570,0.125646140789807,"Glomeromycotina","Soil",333499,"Yes"
+"Soil.47","ASV232",922,0.203238143523162,"Glomeraceae","Soil",333499,"No"
+"Soil.48","ASV368",64084,14.1261531339895,"Glomeromycotina","Soil",333499,"Yes"
+"Soil.49","ASV37",7597,1.67462058171959,"Glomeromycotina","Soil",333499,"Yes"
+"Soil.50","ASV372",6928,1.52715169016103,"Glomeromycotina","Soil",333499,"Yes"
+"Soil.51","ASV378",3355,0.739548776052286,"Glomeromycotina","Soil",333499,"Yes"
+"Soil.52","ASV383",1987,0.437998038156749,"Glomeromycotina","Soil",333499,"Yes"
+"Soil.53","ASV392",30428,6.70729959991624,"Glomeromycotina","Soil",333499,"Yes"
+"Soil.54","ASV736",915,0.201695120741533,"Ambisporaceae","Soil",333499,"Yes"
+"Soil.55","ASV926",15347,3.38296723280907,"Paraglomeraceae","Soil",333499,"Yes"
+"Soil.56","ASV979",837,0.184501438317664,"Claroideoglomeraceae","Soil",333499,"Yes"

@@ -1,0 +1,269 @@
+---
+title: "ASV Richness Boxplot"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(tibble)
+
+```
+
+## Read in necessary files
+
+```{r}
+
+unrarefied_otu_table <- readRDS("../intermediate_files/rds/unrarefied_otu_table.rds")
+
+# a vector of host names + soil
+host_names <- readRDS("../intermediate_files/rds/host_names.rds")
+
+```
+
+## Data Prep + Boxplot
+
+```{r}
+
+# I want to count richness per community, so how many unique ASVs show up in each soil or
+# host community in each habitat
+
+# I think I need a long form data frame
+
+otus <- unrarefied_otu_table != 0
+
+otus <- t(otus)
+
+otus <- as.data.frame(otus)
+
+otus$richness <- rowSums(otus)
+
+otus <- rownames_to_column(otus, "SampleID")
+
+# take sample name column and ASV count column
+rich_df <- otus[, c(1, ncol(otus))]
+
+
+# use grepl on the sample name column to determine habitats
+# make a new column with the habitat name
+rich_df$Habitat <-  
+  ifelse(grepl("AK", rich_df$SampleID), "Restored", ifelse(grepl("RO", rich_df$SampleID), "Remnant", "Other"))
+
+
+# make a new column with the host, also using grepl on the sample name
+# host names should only be for roots, all other samples are soil
+rich_df <- rich_df %>%
+  mutate(Host = case_when(
+    grepl("AC", SampleID) & grepl(".r", SampleID) ~ "A. koa",
+    grepl("CH", SampleID) & grepl(".r", SampleID) ~ "C. trigynum",
+    grepl("GR", SampleID) & grepl(".r", SampleID) ~ "Grass",
+    grepl("ME", SampleID) & grepl(".r", SampleID) ~ "M. polymorpha",
+    grepl("MY", SampleID) & grepl(".r", SampleID) ~ "M. lessertiana",
+    grepl("RU", SampleID) & grepl(".r", SampleID) ~ "R. hawaiensis",
+    grepl(".s", SampleID) ~ "Soil",
+    TRUE ~ NA_character_))
+
+rich_df <- rich_df[!is.na(rich_df$Host),]
+
+p <- ggplot(rich_df, aes(x=Habitat, y=richness, fill = Host)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2") +
+  # insert line break
+  scale_x_discrete(labels = c("Remnant\nForest",
+                              "Restored\nForest")) +
+  theme(axis.text.x = element_text(size=12, colour="black"), 
+        legend.box.margin = margin(0,0,0,-0.2, "cm"),
+        legend.key = element_rect(fill="white"),
+        panel.grid.major=element_blank(), panel.grid.minor=element_blank(),
+        panel.background=element_blank(), 
+        axis.line = element_line(colour="black"),
+        axis.title.x = element_text(size=14, 
+                                    margin = margin(10,0,0,0)),
+        axis.title.y = element_text(size=14, 
+                                    margin = margin(0,10,0,0)),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=12, colour="black", face="italic"),
+        axis.text.y = element_text(size=12, colour="black"),
+        plot.margin = unit(c(0.5,0,0,0.5), "cm")) +
+  scale_y_continuous(limits = c(0,60), breaks = seq(0, 60, by = 10)) +
+  coord_cartesian(ylim = c(0,55)) +
+  labs(x = "Habitat Type", y = "ASV Richness", fill="Host")
+
+# Export
+ggsave("../figures/boxplot.png", width = 7, height=5)
+
+
+```
+
+
+## Richness Difference Tests
+
+ANOVA + TukeyHSD for between hosts, within habitats
+
+```{r}
+
+
+ro_host_richness <- rich_df[rich_df$Habitat == "Remnant",]
+ak_host_richness <- rich_df[rich_df$Habitat == "Restored",]
+
+
+ro_richness_aov <- aov(formula = richness ~ Host, 
+                       data = ro_host_richness)
+
+ak_richness_aov <- aov(formula = richness ~ Host, 
+                       data = ak_host_richness)
+
+
+ro_rich_tuk <- TukeyHSD(ro_richness_aov)
+
+ro_tukey <- as.data.frame(ro_rich_tuk$Host)
+
+ro_tukey <- rownames_to_column("Host")
+
+#ro_tukey <- filter(ro_tukey, `p adj` < 0.05) %>% rownames_to_column("Host")
+
+ro_tukey <- ro_tukey[,c(1,2,5)]
+
+#ro_tukey$Habitat <- paste("Remnant")
+
+
+ak_rich_tuk <- TukeyHSD(ak_richness_aov)
+
+ak_tukey <- as.data.frame(ak_rich_tuk$Host)
+
+ak_tukey <- rownames_to_column("Host")
+
+#ak_tukey <- filter(ak_tukey, `p adj` < 0.05) %>% rownames_to_column("Host")
+
+ak_tukey <- ak_tukey[,c(1,2,5)]
+
+#ak_tukey$Habitat <- paste("Restored")
+
+
+#tukey_values <- rbind(ro_tukey, ak_tukey)
+
+#tukey_values <- tukey_values[, c(3,1,2)]
+
+#tukey_values$`p adj` <- round(tukey_values$`p adj`, digits = 3)
+
+tukey_table <- merge(ro_tukey, ak_tukey, by = "Host")
+
+tukey_table[,2:5] <- round(tukey_table[,2:5], digits = 3)
+
+write.csv(tukey_table, "../outputs/host_richness_tukey_table.csv")
+
+
+```
+
+
+T-tests for within hosts between habitats
+
+```{r}
+
+#ttest_df <- dcast(rich_df, SampleID + Habitat ~ Host, value.var = "richness")
+
+#ttest_df[is.na(ttest_df)] <- 0
+
+ro_ttest_df <- subset(rich_df, Habitat=="Remnant")
+ak_ttest_df <- subset(rich_df, Habitat=="Restored")
+
+
+t_list_3 <- list()
+
+for (a_host in host_names) {
+  
+  ro_host <- subset(ro_ttest_df, Host==a_host)
+  ak_host <- subset(ak_ttest_df, Host==a_host)
+
+  t_result <- t.test(ro_host$richness, ak_host$richness)
+  
+  t_list_3[[a_host]] <- t_result
+  
+}
+
+ro_sd_list <- list()
+ak_sd_list <- list()
+
+for (a_host in host_names) {
+  
+  ro_host <- subset(ro_ttest_df, Host==a_host)
+  ak_host <- subset(ak_ttest_df, Host==a_host)
+  
+  ro_sd_list[[a_host]] <- sd(ro_host$richness)
+  ak_sd_list[[a_host]] <- sd(ak_host$richness)
+  
+}
+
+ro_sd_vals <- unlist(ro_sd_list, use.names = F)
+ak_sd_vals <- unlist(ak_sd_list, use.names = F)
+
+stdev_df <- data.frame(host_names,
+                       ro_sd = unlist(ro_sd_list, use.names = F),
+                       ak_sd = unlist(ak_sd_list, use.names = F))
+
+
+ttest_pvals <- sapply(t_list_3, function(x) x$p.value)
+
+
+### correcting P-values for multiple comparisons
+library(multtest)  
+
+# Set seed for repeatability
+set.seed(20210907)
+  
+adj_p_values = mt.rawp2adjp(ttest_pvals)
+    
+adj_p_mat = adj_p_values$adjp[, c("rawp", "BH")]
+  
+adj_p_ordered = adj_p_mat[,2][order(adj_p_values$index)]
+  
+
+richness_t_table <- data.frame(
+  "Host" = host_names,
+  "Remnant Forest" = sapply(t_list_3, function(x) x$estimate[[1]]),
+  "Restored Forest" = sapply(t_list_3, function(x) x$estimate[[2]]),
+  "t" = sapply(t_list_3, function(x) x$statistic[[1]]),
+  "df" = sapply(t_list_3, function(x) x$parameter[[1]]),
+  "Adj. P" = adj_p_ordered
+)
+
+richness_t_table[,2:6] <- apply(richness_t_table[,2:6], 
+                               c(1,2), 
+                               function(x) round(x, digits=3))
+
+row.names(richness_t_table) <- NULL
+
+write.csv(richness_t_table, "../outputs/richness_t_table_adjusted_p.csv")
+
+
+```
+
+
+T-test for Average richness across all hosts between habitats
+
+```{r}
+
+ro_rich_means <- ro_host_richness %>% group_by(Host) %>% summarise(mean = mean(richness))
+
+ak_rich_means <- ak_host_richness %>% group_by(Host) %>% summarise(mean = mean(richness))
+
+
+all_hosts_ttest <- t.test(ro_rich_means$mean, ak_rich_means$mean)
+
+
+```
+
+
+
+
+
+
+

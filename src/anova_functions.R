@@ -66,7 +66,7 @@ otu_table_prep <- function (a_host, physeq_list, ro_grouping, ak_grouping) {
 
 
 
-anova_prep <- function (a_host, relabun_df) {
+stats_prep <- function (a_host, relabun_df) {
   
   host_df <- relabun_df[[a_host]] %>%
     group_by(SampleID, Habitat, Family, Host) %>%
@@ -80,16 +80,25 @@ anova_prep <- function (a_host, relabun_df) {
 }
 
 
+
 # function to run linear models on families' relative abundance within host data tables
 # Habitat is the independent variable
-run_lm <- function(family_name, lm_abun) {
+run_lm_test <- function(family_name, lm_abun) {
   
   while (family_name %in% names(lm_abun)) {
     
     formula_call <- as.formula(paste0(family_name, " ~ Habitat"))
     
-    lm_out <- lm(formula_call,
-                 data = lm_abun)
+    
+    ro <- lm_abun$family_name[lm_abun$Habitat=="RO" & 
+                                is.na(lm_abun$family_name) == F]
+    ak <- lm_abun$family_name[lm_abun$Habitat=="AK" &
+                                is.na(lm_abun$family_name) == F]
+    
+    lm_out <- ifelse(length(ro) > 2 & length(ak) > 2,
+                lm(formula_call, data = lm_abun),
+                NA)
+    
     return(lm_out)
   }
   

@@ -153,7 +153,7 @@ append_core <- function (a_host, list_of_dfs) {
 
   # append "_core" to a family name if the ASV is present in both communities
   list_of_dfs[[a_host]] <- mutate(list_of_dfs[[a_host]],
-                        Core = ifelse(ASV %in% core_unique_names,
+                        "In Both Habitats" = ifelse(ASV %in% core_unique_names,
                                         paste("Yes"),
                                         paste("No")))
 
@@ -228,11 +228,6 @@ ro_unique_bar <- make_barplot(ro_unique_rbind,
                                  8,
                                  colors_ten_families,
                                  "\nRemnant Forest") +
-  aes(alpha = Core) +
-  # add shading for core ASVs
-  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
-  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No")) + 
-  # add ASV count bar labels
   geom_text(data=ro_unique_bar_sums, 
             aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
 
@@ -241,10 +236,6 @@ ak_unique_bar <- make_barplot(ak_unique_rbind,
                                  8,
                                  colors_ten_families,
                                  "\nRestored Forest") +
-  aes(alpha = Core) +
-  # add shading for core ASVs
-  guides(fill = guide_legend(order = 1), alpha = guide_legend(order = 2)) +
-  scale_alpha_discrete(range = c(0.5, 1), breaks = c("Yes", "No")) + 
   # add ASV count bar labels
   geom_text(data=ak_unique_bar_sums, 
             aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
@@ -253,17 +244,19 @@ ak_unique_bar <- make_barplot(ak_unique_rbind,
 combined_unique_bar <- two_barplots(ro_unique_bar, ak_unique_bar)
 
 # export
-ggsave("../figures/core_unique_asv_barplot.png", width = 11.5, height = 7)
+ggsave("../figures/core_unique_asv_barplot2.png", width = 11.5, height = 7)
 
 
 
 # arguments for the noncore (non-shaded) barplot are the same as above
 
 ro_unique_bar_noncore <- noncore_barplot(ro_unique_rbind,
-                                 ro_unique_bar_sums,
                                  8,
                                  colors_ten_families,
-                                 "\nRemnant Forest")
+                                 "\nRemnant Forest") +
+  geom_text(data=ro_unique_bar_sums, 
+            aes(x=Host, y=abund, label=count), inherit.aes = F, vjust=-1)
+
 
 ak_unique_bar_noncore <- noncore_barplot(ak_unique_rbind,
                                  ak_unique_bar_sums,
