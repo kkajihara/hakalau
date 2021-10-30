@@ -1,0 +1,238 @@
+---
+title: "Abundance-Occupancy Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(ggplot2)
+library(ggpubr)
+library(dplyr)
+library(phyloseq)
+
+```
+
+## Read in necessary files
+
+```{r}
+
+# Single unrarefied physeq object (not yet subset by host/soil)
+unrarefied_physeq <- readRDS("../intermediate_files/rds/unrarefied_physeq.rds")
+
+# vector of core soil-host ASV names
+core_soil_host_names <- readRDS("../intermediate_files/rds/core_soil_host_names.rds")
+
+# lists of data frames used for relative abundance (7 list items - 6 hosts and soil)
+# for the host- and soil-specific ASVs
+ro_unique_asvs <- readRDS("../intermediate_files/rds/ro_unique_asvs.rds")
+ak_unique_asvs <- readRDS("../intermediate_files/rds/ak_unique_asvs.rds")
+
+```
+
+
+## Data prep
+
+```{r}
+
+# Extract otu table from physeq object and convert to data frame
+# rows are ASVs, columns are samples
+unrarefied_otu_table <- as.data.frame(otu_table(unrarefied_physeq))
+
+# saveRDS(unrarefied_otu_table, "../intermediate_files/rds/unrarefied_otu_table.rds")
+
+
+# we want to regress ASV abundance over the number of samples each ASV is
+# found in for the entire data set. This is to see whether there is a positive 
+# relationship between occupancy and abundance.
+
+# the reason why we use the unrarefied physeq object is because the rarefied ones 
+#have been subset by host and merged by plot - sample name data was lost
+
+# sum the rows to get ASV abundance across all samples, and count the number 
+# of nonzero values in each row to get the number of samples each ASV is found in
+
+
+# make a copy of the otu table
+regress_otu_table <- unrarefied_otu_table
+
+# if run without the rowSums() wrapper, this returns TRUE or FALSE for every cell
+# the row sum then counts how many nonzero samples there were (how many TRUEs)
+regress_otu_table$number_of_samples <- rowSums(regress_otu_table!=0)
+
+# rowSum to get total abundance for an ASV
+regress_otu_table$asv_abundance <- rowSums(regress_otu_table)
+
+
+# a data frame with only the two columns just made
+# row names are ASVs
+data_for_regress <- regress_otu_table[,c("number_of_samples",
+                                           "asv_abundance")]
+
+
+
+```
+
+## Regression
+
+```{r}
+
+##### run linear model #####
+
+# formula is y ~ x
+# we are regressing ASV abundance over number of samples (occupancy)
+# this is not really necessary for plotting in ggplot but good for looking at
+# summary statistics
+asv_regression_nonzero <- lm(log(asv_abundance) ~ log(number_of_samples), 
+                     data = data_for_regress)
+
+summary_stats <- summary(asv_regression_nonzero)
+
+capture.output(summary_stats, file="../outputs/abunocc_regress_stats.txt")
+
+
+```
+
+## Color-coding
+
+```{r}
+
+### there are 2 categories that we want to color code for:
+
+# Core soil-host ASVs (ex. ASVs present in the same host and soil in both habitats)
+# Host-specific ASVs (not constrained to host, excluding soil-specific ASVs)
+
+
+## Core Soil-Host ASVs:
+
+# make sure this is loaded in from before
+# the core soil-host ASVs were identified in "8_soil_host_barplots.Rmd" 
+core_soil_host_names
+
+
+# make a new column specifying color for plotting
+# let the default be black. All ASVs are going to be represented, and we
+# only want specific ones to be colored
+data_for_regress$soil_host_core_color <- "black"
+
+# this changes the string in the color column from black to a color of choice
+# bracketed code subsets the cell values that meet the condition
+# rownames are ASV names
+data_for_regress$soil_host_core_color[rownames(data_for_regress) %in%
+                        core_soil_host_names] = "darkgoldenrod1"
+
+
+
+### Host-specific ASVs
+
+## these were not identified previously, because we are not interested in core here
+
+# get host-specific ASV names (no soil - the 7th list item)
+
+# make a long data frame from all the data frames used for relative abundance
+# dfs have ASV names, abundance, relative abundance, AMF family, and host info
+# we're only interested in the ASV names
+ro_host_spec_df <- do.call("rbind", ro_unique_asvs[1:6])
+
+# some ASVs are 
+ro_host_spec_asvs <- ro_host_spec_df$ASV
+
+
+## see comments above
+ak_host_spec_df <- do.call("rbind", ak_unique_asvs[1:6])
+ak_host_spec_asvs <- ak_host_spec_df$ASV
+
+# concatenate the 2 habitat vectors of host specific ASV names and keep only
+# unique values (some ASVs are host specific in both habitats)
+host_spec_asvs <- unique(c(ro_host_spec_asvs, ak_host_spec_asvs))
+
+
+# repeat color-coding steps, same as for soil host
+data_for_regress$host_spec_color <- "black"
+
+data_for_regress$host_spec_color[rownames(data_for_regress) %in%
+                        host_spec_asvs] = "slateblue1"
+
+
+# Attention!!!! If you are going to take this data frame and put it through Dr. Muir's code, you must change the column names as follows:
+#names(data_for_regress) <- c("sample_count", "asv_abundance", "soil_host_core_color", "unique_core_color")
+data_for_model <- data_for_regress
+names(data_for_model)[1] <- c("sample_count")
+
+
+write.csv(data_for_model, "muir-abundance-occupancy/data_for_model.csv")
+
+
+
+```
+
+
+
+
+## Plotting!
+
+```{r}
+
+# no color-coding
+plain_regress_plot <- 
+  # log transform both axes
+  ggplot(data_for_regress, aes(x=log(sample_count), y=log(asv_abundance))) + 
+  # circles
+  geom_point(shape=1) +
+  # regression line. se=FALSE hides the confidence interval
+  geom_smooth(method=lm, se=F, color="black", size = 0.5) +
+  theme_classic() 
+
+
+# Core ASVs in ASVs shared between indiv. hosts and soil are colored
+soil_host_highlighted_regress_plot <- 
+  # ggplot adds things in layers. arrange() orders the strings in the color column
+  # alphabetically, so "black" comes first and is plotted first. This way, the colored
+  # dots appear on top (more useful when there are few dots that might be obscured
+  # otherwise)
+  ggplot(data_for_regress %>% arrange(soil_host_core_color), aes(x=log(number_of_samples), y=log(asv_abundance), colour=soil_host_core_color)) + 
+  # circles
+  geom_point(shape=1) +
+  # # regression line. se=FALSE hides the confidence interval
+  geom_smooth(method=lm, se=F, color="black", size = 0.5) +
+  theme_classic() +
+  scale_color_manual(values = c("black", "#e65262")) +
+  # turning this on may be useful to check if colors are representing what they should
+  theme(legend.position = "none") +
+  ggtitle("A) Core Host + Soil ASVs")
+
+
+# Host-specific ASVs are colored
+# see above for comments
+unique_highlighted_regress_plot <- 
+  ggplot(data_for_regress %>% arrange(host_spec_color), aes(x=log(number_of_samples), y=log(asv_abundance), colour=host_spec_color)) + 
+  geom_point(shape=1) +
+  geom_smooth(method=lm, se=F, color="black", size = 0.5) +
+  theme_classic() +
+  scale_color_manual(values = c("black", "#39acd5")) +
+  theme(legend.position = "none") +
+  ggtitle("B) Host-specific ASVs")
+
+
+
+# arrange the two plots side by side
+two_regress_plots <- ggarrange(soil_host_highlighted_regress_plot,
+                               unique_highlighted_regress_plot)
+
+# export
+ggsave("../figures/highlighted_regression3.png", width=11, height=4)
+
+```
+
+
+
+
+
+
+
+

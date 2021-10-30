@@ -66,9 +66,6 @@ unrarefied_physeq <- qza_to_phyloseq(
   metadata="../data/haka-metadata.tsv")
 
 
-# Change the taxa names to "ASV1, ASV2, etc." for working convenience
-taxa_names(unrarefied_physeq) <- paste0("ASV", seq(ntaxa(unrarefied_physeq)))
-
 
 ```
 
@@ -109,13 +106,20 @@ sd_df <- sd_df %>%
 # in the physeq object
 sample_data(unrarefied_physeq)$NewSampleType <- sample_data(sd_df)$NewSampleType
 
-
-
 ## Remove ASVs present in zero samples
-
 unrarefied_physeq <- prune_taxa(taxa_sums(unrarefied_physeq) > 0, unrarefied_physeq)
 
+# Change the taxa names to "ASV1, ASV2, etc." for working convenience
+taxa_names(unrarefied_physeq) <- paste0("ASV", seq(ntaxa(unrarefied_physeq)))
+
+
+
+
 saveRDS(unrarefied_physeq, "../intermediate_files/rds/unrarefied_physeq.rds")
+
+unrarefied_otu_table <- as.data.frame(otu_table(unrarefied_physeq))
+
+saveRDS(unrarefied_otu_table, "../intermediate_files/rds/unrarefied_otu_table.rds")
 
 ```
 
@@ -132,8 +136,8 @@ unrarefied_subsets <- list()
 host_names <- c("A. koa",
                 "C. trigynum",
                 "Grass",
-                "M. lessertiana",
                 "M. polymorpha",
+                "M. lessertiana",
                 "R. hawaiensis",
                 "Soil")
 

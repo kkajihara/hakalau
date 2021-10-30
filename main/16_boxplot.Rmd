@@ -36,8 +36,6 @@ host_names <- readRDS("../intermediate_files/rds/host_names.rds")
 # I want to count richness per community, so how many unique ASVs show up in each soil or
 # host community in each habitat
 
-# I think I need a long form data frame
-
 otus <- unrarefied_otu_table != 0
 
 otus <- t(otus)
@@ -73,7 +71,7 @@ rich_df <- rich_df %>%
 
 rich_df <- rich_df[!is.na(rich_df$Host),]
 
-p <- ggplot(rich_df, aes(x=Habitat, y=richness, fill = Host)) +
+p <- ggplot(rich_df, aes(x=Habitat, y=richness, fill = factor(Host, levels=host_names))) +
   geom_boxplot() +
   scale_fill_brewer(palette = "Set2") +
   # insert line break
@@ -98,7 +96,7 @@ p <- ggplot(rich_df, aes(x=Habitat, y=richness, fill = Host)) +
   labs(x = "Habitat Type", y = "ASV Richness", fill="Host")
 
 # Export
-ggsave("../figures/boxplot.png", width = 7, height=5)
+ggsave("../figures/boxplot2.png", width = 7, height=5)
 
 
 ```
@@ -126,7 +124,7 @@ ro_rich_tuk <- TukeyHSD(ro_richness_aov)
 
 ro_tukey <- as.data.frame(ro_rich_tuk$Host)
 
-ro_tukey <- rownames_to_column("Host")
+ro_tukey <- rownames_to_column(ro_tukey, "Host")
 
 #ro_tukey <- filter(ro_tukey, `p adj` < 0.05) %>% rownames_to_column("Host")
 
@@ -139,7 +137,7 @@ ak_rich_tuk <- TukeyHSD(ak_richness_aov)
 
 ak_tukey <- as.data.frame(ak_rich_tuk$Host)
 
-ak_tukey <- rownames_to_column("Host")
+ak_tukey <- rownames_to_column(ak_tukey, "Host")
 
 #ak_tukey <- filter(ak_tukey, `p adj` < 0.05) %>% rownames_to_column("Host")
 
@@ -157,6 +155,11 @@ ak_tukey <- ak_tukey[,c(1,2,5)]
 tukey_table <- merge(ro_tukey, ak_tukey, by = "Host")
 
 tukey_table[,2:5] <- round(tukey_table[,2:5], digits = 3)
+
+names(tukey_table)[2:5] <- c("Remnant Mean Difference",
+                             "P",
+                             "Restored Mean Difference",
+                             "P")
 
 write.csv(tukey_table, "../outputs/host_richness_tukey_table.csv")
 
@@ -251,9 +254,9 @@ T-test for Average richness across all hosts between habitats
 
 ```{r}
 
-ro_rich_means <- ro_host_richness %>% group_by(Host) %>% summarise(mean = mean(richness))
+ro_rich_means <- ro_host_richness %>% dplyr::group_by(Host) %>% dplyr::summarise(mean = mean(richness))
 
-ak_rich_means <- ak_host_richness %>% group_by(Host) %>% summarise(mean = mean(richness))
+ak_rich_means <- ak_host_richness %>% dplyr::group_by(Host) %>% dplyr::summarise(mean = mean(richness))
 
 
 all_hosts_ttest <- t.test(ro_rich_means$mean, ak_rich_means$mean)

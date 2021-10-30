@@ -1,0 +1,133 @@
+---
+title: "Nestedness"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(vegan)
+
+```
+
+### Read in necessary files
+
+```{r}
+
+# presence absence matrices from data rarefied at the plot level
+rare_ro_mat_pa <- readRDS("../intermediate_files/rds/rare_ro_mat_pa.rds")
+rare_ak_mat_pa <- readRDS("../intermediate_files/rds/rare_ak_mat_pa.rds")
+
+
+```
+
+For the nestedness plots, we use rarefied data (sequencing depth normalized by plot).
+
+
+```{r}
+
+# transpose presence absence matrices so that hosts are rows, ASVs are columns
+
+nestedness_ro_mat <- t(rare_ro_mat_pa)
+
+nestedness_ak_mat <- t(rare_ak_mat_pa)
+
+# calculate nested temp and nodf on a presence absence matrix with hosts as rows, ASVs as columns
+
+# value = 34.57965
+ro_nest_temp <- nestedtemp(nestedness_ro_mat)
+
+# value = 31.84482
+ro_nodf <- nestednodf(nestedness_ro_mat)
+  
+# value = 37.26258
+ak_nest_temp <- nestedtemp(nestedness_ak_mat)
+
+# value = 30.36718
+ak_nodf <- nestednodf(nestedness_ak_mat)
+
+
+# determine significance of nestedness temperature using method "quasiswap" which maintains species and row frequencies, compared against 1000 randomized null communities
+
+# p =  0.6464
+ro_nest_signif <- oecosimu(nestedness_ro_mat, nestedtemp, "quasiswap", nsimul = 1000)
+saveRDS(ro_nest_signif, "../intermediate_files/rds/ro_nest_signif.rds")
+
+# p = 0.1528
+ro_nodf_signif <- oecosimu(nestedness_ro_mat, nestednodf, "quasiswap", nsimul = 1000)
+saveRDS(ro_nodf_signif, "../intermediate_files/rds/ro_nodf_signif.rds")
+
+# p = 0.000999
+ak_nest_signif <- oecosimu(nestedness_ak_mat, nestedtemp, "quasiswap", nsimul = 1000)
+saveRDS(ak_nest_signif, "../intermediate_files/rds/ak_nest_signif.rds")
+
+# p = 0.000999
+ak_nodf_signif <- oecosimu(nestedness_ak_mat, nestednodf, "quasiswap", nsimul = 1000)
+saveRDS(ak_nodf_signif, "../intermediate_files/rds/ak_nodf_signif.rds")
+
+
+
+# Plot
+
+# pdf("../figures/nestedness4.pdf")
+# 
+# par(mfrow=c(2,1), mai=c(0.5,1.6,0.7,0.5), oma=c(0.1, 0.5, 0.5, 0.5))
+# 
+# plot(ro_nest_temp, names = c(TRUE, FALSE), kind="incidence", col=c("white", "grey"))
+# title(main="A)", adj=0)
+# title(main="Remnant Forest")
+# 
+# #mtext("Nested Temp=34.6, P=0.612, NODF=31.8, P=0.159")
+# 
+# plot(ak_nest_temp, names = c(TRUE, FALSE), kind="incidence", col=c("white", "grey"))
+# title(main="B)", adj=0)
+# title(main="Restored Forest")
+# 
+# #mtext("Nested Temp=37.3, P=0.001, NODF=30.4, P=0.001")
+# 
+# dev.off()
+
+
+
+# Plot - copy to console
+
+pdf("figures/nest_remnant.pdf", width=6, height=5)
+plot(ro_nest_temp, names = c(TRUE, FALSE), kind="incidence", col=c("white", "#e65262"))
+dev.off()
+
+pdf("figures/nest_restored.pdf", width=6, height=5)
+plot(ak_nest_temp, names = c(TRUE, FALSE), kind="incidence", col=c("white", "#39acd5"))
+dev.off()
+
+
+
+# pdf("figures/nestedness4.pdf")
+# 
+# par(mfrow=c(2,1), oma=c(0.1, 1.1, 0.5, 0.5))
+# 
+# par(mar=c(1,7,2,1))
+# 
+# plot(ro_nest_temp, names = c(TRUE, FALSE), kind="incidence", col=c("white", "#e65262"))
+# title(main="A)", adj=0)
+# title(main="Remnant Forest")
+# 
+# #mtext("Nested Temp=34.6, P=0.612, NODF=31.8, P=0.159")
+# 
+# par(mar=c(0.5,7,2,1))
+# 
+# plot(ak_nest_temp, names = c(TRUE, FALSE), kind="incidence", col=c("white", "#39acd5"))
+# title(main="B)", adj=0)
+# title(main="Restored Forest")
+# 
+# #mtext("Nested Temp=37.3, P=0.001, NODF=30.4, P=0.001")
+# 
+# dev.off()
+
+```
+
+

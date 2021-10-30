@@ -22,7 +22,7 @@ library(ggsn)
 ```{r}
 
 # load API key
-API_key <- read.csv("KK_API.csv", header = FALSE)
+API_key <- read.csv("KK_API_20211027.csv", header = FALSE)
 API_key <- API_key[1,1]
 
 register_google(key=API_key)
@@ -59,6 +59,8 @@ hi_map_for_man <- ggmap(hi_map) +
                  st.color = "white",
                  border.size = 0.5)
 
+saveRDS(hi_map, "../intermediate_files/rds/ggmap_of_hawaii.rds")
+saveRDS(hi_map_for_man, "../intermediate_files/rds/map_of_hawaii.rds")
 
 
 ```
@@ -81,7 +83,7 @@ plot_map <- ggmap(hakalau_map) +
              stroke = 0.3,
              colour = "white",
              size = 3) +
-  scale_fill_manual(values = c("#eed67c", "#8a9ee5"),
+  scale_fill_manual(values = c("#e65262", "#39acd5"),
                     name = "Habitat Type") +
   theme(legend.text = element_text(size = 10),
         legend.title = element_text(size = 12),
@@ -109,6 +111,9 @@ plot_map <- ggmap(hakalau_map) +
                  border.size = 0.5)
 
 
+saveRDS(hakalau_map, "../intermediate_files/rds/hakalau_ggmap.rds")
+saveRDS(plot_map, "../intermediate_files/rds/plot_map.rds")
+
 ```
 ## Combine plots
 
@@ -121,7 +126,7 @@ map_figs <- map_figs +
   plot_annotation(tag_levels = 'A', tag_suffix = ')') &
   theme(plot.tag = element_text(face = "bold", vjust = -2.6))
 
-ggsave("../figures/map_figures.png", height = 8, width = 7)
+ggsave("../figures/map_figures2.png", height = 8, width = 7)
 
 
 ```

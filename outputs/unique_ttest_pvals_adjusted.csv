@@ -1,11 +1,11 @@
-"","A. koa","C. trigynum","Grass","M. lessertiana","M. polymorpha","R. hawaiensis","Soil"
-"Acaulosporaceae",0.5035,0.6538,0.4392,0.3044,0.8175,0.9347,0.9233
-"Ambisporaceae",0.717,0.8937,0.4392,0.3044,0.9105,NA,0.8283
-"Archaeosporaceae",0.5035,0.681,0.4392,0.8816,0.8175,0.9347,0.8011
-"Claroideoglomeraceae",NA,NA,NA,0.4218,NA,NA,0.8011
-"Diversisporaceae",NA,NA,NA,NA,NA,NA,0.9233
+"","A. koa","C. trigynum","Grass","M. polymorpha","M. lessertiana","R. hawaiensis","Soil"
+"Acaulosporaceae",0.504,0.654,0.439,0.818,0.304,0.935,0.923
+"Ambisporaceae",0.717,0.894,0.439,0.91,0.304,NA,0.828
+"Archaeosporaceae",0.504,0.681,0.439,0.818,0.882,0.935,0.801
+"Claroideoglomeraceae",NA,NA,NA,NA,0.422,NA,0.801
+"Diversisporaceae",NA,NA,NA,NA,NA,NA,0.923
 "Geosiphonaceae",NA,NA,NA,NA,NA,NA,NA
-"Gigasporaceae",NA,NA,NA,0.3665,0.9105,NA,0.8283
-"Glomeraceae",0.5035,0.681,0.4392,0.8816,0.9616,0.9347,0.8011
-"Glomeromycotina",0.5035,0.9387,0.4392,0.4218,0.9105,0.9347,0.0697
-"Paraglomeraceae",0.5277,0.8937,0.4392,0.724,0.8175,0.9347,0.8011
+"Gigasporaceae",NA,NA,NA,0.91,0.367,NA,0.828
+"Glomeraceae",0.504,0.681,0.439,0.962,0.882,0.935,0.801
+"Glomeromycotina",0.504,0.939,0.439,0.91,0.422,0.935,0.07
+"Paraglomeraceae",0.528,0.894,0.439,0.818,0.724,0.935,0.801

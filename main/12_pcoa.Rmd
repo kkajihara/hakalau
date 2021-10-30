@@ -1,0 +1,235 @@
+---
+title: "19_spatial_autocorrelation"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(vegan)
+library(phyloseq)
+
+```
+
+## Read in necessary files
+
+```{r}
+
+unrarefied_otu_table <- readRDS("../intermediate_files/rds/unrarefied_otu_table.rds")
+
+ak_unique_rbind <- readRDS("../intermediate_files/rds/ak_unique_rbind.rds")
+
+ro_unique_rbind <- readRDS("../intermediate_files/rds/ro_unique_rbind.rds")
+
+unrarefied_physeq <- readRDS("../intermediate_files/rds/unrarefied_physeq.rds")
+
+```
+
+## Data Prep
+
+```{r}
+
+# isolate sample data for manipulation
+samdat <- as.matrix(sample_data(unrarefied_physeq))
+samdat <- as.data.frame(samdat)
+saveRDS(samdat, "../intermediate_files/rds/samdat.rds")
+
+# orient ASVs as cols, samples as rows
+unrarefied_otu_table <- t(unrarefied_otu_table)
+unrarefied_otu_table <- as.data.frame(unrarefied_otu_table)
+
+# take names of unique ASVs
+ak_asvs <- unique(ak_unique_rbind$ASV)
+ro_asvs <- unique(ro_unique_rbind$ASV)
+# make sure no repeats
+all_unique_asvs <- unique(c(ak_asvs, ro_asvs))
+
+# subset ASV table to only include unique ASVs
+hostspec_asv_table <- unrarefied_otu_table[,all_unique_asvs]
+# remove empty samples
+hostspec_asv_table <- hostspec_asv_table[rowSums(hostspec_asv_table) > 0,]
+
+saveRDS(hostspec_asv_table, "../intermediate_files/rds/hostspec_asv_table.rds")
+
+
+# Jack's function for making distance matrix from geographic data
+library(fields)
+distcalc <- function(lat, lng, sampIDs) {
+  require(fields)
+  longlats <- data.frame(lng, lat)
+  rownames(longlats) <- sampIDs
+  input <- as.matrix(longlats)
+  distmat=rdist.earth(input, miles=F, R=NULL)
+  return(distmat)
+}
+
+
+```
+
+## Soil included
+
+```{r}
+
+# hspec_dist <- vegdist(hostspec_asv_table, method = "bray")
+# hspec_dist_mat <- as.matrix(hspec_dist)
+# pcoa_test <- cmdscale(hspec_dist_mat, eig=T)
+# 
+# # remove negative eigenvalues
+# pcoa_test$eig <- pcoa_test$eig[pcoa_test$eig > 0]
+
+
+
+
+# geo
+# samdat_geo <- samdat[row.names(samdat) %in% row.names(hostspec_asv_table),]
+# geo_distmat <- distcalc(as.numeric(samdat_geo$lat), as.numeric(samdat_geo$lon), row.names(samdat_geo))
+
+# pcnm
+# pcnm_test <- pcnm(geo_distmat)
+# # get top 6 vectors
+# pcnm_varExp <- (pcnm_test$values / sum(pcnm_test$values))[1:6]
+# pcnm_vecs <- pcnm_test$vectors[,1:6]
+# colnames(pcnm_vecs) <- paste0("lat_lon", 1:6)
+
+# vars <- data.frame(samdat_geo$HabitatType, pcnm_vecs)
+# names(vars)[1] <- "HabitatType"
+# 
+# fit <- envfit(pcoa_test, vars, nperm=1000)
+# 
+# # drop non-significant variables and re-fit
+# while(sum(fit$vectors$pvals > 0.05) >= 1){
+#   todrop <- names(fit$vectors$pvals)[which.max(fit$vectors$pvals)]
+#   vars <- vars[, ! colnames(vars) %in% todrop]
+#   fit <- envfit(pcoa_test, vars, permutations=1000)
+# }
+# 
+# capture.output(fit, file="envfit_withsoil.txt")
+# 
+# # run in console
+# png("pcoa_withsoil.png")
+# plot(pcoa_test$points[,1], pcoa_test$points[,2], cex=0.25, pch=20, xlab="PC1", ylab="PC2", ylim=c(-0.2, 0.6), xlim=c(-0.6, 0.6))
+# plot(fit)
+# dev.off()
+
+```
+
+
+## No soil
+
+```{r}
+
+# no soil
+asv_table_nosoil <- hostspec_asv_table[grep(".s", row.names(hostspec_asv_table), 
+                                            invert = T),]
+asv_table_nosoil <- asv_table_nosoil[,colSums(asv_table_nosoil) > 0]
+saveRDS(asv_table_nosoil, "../intermediate_files/rds/asv_table_nosoil.rds")
+
+
+set.seed(789)
+hspec_dist_nosoil <- vegdist(asv_table_nosoil, method = "bray")
+hspec_dist_mat_nosoil <- as.matrix(hspec_dist_nosoil)
+set.seed(789)
+pcoa_nosoil <- cmdscale(hspec_dist_mat_nosoil, eig=T)
+
+# remove negative eigenvalues
+pcoa_nosoil$eig <- pcoa_nosoil$eig[pcoa_nosoil$eig > 0]
+saveRDS(pcoa_nosoil, "../intermediate_files/rds/pcoa_nosoil.rds")
+
+# geo
+samdat_geo_nosoil <- samdat[row.names(samdat) %in% row.names(asv_table_nosoil),]
+set.seed(789)
+geo_distmat_nosoil <- distcalc(as.numeric(samdat_geo_nosoil$lat), as.numeric(samdat_geo_nosoil$lon), row.names(samdat_geo_nosoil))
+saveRDS(geo_distmat_nosoil, "../intermediate_files/rds/geo_distmat_nosoil.rds")
+
+# pcnm
+set.seed(789)
+pcnm_nosoil <- pcnm(geo_distmat_nosoil)
+# get top 6 vectors
+pcnm_varExp_nosoil <- (pcnm_nosoil$values / sum(pcnm_nosoil$values))[1:6]
+pcnm_vecs_nosoil <- pcnm_nosoil$vectors[,1:6]
+colnames(pcnm_vecs_nosoil) <- paste0("Geo", 1:6)
+
+vars_nosoil <- data.frame(samdat_geo_nosoil$HabitatType, pcnm_vecs_nosoil)
+names(vars_nosoil)[1] <- "HabitatType"
+saveRDS(vars_nosoil, "../intermediate_files/rds/hspec_vars_nosoil.rds")
+
+set.seed(789)
+fit_nosoil <- envfit(pcoa_nosoil, vars_nosoil, nperm=1000)
+
+# drop non-significant variables and re-fit_nosoil
+while(sum(fit_nosoil$vectors$pvals > 0.05) >= 1){
+  todrop <- names(fit_nosoil$vectors$pvals)[which.max(fit_nosoil$vectors$pvals)]
+  vars_nosoil <- vars_nosoil[, ! colnames(vars_nosoil) %in% todrop]
+  set.seed(789)
+  fit_nosoil <- envfit(pcoa_nosoil, vars_nosoil, permutations=1000)
+}
+
+capture.output(fit_nosoil, file="../outputs/hostspec_envfit_nosoil.txt")
+saveRDS(fit_nosoil, "../intermediate_files/rds/hostspec_envfit_nosoil.rds")
+
+# run in console
+# png("pcoa_nosoil.png")
+# plot(pcoa_nosoil$points[,1], pcoa_nosoil$points[,2], cex=0.25, pch=20, xlab="PC1", ylab="PC2", ylim=c(-0.4, 0.5), xlim=c(-0.7, 0.6))
+# plot(fit_nosoil)
+# dev.off()
+
+```
+
+## Nice plot
+
+```{r}
+
+library(ggplot2)
+library(ggrepel)
+
+pcoa_scores <- as.data.frame(pcoa_nosoil$points)
+names(pcoa_scores) <- c("PC1", "PC2")
+# use grepl on the sample name column to determine habitats
+# make a new column with the habitat name
+pcoa_scores$Habitat <-  
+  ifelse(grepl("AK", row.names(pcoa_scores)), "Restored Forest", ifelse(grepl("RO", row.names(pcoa_scores)), "Remnant Forest", "Other"))
+
+saveRDS(pcoa_scores, "../intermediate_files/rds/pcoa_scores.rds")
+
+# extract fit data for ggplot
+continuous <- as.data.frame(scores(fit_nosoil, "vectors"))
+names(continuous) <- c("PC1", "PC2")
+
+
+# create plot
+pcoa_plot <- ggplot(pcoa_scores, aes(x = PC1, y = PC2)) + 
+    geom_point(data = pcoa_scores, size = 4, aes(colour = Habitat), alpha = 0.5) + 
+    scale_color_manual(values = c("#e65262", "#39acd5")) +
+    theme(axis.text.y = element_text(colour = "black", size = 20), 
+    axis.text.x = element_text(colour = "black", size = 20), 
+    legend.text = element_text(size = 20, colour ="black"), 
+    legend.position = "right", 
+    axis.title.y = element_text(size = 20, vjust=3),
+    axis.title.x = element_text(size = 20, vjust=-2),
+    legend.title = element_text(size = 20, colour = "black"),
+    plot.margin = unit(c(1,1,1,1), "cm"),
+    panel.background = element_blank(), 
+    panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
+    legend.key=element_blank()) + 
+    # annotate("text", label="stress=0.261", x=0.6, y=-0.51, colour="black", size = 7) +
+    labs(x = "PC1", y = "PC2", colour = "Habitat") +
+    # scale_color_brewer(palette = "Set2")+
+    # add envfit data
+    xlim(c(-0.4, 0.7)) +
+    ylim(c(-0.4, 0.7)) +
+    geom_segment(aes(x = 0, y = 0, xend = PC1, yend = PC2),
+      data = continuous, size = 1, colour = "grey30", arrow = arrow(length = unit(0.25, "cm"))) +
+    geom_text_repel(data = continuous, aes(x = PC1, y = PC2), colour = "grey30",
+      fontface = "bold", min.segment.length = 10, label = row.names(continuous), size = 6.5, box.padding = 0.75, seed = 1230)
+
+ggsave("../figures/hostspec_pcoa_plot2.png", width=14, height=9)
+
+
+```
+
+

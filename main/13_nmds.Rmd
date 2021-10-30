@@ -1,0 +1,272 @@
+---
+title: "NMDS"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+
+library(tibble)
+library(dplyr)
+library(vegan)
+library(ggplot2)
+
+```
+
+## Read in necessary files
+
+```{r}
+
+# data frame of all samples and ASVs with nonzero abundance
+# ASVs are rows and samples are columns
+unrarefied_otu_table <- readRDS("../intermediate_files/rds/unrarefied_otu_table.rds")
+
+unrarefied_physeq <- readRDS("../intermediate_files/rds/unrarefied_physeq.rds")
+
+samdat <- readRDS("../intermediate_files/rds/samdat.rds")
+
+
+```
+
+
+## NMDS for All Samples (unrarefied)
+
+
+## Data prep
+
+```{r}
+
+# transpose otu table so that samples are rows, ASVs are columns
+# transposing turns into matrix, so convert back into data frame
+all_sample_nmds_data <- as.data.frame(t(unrarefied_otu_table))
+
+# check the spread in sequencing depth between samples
+# this was causing issues in metaMDS()
+# solution: rarefy down to a reasonable per sample total
+# determine what number to rarefy down to by looking at the histogram
+# and trying to keep as many samples as possible but also as much sequencing
+# depth as possible
+hist(rowSums(all_sample_nmds_data))
+
+
+# we are going to rarefy down to 1000 reads per sample
+# first, pare down the data frame to exclude samples with < 1000 reads
+# this leaves us with 800 samples out of 1108
+all_sample_nmds_data <- all_sample_nmds_data[rowSums(all_sample_nmds_data) >= 1000 , ]
+
+# rarefy
+rarefied_nmds_data <-rrarefy(all_sample_nmds_data, sample = 1000)
+
+# check number of samples remaining
+nrow(rarefied_nmds_data)
+
+# rrarefy converted to matrix. turn back into data frame
+rarefied_nmds_data <- as.data.frame(rarefied_nmds_data)
+
+# make a column for the sample names
+rarefied_nmds_data <- rarefied_nmds_data %>% rownames_to_column("SampleID")
+
+# use grepl on the sample name column to determine habitats
+# make a new column with the habitat name
+rarefied_nmds_data$Habitat <-  
+  ifelse(grepl("AK", rarefied_nmds_data$SampleID), "Restored Forest", ifelse(grepl("RO", rarefied_nmds_data$SampleID), "Remnant Forest", "Other"))
+
+
+# make a new column with the host, also using grepl on the sample name
+# host names should only be for roots, all other samples are soil
+rarefied_nmds_data <- rarefied_nmds_data %>%
+  mutate(Host = case_when(
+    grepl("AC", SampleID) & grepl(".r", SampleID) ~ "A. koa",
+    grepl("CH", SampleID) & grepl(".r", SampleID) ~ "C. trigynum",
+    grepl("GR", SampleID) & grepl(".r", SampleID) ~ "Grass",
+    grepl("ME", SampleID) & grepl(".r", SampleID) ~ "M. polymorpha",
+    grepl("MY", SampleID) & grepl(".r", SampleID) ~ "M. lessertiana",
+    grepl("RU", SampleID) & grepl(".r", SampleID) ~ "R. hawaiensis",
+    grepl(".s", SampleID) ~ "Soil",
+    TRUE ~ NA_character_))
+
+# reorder the data frame so that sample names, habitat, and host come before
+# all the abundance data
+# I am just doing this by column number but there is probably a better way
+rarefied_nmds_data <- rarefied_nmds_data[,c(1, 1975, 1976, 2:1974)]
+row.names(rarefied_nmds_data) <- rarefied_nmds_data$SampleID
+
+saveRDS(rarefied_nmds_data, "../intermediate_files/rds/rarefied_nmds_data.rds")
+
+
+# take only the ASV columns (not the sample or habitat columns)
+rarefied_nmds_mat <- rarefied_nmds_data[,4:ncol(rarefied_nmds_data)]
+
+# convert to matrix
+rarefied_nmds_mat <- as.matrix(rarefied_nmds_mat)
+
+saveRDS(rarefied_nmds_mat, "../intermediate_files/rds/rarefied_nmds_mat.rds")
+
+
+#rare_dist_mat <- as.matrix(vegdist(rarefied_nmds_mat, "bray"))
+
+
+```
+
+
+## NMDS
+
+```{r}
+
+set.seed(123)
+# make NMDS
+rare_sample_nmds <- metaMDS(rarefied_nmds_mat, distance = "bray")
+
+# extract NMDS scores into a data frame
+rare_nmds_scores <- as.data.frame(scores(rare_sample_nmds))
+
+# add in sample column from original merged df
+rare_nmds_scores$Host <- rarefied_nmds_data$Host
+
+# add in habitat column from original merged df
+rare_nmds_scores$Habitat <- rarefied_nmds_data$Habitat
+
+saveRDS(rare_nmds_scores, "../intermediate_files/rds/rare_nmds_scores.rds")
+
+
+```
+
+## Geographic Distance
+
+```{r}
+
+# geo
+samdat_geo_nosoil <- samdat[row.names(samdat) %in% rarefied_nmds_data$SampleID,]
+
+# Jack's function
+library(fields)
+distcalc <- function(lat, lng, sampIDs) {
+  require(fields)
+  longlats <- data.frame(lng, lat)
+  rownames(longlats) <- sampIDs
+  input <- as.matrix(longlats)
+  distmat=rdist.earth(input, miles=F, R=NULL)
+  return(distmat)
+}
+
+set.seed(123)
+geo_distmat_nosoil <- distcalc(as.numeric(samdat_geo_nosoil$lat), as.numeric(samdat_geo_nosoil$lon), row.names(samdat_geo_nosoil))
+
+# pcnm
+set.seed(123)
+pcnm_nosoil <- pcnm(geo_distmat_nosoil)
+# get top 6 vectors
+pcnm_varExp_nosoil <- (pcnm_nosoil$values / sum(pcnm_nosoil$values))[1:6]
+pcnm_vecs_nosoil <- pcnm_nosoil$vectors[,1:6]
+colnames(pcnm_vecs_nosoil) <- paste0("Geo", 1:6)
+
+# check
+# all(row.names(rare_nmds_scores) == row.names(pcnm_vecs_nosoil))
+vars_nosoil <- data.frame(rare_nmds_scores[,c("Host", "Habitat")], pcnm_vecs_nosoil)
+# names(vars_nosoil)[1] <- "HabitatType"
+
+set.seed(123)
+fit_nosoil <- envfit(rare_nmds_scores[,c("NMDS1", "NMDS2")], vars_nosoil, nperm=1000)
+
+# drop non-significant variables and re-fit_nosoil
+while(sum(fit_nosoil$vectors$pvals > 0.05) >= 1){
+  todrop <- names(fit_nosoil$vectors$pvals)[which.max(fit_nosoil$vectors$pvals)]
+  vars_nosoil <- vars_nosoil[, ! colnames(vars_nosoil) %in% todrop]
+  set.seed(123)
+  fit_nosoil <- envfit(rare_nmds_scores[,c("NMDS1", "NMDS2")], vars_nosoil, permutations=1000)
+}
+
+capture.output(fit_nosoil, file="../outputs/nmds_envfit.txt")
+saveRDS(fit_nosoil, "../intermediate_files/nmds_envfit.rds")
+
+# extract data for ggplot
+continuous <- as.data.frame(scores(fit_nosoil, "vectors"))
+#categorical <- as.data.frame(scores(fit_nosoil, "factors"))
+
+
+```
+
+
+
+
+## Plot!
+
+```{r}
+
+library(ggplot2)
+library(ggrepel)
+library(ggtext)
+
+host_names <- readRDS("../intermediate_files/rds/host_names.rds")
+
+nmds_markdown <- rare_nmds_scores
+nmds_markdown$Host <- ifelse(!nmds_markdown$Host %in% c("Grass", "Soil"), paste0("*", nmds_markdown$Host, "*"), nmds_markdown$Host)
+
+# create nmds plot. Get stress value from 'nmds'
+nmds_plot <- ggplot(nmds_markdown, aes(x = NMDS1, y = NMDS2)) + 
+    geom_point(data = nmds_markdown, size = 4, aes(shape = Habitat, colour = factor(Host, levels=host_names)), alpha = 0.8)+ 
+    stat_ellipse(aes(x = NMDS1, y = NMDS2, group = Host, color=factor(Host, levels=host_names)), level = 0.95, size=1) +
+    theme(axis.text.y = element_text(colour = "black", size = 20), 
+    axis.text.x = element_text(colour = "black", size = 20), 
+    legend.text = element_text(size = 20, colour ="black"), 
+    legend.position = "right", 
+    axis.title.y = element_text(size = 20, vjust=3),
+    axis.title.x = element_text(size = 20, vjust=-2),
+    legend.title = element_text(size = 20, colour = "black"),
+    plot.margin = unit(c(1,1,1,1), "cm"),
+    panel.background = element_blank(), 
+    panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
+    legend.key=element_blank()) + 
+    annotate("text", label="stress=0.261", x=0.8, y=-0.53, colour="black", size = 7) +
+    labs(x = "NMDS1", y = "NMDS2", shape = "Habitat", colour = "Host") +
+    theme(legend.text=element_markdown()) +
+    scale_color_brewer(palette = "Set2")+
+    # add envfit data
+    geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2),
+      data = continuous, size = 1, colour = "grey30", arrow = arrow(length = unit(0.25, "cm"))) +
+    #coord_fixed() +
+    # geom_point(data = categorical, aes(x = NMDS1, y = NMDS2),
+    #   shape = "diamond", size = 3, colour = "navy") +
+    # geom_text(data = categorical, aes(x = NMDS1, y = NMDS2+0.04),
+    #   label = row.names(categorical), colour = "navy", fontface = "bold", size = 6) +
+    geom_text_repel(data = continuous, aes(x = NMDS1, y = NMDS2), colour = "grey30",
+      fontface = "bold", label = row.names(continuous), size = 6.5, 
+      box.padding = 1, min.segment.length = 10, seed = 42074)
+
+ggsave("../figures/nmds_with_geo.png", width=14, height=9)
+  
+
+
+# nmds plot no vectors
+# rare_samples_nmds_plot <- ggplot(rare_nmds_scores, aes(x = NMDS1, y = NMDS2)) + 
+#     geom_point(data = rare_nmds_scores, size = 4, aes(shape = Habitat, colour = Host))+ 
+#     stat_ellipse(aes(x = NMDS1, y = NMDS2, group = Host, color=Host), level = 0.50, size=1) +
+#     theme(axis.text.y = element_text(colour = "black", size = 20), 
+#     axis.text.x = element_text(colour = "black", size = 20), 
+#     legend.text = element_text(size = 20, colour ="black"), 
+#     legend.position = "right", 
+#     axis.title.y = element_text(size = 20, vjust=3),
+#     axis.title.x = element_text(size = 20, vjust=-2),
+#     legend.title = element_text(size = 20, colour = "black"),
+#     plot.margin = unit(c(1,1,1,1), "cm"),
+#     panel.background = element_blank(), 
+#     panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
+#     legend.key=element_blank()) + 
+#     annotate("text", label="stress=0.261", x=0.6, y=-0.51, colour="black", size = 7) +
+#     labs(x = "NMDS1", y = "NMDS2", shape = "Habitat", colour = "Host") +
+#     scale_color_brewer(palette = "Set2")
+# 
+# 
+# ggsave("../figures/all_samples_nmds_3.png", width=14, height=9)
+
+
+
+```
+
+
+

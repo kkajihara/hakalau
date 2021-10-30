@@ -1,0 +1,28 @@
+
+***VECTORS
+
+         Dim1     Dim2     r2   Pr(>r)    
+Geo3  0.56466  0.82532 0.0544 0.000999 ***
+Geo4  0.92272  0.38547 0.0138 0.042957 *  
+Geo6 -0.88221 -0.47086 0.0915 0.000999 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Permutation: free
+Number of permutations: 1000
+
+***FACTORS:
+
+Centroids:
+                              Dim1    Dim2
+HabitatTypeRemnant Forest   0.0397  0.0195
+HabitatTypeRestored Forest -0.0418 -0.0205
+
+Goodness of fit:
+                r2   Pr(>r)    
+HabitatType 0.0625 0.000999 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Permutation: free
+Number of permutations: 1000
+
+

@@ -1,0 +1,38 @@
+
+***VECTORS
+
+        NMDS1    NMDS2     r2   Pr(>r)    
+Geo1  0.27221  0.96224 0.0246 0.000999 ***
+Geo2  0.26947  0.96301 0.0213 0.000999 ***
+Geo3  0.92792  0.37277 0.1365 0.000999 ***
+Geo4  0.78107 -0.62445 0.0547 0.000999 ***
+Geo6 -0.93235  0.36156 0.0608 0.000999 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Permutation: free
+Number of permutations: 1000
+
+***FACTORS:
+
+Centroids:
+                         NMDS1   NMDS2
+HostA. koa             -0.0093 -0.0423
+HostC. trigynum         0.1097 -0.0798
+HostGrass              -0.0609 -0.0163
+HostM. lessertiana     -0.0089 -0.0927
+HostM. polymorpha       0.0532 -0.0553
+HostR. hawaiensis      -0.0997  0.0526
+HostSoil                0.0121  0.0500
+HabitatRemnant Forest   0.1327 -0.0122
+HabitatRestored Forest -0.1177  0.0108
+
+Goodness of fit:
+            r2   Pr(>r)    
+Host    0.0585 0.000999 ***
+Habitat 0.1529 0.000999 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Permutation: free
+Number of permutations: 1000
+
+

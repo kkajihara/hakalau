@@ -16,11 +16,10 @@ colors_ten_families <-   c("Acaulosporaceae" = "#9e0142",
                            "Paraglomeraceae" = "#3288bd")
 
 
-
 make_barplot <- function (rbind_df, upper_limit, color_vector, title) {
   
   bar <- 
-    ggplot(rbind_df, aes(x=Host, y=rel_abun, fill=Family, alpha=`In Both Habitats`)) +
+    ggplot(rbind_df, aes(x=factor(Host, level = host_names), y=rel_abun, fill=Family, alpha=`In Both Habitats`)) +
     geom_bar(stat="identity", position="stack") +
     theme(axis.text.x = element_text(angle=90, size=12, vjust=0.5, 
                                      hjust=1, colour="black", face="italic"), 
@@ -109,7 +108,7 @@ two_barplots <- function (ro_bar, ak_bar) {
                                                   size = 16),
                                  bottom = text_grob("Host", 
                                                     size = 16, 
-                                                    hjust = 3.5))
+                                                    hjust = 3.4))
   
   return(two_barplots)
   

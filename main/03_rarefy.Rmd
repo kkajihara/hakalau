@@ -1,0 +1,149 @@
+---
+title: "Rarefy"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Goal
+Make smaller phyloseq objects based on sample type and merge by plot so the root objects can be rarefied.
+
+
+### Read in necessary files
+
+```{r}
+
+# a phyloseq object
+unrarefied_physeq <- readRDS("../intermediate_files/rds/unrarefied_physeq.rds")
+
+# a vector of host names and soil
+host_names <- readRDS("../intermediate_files/rds/host_names.rds")
+
+
+```
+
+
+## Subset samples and merge by plot
+
+```{r}
+
+host_subsets <- list()
+
+# subset by host, remove empty taxa, and merge by plot
+for (a_host in host_names) {
+  a_subset <- subset_samples(unrarefied_physeq, NewSampleType==a_host)
+  a_subset <- prune_taxa(taxa_sums(a_subset) > 0, a_subset)
+  host_subsets[[a_host]] <- merge_samples(a_subset, "Plot")
+}
+
+```
+
+
+## Find lowest plot sum for root samples
+
+```{r}
+
+plot_sums <- list()
+
+# View sequence sums per plot
+for (a_host in host_names) {
+  plot_sums[[a_host]] <- rowSums(otu_table(host_subsets[[a_host]])) 
+}
+
+
+sums2plot <- unlist(plot_sums)
+hist(sums2plot, breaks = 50)
+
+# there are 2 outlier kolea plots to delete
+# the next lowest plot sum is in ohia (11258)
+sort(sums2plot)
+
+```
+
+## Removing Outliers
+
+```{r}
+
+# Remove 2 plots from kolea (> 10000)
+plots_to_remove <- c("AK2", "RO6")
+
+host_subsets[["M. lessertiana"]] <-
+  subset_samples(host_subsets[["M. lessertiana"]],
+                 !(sample_names(host_subsets[["M. lessertiana"]]) %in%
+                     plots_to_remove))
+
+host_subsets[["M. lessertiana"]] <- 
+  prune_taxa(taxa_sums(host_subsets[["M. lessertiana"]]) > 0, 
+             host_subsets[["M. lessertiana"]])
+
+
+```
+
+## Rarefy!
+
+```{r}
+
+# run again 
+for (a_host in host_names) {
+  plot_sums[[a_host]] <- rowSums(otu_table(host_subsets[[a_host]])) 
+}
+
+# plot sums after removing kolea outliers
+sums4rarefy <- unlist(plot_sums)
+
+
+rarefied_physeqs <- list()
+
+# rarefy. 
+for (a_host in host_names) {
+  rarefied_physeqs[[a_host]] <- rarefy_even_depth(host_subsets[[a_host]],
+                                             sample.size = min(sums4rarefy),
+                                             rngseed = 1)
+}
+
+# Change soil physeq back to unrarefied version
+rarefied_physeqs[["Soil"]] <- host_subsets[["Soil"]]
+
+saveRDS(rarefied_physeqs, "../intermediate_files/rds/rarefied_physeqs.rds")
+
+```
+
+### Split rarefied physeq objects by habitat
+
+```{r}
+
+## Isolate RO plots and remove empty taxa
+
+# rarefied_physeqs is a list with rarefied root physeqs and unrarefied soil physeq
+
+ro_physeqs <- list()
+
+for (a_host in host_names) {
+  ro <- subset_samples(rarefied_physeqs[[a_host]], 
+                 grepl("RO", sample_names(rarefied_physeqs[[a_host]])))
+  ro_physeqs[[a_host]] <- prune_taxa(taxa_sums(ro) > 0, ro)
+}
+
+saveRDS(ro_physeqs, "../intermediate_files/rds/ro_physeqs.rds")
+
+
+
+## Isolate AK plots and remove empty taxa
+
+ak_physeqs <- list()
+
+for (a_host in host_names) {
+  ak <- subset_samples(rarefied_physeqs[[a_host]], 
+                 grepl("AK", sample_names(rarefied_physeqs[[a_host]])))
+  ak_physeqs[[a_host]] <- prune_taxa(taxa_sums(ak) > 0, ak)
+}
+
+saveRDS(ak_physeqs, "../intermediate_files/rds/ak_physeqs.rds")
+
+
+```
+
+
