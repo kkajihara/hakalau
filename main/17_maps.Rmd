@@ -126,7 +126,7 @@ map_figs <- map_figs +
   plot_annotation(tag_levels = 'A', tag_suffix = ')') &
   theme(plot.tag = element_text(face = "bold", vjust = -2.6))
 
-ggsave("../figures/map_figures2.png", height = 8, width = 7)
+ggsave("../figures/Fig_S1_maps.png", height = 8, width = 7)
 
 
 ```

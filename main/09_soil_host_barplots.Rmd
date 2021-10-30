@@ -233,7 +233,7 @@ ak_soil_host_bar <- make_barplot(ak_soil_host_rbind,
 combined_soil_host_bar <- two_barplots(ro_soil_host_bar, ak_soil_host_bar)
 
 
-ggsave("../figures/core_soil_host_barplot3.png", width = 11, height = 7)
+ggsave("../figures/Fig_3_core_barplot.png", width = 11, height = 7)
 
 
 # arguments are the same for noncore function

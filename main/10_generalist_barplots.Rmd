@@ -194,7 +194,7 @@ ak_shared_bar <- make_barplot(ak_shared_rbind,
 combined_shared_bar <- two_barplots(ro_shared_bar, ak_shared_bar)
 
 
-ggsave("../figures/core_shared_barplot3.png", width = 11, height = 7)
+ggsave("../figures/Fig_S7_generalist_barplot.png", width = 11, height = 7)
 
 
 # arguments are the same for noncore function

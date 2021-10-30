@@ -244,7 +244,7 @@ ak_unique_bar <- make_barplot(ak_unique_rbind,
 combined_unique_bar <- two_barplots(ro_unique_bar, ak_unique_bar)
 
 # export
-ggsave("../figures/core_unique_asv_barplot3.png", width = 11.5, height = 7)
+ggsave("../figures/Fig_4_host_specific_barplot.png", width = 11.5, height = 7)
 
 
 

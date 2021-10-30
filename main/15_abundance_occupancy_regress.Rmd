@@ -225,7 +225,7 @@ two_regress_plots <- ggarrange(soil_host_highlighted_regress_plot,
                                unique_highlighted_regress_plot)
 
 # export
-ggsave("../figures/highlighted_regression3.png", width=11, height=4)
+ggsave("../figures/Fig_S8_abundance_occupancy_regression.png", width=11, height=4)
 
 ```
 

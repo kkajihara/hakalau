@@ -238,7 +238,7 @@ nmds_plot <- ggplot(nmds_markdown, aes(x = NMDS1, y = NMDS2)) +
       fontface = "bold", label = row.names(continuous), size = 6.5, 
       box.padding = 1, min.segment.length = 10, seed = 42074)
 
-ggsave("../figures/nmds_with_geo.png", width=14, height=9)
+ggsave("../figures/Fig_S5_nmds.png", width=14, height=9)
   
 
 

@@ -96,7 +96,7 @@ p <- ggplot(rich_df, aes(x=Habitat, y=richness, fill = factor(Host, levels=host_
   labs(x = "Habitat Type", y = "ASV Richness", fill="Host")
 
 # Export
-ggsave("../figures/boxplot2.png", width = 7, height=5)
+ggsave("../figures/Fig_S4_richness_boxplot.png", width = 7, height=5)
 
 
 ```

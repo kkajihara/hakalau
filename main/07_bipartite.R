@@ -129,7 +129,7 @@ ct_H2_plot <- ggplot(ct_H2_dat,aes(x=HabitatType,y=networkspecialization,fill=Ha
   #stat_compare_means(size=10,label="p.signif",label.x=1.5) +
   #ggtitle("A)") 
 
-  ggsave("h2_plot.png", height = 6, width = 5)
+  ggsave("../figures/Fig_S6_H2.png", height = 6, width = 5)
 
 
 #Observed welch t-test
@@ -139,100 +139,6 @@ ct_H2_welch <- t.test(subset(ct_H2_dat,HabitatType == "Restored")$networkspecial
 ct_H2_welch
 
 
-###########################
-###   Linkage Density   ###
-###########################
-
-ct_link_dens <-lapply(haka_counts_bipartite, networklevel, index='linkage density')
-
-# Mean number of interactions per species
-ct_link_dens <- data.frame(unlist(ct_link_dens))
-row.names(ct_link_dens) <- plot_names
-ct_link_dens$plot <- plot_names
-ct_link_dens$HabitatType <- rep(c("Restored","Remnant"),each=6)
-names(ct_link_dens)[1] <- "LinkageDensity"
-
-
-
-ct_link_dens_plot <- ggplot(ct_link_dens,aes(x=HabitatType,y=LinkageDensity)) +   
-  stat_summary(fun.data=mean_sdl, fun.args=list(mult=1),geom="errorbar",color="black",width=0.1,size=1.5) +
-  stat_summary(fun=mean,geom="point",color="black",size=6,pch=21,stroke=2,aes(fill=HabitatType)) +
-  ylab("Linkage Density") + xlab("Habitat Type") +
-  scale_y_continuous(limits = c(7,15), breaks = seq(7, 15, by = 2)) +
-  #coord_cartesian(ylim = c(7, 15)) +
-  #ylim(8.5, 16) +
-  theme_classic() +
-  scale_x_discrete(labels = c("Remnant\nForest",
-                              "Restored\nForest")) +
-  theme(axis.text.x=element_text(colour="black",size=16,vjust=-1)) +
-  theme(text=element_text(colour="black",size=16)) + 
-  theme(axis.text.y=element_text(colour="black",size=16)) +
-  theme(axis.title.y=element_text(colour="black",size=16)) +
-  theme(axis.title.x=element_text(colour="white")) +
-  theme(legend.position="none") +
-  scale_fill_manual(values=c("#eed67c", "#8a9ee5")) +
-  #stat_compare_means(size=10,label="p.signif",label.x=1.5) +
-  ggtitle("B)") 
-
-
-#Observed welch t-test
-ct_link_dens_welch <- t.test(subset(ct_link_dens,HabitatType == "Restored")$LinkageDensity,
-                          subset(ct_link_dens,HabitatType == "Remnant")$LinkageDensity,
-                          paired=FALSE, var.equal=FALSE)
-ct_link_dens_welch
-
-
-#######################
-###   Connectance   ###
-#######################
-# ct_connectance <- lapply(haka_counts_bipartite, networklevel, index='connectance')
-# 
-# ct_con_dat <- data.frame(unlist(ct_connectance))
-# row.names(ct_con_dat) <- plot_names
-# ct_con_dat$plot <- plot_names
-# ct_con_dat$HabitatType <- rep(c("Restored","Remnant"),each=6)
-# names(ct_con_dat)[1] <- "connectance"
-# 
-# 
-# ct_conn_plot <- ggplot(ct_con_dat,aes(x=HabitatType,y=connectance,fill=HabitatType)) +
-#   stat_summary(fun.data=mean_sdl, fun.args=list(mult=1),geom="errorbar",width=0.1,size=2) +
-#   stat_summary(fun=mean,geom="point",size=6,shape=21,stroke=2) +
-#   ylab("Network Connectance") + xlab("Habitat Type") +
-#   ylim(0.2,0.5) +
-#   xlab("") +
-#   scale_x_discrete(labels = c("Remnant\nForest",
-#                               "Restored\nForest")) +
-#   theme(axis.text.x=element_text(colour="black",size=18,vjust=-1)) +
-#   theme(text=element_text(colour="black",size=16)) + 
-#   theme(axis.text.y=element_text(colour="black",size=16)) +
-#   theme(axis.title.y=element_text(colour="black",size=20)) +
-#   theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-#         panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
-#         panel.background=element_blank()) +
-#   theme(legend.position="none") +
-#   scale_fill_manual(values=c("#eed67c", "#8a9ee5")) +
-#   #stat_compare_means(size=10,label="p.signif",label.x=1.5) +
-#   ggtitle("C)") 
-# 
-# #Observed welch t-test
-# ct_connectance_welch <- t.test(subset(ct_con_dat,HabitatType == "Restored")$connectance,
-#                             subset(ct_con_dat,HabitatType == "Remnant")$connectance,
-#                             paired=FALSE, var.equal=FALSE)
-# ct_connectance_welch
-
-
-### combine plots
-all_plots <- ggarrange(ct_H2_plot, 
-                       ct_link_dens_plot, 
-                       #conn_plot, 
-                       ncol = 2, 
-                       nrow = 1) +
-  theme(plot.margin = margin(0,1,0.5,0, "cm"))
-
-plots_labeled <- annotate_figure(all_plots,
-                                 bottom = text_grob("Habitat Type", 
-                                                    size = 19))
-ggsave("bipartite_plots.png", width = 10, height = 7)
 
 
 ### putting all metric results together
@@ -262,38 +168,9 @@ summarize_metric <- function (my_data, t_results) {
 ct_net_spec_results <- summarize_metric(my_data = ct_H2_dat,
                                      t_results = ct_H2_welch)
 
-ct_link_dens_results <- summarize_metric(my_data = ct_link_dens,
-                                      t_results = ct_link_dens_welch)
-
-# conn_results <- summarize_metric(my_data = con_dat,
-#                                  t_results = connectance_welch)
-
-ct_bip_results <- t(data.frame(ct_net_spec_results, ct_link_dens_results))
+ct_bip_results <- t(data.frame(ct_net_spec_results))
 ct_bip_results <- as.data.frame(ct_bip_results)
 
-
-### P-value correction
-library(multtest)
-
-set.seed(20210917)
-
-raw_p_bip = ct_bip_results$P
-
-adj_p_bip = mt.rawp2adjp(raw_p_bip, na.rm = T)
-
-unordered_p_bip = adj_p_bip$adjp[, c("rawp", "BH")]
-
-ordered_p_bip = unordered_p_bip[,2][order(adj_p_bip$index)]
-
-ct_bip_results$Adj_P <- ordered_p_bip
-
-ct_bip_results$Index <- c("H2", "Linkage Density")
-
-ct_bip_results <- select(ct_bip_results, 7, 1:6)
-
-row.names(ct_bip_results) <- NULL
-
-write.csv(ct_bip_results, "output/bipartite_metric_results_counts.csv")
 
 
 #########################################
@@ -452,7 +329,7 @@ ct_host_dfun_p <- ggplot(ct_host_spec_df,aes(x=HabitatType,y=dprime,fill=factor(
         panel.background=element_blank()) +
   theme(legend.text = element_text(face="italic",size=12)) 
 
-ggsave("dprime_plot_using_counts.png", width = 7.5, height = 6)
+ggsave("../figures/Fig_2_dprime.png", width = 7.5, height = 6)
 
 
 

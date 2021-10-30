@@ -124,7 +124,7 @@ two_accums <- ggarrange(unrare_ro_host_accum_curve,
                 labels = c("A)", "B)"),
                 vjust=3) + theme(plot.margin = margin(0,10,10,10))
 
-ggsave("../figures/accumulation_curves_unrarefied2.png", width=11.5, height=5.5)
+ggsave("../figures/Fig_S2_ASV_accumulation_curves.png", width=11.5, height=5.5)
 
 
 ```

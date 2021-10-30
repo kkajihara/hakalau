@@ -196,7 +196,7 @@ two_venn <- ggarrange(all_euler_plot, NULL, soil_root_plot,
                       widths=c(1, 0.05, 1), 
                       labels = c("A)", "", "B)"))
 
-ggsave("../figures/venns.png", width=10, height=3.5)
+ggsave("../figures/Fig_S3_venns.png", width=10, height=3.5)
 
 
 ```
