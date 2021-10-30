@@ -72,4 +72,4 @@ ggplot(df_mut, aes(
   theme(legend.position = "none")
 
 ## Save figure ----
-ggsave("scatter_mean_2groups_v3.pdf", width = 6, height = 5)
+ggsave("Fig_6_abundance_occupancy_scatterplot.png", width = 6, height = 5)
