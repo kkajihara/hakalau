@@ -26,7 +26,7 @@ grasses.
     * rds files needed to load in to execute various scripts
 * **main**
   * code to reproduce analyses
-  * Code to run abundance-occupancy analyses are at [https://github.com/cdmuir/abundance-occupancy](https://github.com/cdmuir/abundance-occupancy)
+  * code to run abundance-occupancy analyses are at [https://github.com/cdmuir/abundance-occupancy](https://github.com/cdmuir/abundance-occupancy)
 * **outputs**
   * .csv and .txt files exported during code execution
 * **src**
