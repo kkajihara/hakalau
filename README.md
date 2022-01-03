@@ -2,15 +2,7 @@
 
 ## Background
 This project examined the interactions of soil and host-associated AM fungal
-communities between remnant and restored forest patches in the Hakalau Forest
-National Wildlife Refuge 
-
-This project examined AM fungal community membership between remnant and restored
-forests with differing land-use histories in the Hakalau Forest National Wildlife
-Refuge (Hakalau) of Hawaiʻi Island, USA. We assessed whether habitat restoration
-strategies such as reforestation have successfully restored AM fungal communities
-from the reference ecosystem, in this case tropical native forests. We sampled
-soils and roots from five native Hawaiian host plants, as well as nonnative
+communities between remnant and restored forests with differing land-use histories in the Hakalau Forest National Wildlife Refuge (Hakalau) of Hawaiʻi Island, USA. We assessed whether habitat restoration strategies such as reforestation have successfully restored AM fungal communities from the reference ecosystem, in this case tropical native forests. We sampled soils and roots from five native Hawaiian host plants, as well as nonnative
 grasses.
 
 
