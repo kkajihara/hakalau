@@ -171,5 +171,14 @@ write.csv(unrare_ro_mat_pa, "../intermediate_files/csv/unrare_ro_mat_pa.csv")
 saveRDS(unrare_ak_mat_pa, "../intermediate_files/rds/unrare_ak_mat_pa.rds")
 write.csv(unrare_ak_mat_pa, "../intermediate_files/csv/unrare_ak_mat_pa.csv")
 
+
+# rename and convert matrices to data frames
+ro_barplot_df <- as.data.frame(unrare_ro_full_mat)
+ak_barplot_df <- as.data.frame(unrare_ak_full_mat)
+
+
+saveRDS(ro_barplot_df, "../intermediate_files/rds/ro_barplot_df.rds")
+saveRDS(ak_barplot_df, "../intermediate_files/rds/ak_barplot_df.rds")
+
 ```
 

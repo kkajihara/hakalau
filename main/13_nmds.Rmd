@@ -92,8 +92,7 @@ rarefied_nmds_data <- rarefied_nmds_data %>%
 
 # reorder the data frame so that sample names, habitat, and host come before
 # all the abundance data
-# I am just doing this by column number but there is probably a better way
-rarefied_nmds_data <- rarefied_nmds_data[,c(1, 1975, 1976, 2:1974)]
+rarefied_nmds_data <- rarefied_nmds_data %>% relocate(SampleID, Habitat, Host)
 row.names(rarefied_nmds_data) <- rarefied_nmds_data$SampleID
 
 saveRDS(rarefied_nmds_data, "../intermediate_files/rds/rarefied_nmds_data.rds")
@@ -204,12 +203,12 @@ library(ggtext)
 
 host_names <- readRDS("../intermediate_files/rds/host_names.rds")
 
-nmds_markdown <- rare_nmds_scores
-nmds_markdown$Host <- ifelse(!nmds_markdown$Host %in% c("Grass", "Soil"), paste0("*", nmds_markdown$Host, "*"), nmds_markdown$Host)
+#nmds_markdown <- rare_nmds_scores
+#nmds_markdown$Host <- ifelse(!nmds_markdown$Host %in% c("Grass", "Soil"), paste0("*", nmds_markdown$Host, "*"), nmds_markdown$Host)
 
 # create nmds plot. Get stress value from 'nmds'
-nmds_plot <- ggplot(nmds_markdown, aes(x = NMDS1, y = NMDS2)) + 
-    geom_point(data = nmds_markdown, size = 4, aes(shape = Habitat, colour = factor(Host, levels=host_names)), alpha = 0.8)+ 
+nmds_plot <- ggplot(rare_nmds_scores, aes(x = NMDS1, y = NMDS2)) + 
+    geom_point(data = rare_nmds_scores, size = 4, aes(shape = Habitat, colour = factor(Host, levels=host_names)), alpha = 0.8)+ 
     stat_ellipse(aes(x = NMDS1, y = NMDS2, group = Host, color=factor(Host, levels=host_names)), level = 0.95, size=1) +
     theme(axis.text.y = element_text(colour = "black", size = 20), 
     axis.text.x = element_text(colour = "black", size = 20), 
@@ -222,7 +221,7 @@ nmds_plot <- ggplot(nmds_markdown, aes(x = NMDS1, y = NMDS2)) +
     panel.background = element_blank(), 
     panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
     legend.key=element_blank()) + 
-    annotate("text", label="stress=0.261", x=0.8, y=-0.53, colour="black", size = 7) +
+    annotate("text", label="stress=0.261", x=0.75, y=-0.53, colour="black", size = 7) +
     labs(x = "NMDS1", y = "NMDS2", shape = "Habitat", colour = "Host") +
     theme(legend.text=element_markdown()) +
     scale_color_brewer(palette = "Set2")+

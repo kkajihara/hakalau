@@ -12,7 +12,7 @@ library(purrr); library(RVAideMemoire); library(tibble); library(reshape2)
 #Import files generated in QIIME
 
 
-unrarefied_physeq <- readRDS("data/unrarefied_physeq.rds")
+unrarefied_physeq <- readRDS("intermediate_files/rds/unrarefied_physeq.rds")
 
 otu_table(unrarefied_physeq) <- t(otu_table(unrarefied_physeq))
 
@@ -129,7 +129,7 @@ ct_H2_plot <- ggplot(ct_H2_dat,aes(x=HabitatType,y=networkspecialization,fill=Ha
   #stat_compare_means(size=10,label="p.signif",label.x=1.5) +
   #ggtitle("A)") 
 
-  ggsave("../figures/Fig_S6_H2.png", height = 6, width = 5)
+  ggsave("figures/Fig_S6_H2.png", height = 6, width = 5)
 
 
 #Observed welch t-test
@@ -293,6 +293,8 @@ ct_dprime_table <- rownames_to_column(ct_dprime_table, "Host")
 
 ### P-value correction
 
+library(multtest)
+
 set.seed(20210917)
 
 ct_raw_p_values = ct_dprime_table$P
@@ -305,7 +307,7 @@ ct_ordered_p = ct_unordered_p[,2][order(ct_adj_p_values$index)]
 
 ct_dprime_table$Adj_P <- ct_ordered_p
 
-write.csv(ct_dprime_table, "output/dprime_table.csv")
+write.csv(ct_dprime_table, "outputs/dprime_table.csv")
 
 
 
@@ -329,7 +331,7 @@ ct_host_dfun_p <- ggplot(ct_host_spec_df,aes(x=HabitatType,y=dprime,fill=factor(
         panel.background=element_blank()) +
   theme(legend.text = element_text(face="italic",size=12)) 
 
-ggsave("../figures/Fig_2_dprime.png", width = 7.5, height = 6)
+ggsave("figures/Fig_2_dprime.png", width = 7.5, height = 6)
 
 
 

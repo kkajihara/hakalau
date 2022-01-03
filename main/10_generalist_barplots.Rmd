@@ -48,7 +48,7 @@ get_shared_asvs <- function (a_host, barplot_df, taxonomy_df) {
   shared_subset <- rownames_to_column(shared_subset, "ASV")
   
   # make a new df with asv names and host sample asv counts as columns
-  shared_subset <- select(shared_subset, ASV, a_host)
+  shared_subset <- dplyr::select(shared_subset, ASV, a_host)
   
   # take sum of all shared host sample sequences
   total_host_sum <- sum(barplot_df[[a_host]])

@@ -8,9 +8,9 @@ Number of permutations: 9999
 Terms added sequentially (first to last)
 
                           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-rare_nmds_scores$Habitat   1    13.289 13.2892  41.599 0.04487 0.0001 ***
-rare_nmds_scores$Host      6    29.891  4.9818  15.595 0.10092 0.0001 ***
-Residuals                792   253.010  0.3195         0.85421           
-Total                    799   296.190                 1.00000           
+rare_nmds_scores$Habitat   1    13.285 13.2852  41.626 0.04489 0.0001 ***
+rare_nmds_scores$Host      6    29.881  4.9802  15.604 0.10097 0.0001 ***
+Residuals                792   252.770  0.3192         0.85414           
+Total                    799   295.937                 1.00000           
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

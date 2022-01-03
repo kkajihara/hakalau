@@ -165,7 +165,7 @@ data_for_model <- data_for_regress
 names(data_for_model)[1] <- c("sample_count")
 
 
-write.csv(data_for_model, "muir-abundance-occupancy/data_for_model.csv")
+write.csv(data_for_model, "Abundance-occupancy_Analyses/data_for_model.csv")
 
 
 
@@ -204,7 +204,8 @@ soil_host_highlighted_regress_plot <-
   scale_color_manual(values = c("black", "#e65262")) +
   # turning this on may be useful to check if colors are representing what they should
   theme(legend.position = "none") +
-  ggtitle("A) Core Host + Soil ASVs")
+  ggtitle("A) Core Host + Soil ASVs") +
+  labs(x="log(number of samples)", y="log(ASV abundance)")
 
 
 # Host-specific ASVs are colored
@@ -216,7 +217,8 @@ unique_highlighted_regress_plot <-
   theme_classic() +
   scale_color_manual(values = c("black", "#39acd5")) +
   theme(legend.position = "none") +
-  ggtitle("B) Host-specific ASVs")
+  ggtitle("B) Host-specific ASVs") +
+  labs(x="log(number of samples)", y="log(ASV abundance)")
 
 
 

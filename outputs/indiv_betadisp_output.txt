@@ -3,14 +3,14 @@
 
 Call: betadisper(d = rare_dist, group = rarefied_nmds_data$Habitat)
 
-No. of Positive Eigenvalues: 279
-No. of Negative Eigenvalues: 520
+No. of Positive Eigenvalues: 278
+No. of Negative Eigenvalues: 521
 
 Average distance to median:
- Remnant Restored 
-  0.6012   0.5809 
+ Remnant Forest Restored Forest 
+         0.6008          0.5807 
 
 Eigenvalues for PCoA axes:
 (Showing 8 of 799 eigenvalues)
 PCoA1 PCoA2 PCoA3 PCoA4 PCoA5 PCoA6 PCoA7 PCoA8 
-50.97 37.45 29.70 23.30 21.91 15.39 11.90 10.55 
+50.97 37.32 29.76 23.51 21.80 15.44 11.90 10.49 

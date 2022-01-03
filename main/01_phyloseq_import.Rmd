@@ -106,16 +106,14 @@ sd_df <- sd_df %>%
 # in the physeq object
 sample_data(unrarefied_physeq)$NewSampleType <- sample_data(sd_df)$NewSampleType
 
-## Remove ASVs present in zero samples
-unrarefied_physeq <- prune_taxa(taxa_sums(unrarefied_physeq) > 0, unrarefied_physeq)
+## Remove ASVs present with 1 or 0 reads
+unrarefied_physeq <- prune_taxa(taxa_sums(unrarefied_physeq) > 1, unrarefied_physeq)
 
 # Change the taxa names to "ASV1, ASV2, etc." for working convenience
 taxa_names(unrarefied_physeq) <- paste0("ASV", seq(ntaxa(unrarefied_physeq)))
 
-
-
-
 saveRDS(unrarefied_physeq, "../intermediate_files/rds/unrarefied_physeq.rds")
+
 
 unrarefied_otu_table <- as.data.frame(otu_table(unrarefied_physeq))
 

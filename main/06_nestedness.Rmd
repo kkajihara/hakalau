@@ -39,34 +39,34 @@ nestedness_ak_mat <- t(rare_ak_mat_pa)
 
 # calculate nested temp and nodf on a presence absence matrix with hosts as rows, ASVs as columns
 
-# value = 34.57965
+# value = 34.65411 // prior: 34.57965
 ro_nest_temp <- nestedtemp(nestedness_ro_mat)
 
-# value = 31.84482
+# value = 32.04773 // prior: 31.84482
 ro_nodf <- nestednodf(nestedness_ro_mat)
   
-# value = 37.26258
+# value = 36.87749 // prior: 37.26258
 ak_nest_temp <- nestedtemp(nestedness_ak_mat)
 
-# value = 30.36718
+# value = 30.73929 // prior: 30.36718
 ak_nodf <- nestednodf(nestedness_ak_mat)
 
 
 # determine significance of nestedness temperature using method "quasiswap" which maintains species and row frequencies, compared against 1000 randomized null communities
 
-# p =  0.6464
+# p = 0.5445  // prior: 0.6464
 ro_nest_signif <- oecosimu(nestedness_ro_mat, nestedtemp, "quasiswap", nsimul = 1000)
 saveRDS(ro_nest_signif, "../intermediate_files/rds/ro_nest_signif.rds")
 
-# p = 0.1528
+# p = 0.1209  // prior: 0.1528
 ro_nodf_signif <- oecosimu(nestedness_ro_mat, nestednodf, "quasiswap", nsimul = 1000)
 saveRDS(ro_nodf_signif, "../intermediate_files/rds/ro_nodf_signif.rds")
 
-# p = 0.000999
+# p = 0.000999 // prior: 0.000999
 ak_nest_signif <- oecosimu(nestedness_ak_mat, nestedtemp, "quasiswap", nsimul = 1000)
 saveRDS(ak_nest_signif, "../intermediate_files/rds/ak_nest_signif.rds")
 
-# p = 0.000999
+# p = 0.000999 // prior: 0.000999
 ak_nodf_signif <- oecosimu(nestedness_ak_mat, nestednodf, "quasiswap", nsimul = 1000)
 saveRDS(ak_nodf_signif, "../intermediate_files/rds/ak_nodf_signif.rds")
 

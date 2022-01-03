@@ -106,19 +106,19 @@ unique_samp_tables <- lapply(host_names,
 
 names(unique_samp_tables) <- host_names
 
-unique_samp_tables_fullfam <- unique_samp_tables
 
 
 # for testing
-# grp <- function(a_host, df) {
-#   
-#   a <- df[[a_host]] %>% group_by(Habitat, Family) %>% dplyr::summarise(count=n())
-# 
-#   return(a)
-#     
-# }
-# 
-# b = lapply(host_names, grp, df = unique_samp_tables)
+# says how many samples each family has
+grp <- function(a_host, df) {
+
+  a <- df[[a_host]] %>% group_by(Habitat, Family) %>% dplyr::summarise(count=n())
+
+  return(a)
+
+}
+
+b = lapply(host_names, grp, df = unique_samp_tables)
 
 
 
@@ -134,7 +134,8 @@ unique_samp_tables[["A. koa"]] <-
 unique_samp_tables[["C. trigynum"]] <- 
   unique_samp_tables[["C. trigynum"]][!(unique_samp_tables[["C. trigynum"]]$Family
                                         %in%
-                                        c("Claroideoglomeraceae", 
+                                        c("Ambisporaceae",
+                                          "Claroideoglomeraceae", 
                                         "Diversisporaceae", 
                                         "Geosiphonaceae",
                                         "Gigasporaceae")),]
@@ -148,19 +149,19 @@ unique_samp_tables[["Grass"]] <-
                                           "Gigasporaceae")),]
 
 
-unique_samp_tables[["M. lessertiana"]] <- 
-  unique_samp_tables[["M. lessertiana"]][
-    !(unique_samp_tables[["M. lessertiana"]]$Family
-                                        %in%
-                                        c("Diversisporaceae", 
-                                          "Geosiphonaceae")),]
-
-
 unique_samp_tables[["M. polymorpha"]] <- 
   unique_samp_tables[["M. polymorpha"]][
     !(unique_samp_tables[["M. polymorpha"]]$Family
                                         %in%
                                         c("Claroideoglomeraceae", 
+                                          "Diversisporaceae",
+                                          "Geosiphonaceae")),]
+
+unique_samp_tables[["M. lessertiana"]] <- 
+  unique_samp_tables[["M. lessertiana"]][
+    !(unique_samp_tables[["M. lessertiana"]]$Family
+                                        %in%
+                                        c("Diversisporaceae", 
                                           "Geosiphonaceae")),]
 
 
@@ -173,6 +174,14 @@ unique_samp_tables[["R. hawaiensis"]] <-
                                           "Diversisporaceae", 
                                           "Geosiphonaceae",
                                           "Gigasporaceae")),]
+
+unique_samp_tables[["Soil"]] <- 
+  unique_samp_tables[["Soil"]][
+    !(unique_samp_tables[["Soil"]]$Family
+                                        %in%
+                                        c("Geosiphonaceae")),]
+
+unique_samp_tables_fullfam <- unique_samp_tables
   
 big_unique_relabun_table <- do.call("rbind", unique_samp_tables_fullfam)
 ro_unique_rbind <- filter(big_unique_relabun_table, Habitat=="RO")
@@ -344,7 +353,20 @@ soho_samp_tables <- lapply(host_names_no_soil,
 
 names(soho_samp_tables) <- host_names_no_soil
 
-soho_samp_tables_fullfam <- soho_samp_tables
+
+
+# for testing
+# says how many samples each family has
+grp <- function(a_host, df) {
+
+  a <- df[[a_host]] %>% group_by(Habitat, Family) %>% dplyr::summarise(count=n())
+
+  return(a)
+
+}
+
+c = lapply(host_names_no_soil, grp, df = soho_samp_tables)
+names(c) <- host_names_no_soil
 
 
 
@@ -376,6 +398,7 @@ for (a_host in hosts_no_diversi) {
   
 }
 
+soho_samp_tables_fullfam <- soho_samp_tables
 
 
 ### make relabun table
@@ -499,8 +522,6 @@ shared_samp_tables <- lapply(host_names,
 
 names(shared_samp_tables) <- host_names
 
-shared_samp_tables_fullfam <- shared_samp_tables
-
 
 
 shared_family_names <- c("Acaulosporaceae",
@@ -512,29 +533,33 @@ shared_family_names <- c("Acaulosporaceae",
                         "Glomeromycotina",
                         "Paraglomeraceae")
 
+# for testing
+# says how many samples each family has
+grp <- function(a_host, df) {
+
+  a <- df[[a_host]] %>% group_by(Habitat, Family) %>% dplyr::summarise(count=n())
+
+  return(a)
+
+}
+
+d = lapply(host_names, grp, df = shared_samp_tables)
+names(d) <- host_names
+
 
 
 shared_samp_tables[["A. koa"]] <- 
   shared_samp_tables[["A. koa"]][!(shared_samp_tables[["A. koa"]]$Family
                                         %in%
-                                        c("Diversisporaceae",
-                                        "Gigasporaceae")),]
+                                        c("Diversisporaceae")),]
 
 shared_samp_tables[["C. trigynum"]] <- 
   shared_samp_tables[["C. trigynum"]][!(shared_samp_tables[["C. trigynum"]]$Family
                                         %in%
-                                        c("Claroideoglomeraceae", 
-                                        "Diversisporaceae")),]
+                                        c("Diversisporaceae")),]
 
 shared_samp_tables[["Grass"]] <-  
   shared_samp_tables[["Grass"]][!(shared_samp_tables[["Grass"]]$Family
-                                        %in%
-                                        c("Diversisporaceae")),]
-
-
-shared_samp_tables[["M. lessertiana"]] <- 
-  shared_samp_tables[["M. lessertiana"]][
-    !(shared_samp_tables[["M. lessertiana"]]$Family
                                         %in%
                                         c("Diversisporaceae")),]
 
@@ -546,14 +571,22 @@ shared_samp_tables[["M. polymorpha"]] <-
                                           "Diversisporaceae")),]
 
 
+shared_samp_tables[["M. lessertiana"]] <- 
+  shared_samp_tables[["M. lessertiana"]][
+    !(shared_samp_tables[["M. lessertiana"]]$Family
+                                        %in%
+                                        c("Diversisporaceae")),]
+
+
 
 shared_samp_tables[["R. hawaiensis"]] <- 
   shared_samp_tables[["R. hawaiensis"]][
     !(shared_samp_tables[["R. hawaiensis"]]$Family
                                         %in%
                                         c("Acaulosporaceae",
-                                          "Diversisporaceae",
-                                          "Gigasporaceae")),]
+                                          "Diversisporaceae")),]
+
+shared_samp_tables_fullfam <- shared_samp_tables
 
 
 ########################## make relabun table ########################## 

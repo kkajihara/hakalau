@@ -48,7 +48,7 @@ make_barplot <- function (rbind_df, upper_limit, color_vector, title) {
     scale_fill_manual(values = color_vector) +
     guides(fill = guide_legend(order = 1),
            alpha = guide_legend(order = 2)) +
-    scale_alpha_discrete(range = c(0.25, 1), breaks = c("Yes", "No")) 
+    scale_alpha_discrete(range = c(0.45, 1), breaks = c("Yes", "No")) 
   
 }
 

@@ -4,16 +4,16 @@ lm(formula = log(asv_abundance) ~ log(number_of_samples), data = data_for_regres
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--2.6200 -0.7468 -0.0769  0.6395  3.9865 
+-2.6129 -0.7923 -0.0992  0.6428  3.9514 
 
 Coefficients:
                        Estimate Std. Error t value            Pr(>|t|)    
-(Intercept)             2.35619    0.02640   89.24 <0.0000000000000002 ***
-log(number_of_samples)  1.45862    0.01857   78.56 <0.0000000000000002 ***
+(Intercept)             2.40175    0.02629   91.36 <0.0000000000000002 ***
+log(number_of_samples)  1.44357    0.01829   78.91 <0.0000000000000002 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 1.035 on 1971 degrees of freedom
-Multiple R-squared:  0.7579,	Adjusted R-squared:  0.7578 
-F-statistic:  6171 on 1 and 1971 DF,  p-value: < 0.00000000000000022
+Residual standard error: 1.017 on 1930 degrees of freedom
+Multiple R-squared:  0.7634,	Adjusted R-squared:  0.7633 
+F-statistic:  6226 on 1 and 1930 DF,  p-value: < 0.00000000000000022
 

@@ -51,7 +51,7 @@ get_soil_host_asvs <- function (a_host, barplot_df, taxonomy_df) {
   # make asv rownames into a column
   soil_host_subset <- rownames_to_column(soil_host_subset, "ASV")
   # make a new df with asv names and host sample asv counts as columns
-  soil_host_subset <- select(soil_host_subset, ASV, a_host)
+  soil_host_subset <- dplyr::select(soil_host_subset, ASV, a_host)
   # take sum of all unique host sample sequences
   total_host_sum <- sum(barplot_df[[a_host]])
   # make new relative abundance column by dividing unique count by total

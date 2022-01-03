@@ -21,12 +21,10 @@ library(ggplot2)
 
 ```{r}
 
-# count matrices from unrarefied data
-unrare_ro_full_mat <-
-  readRDS("../intermediate_files/rds/unrare_ro_full_mat.rds")
+# count data frames from unrarefied data
+ro_barplot_df <- readRDS("../intermediate_files/rds/ro_barplot_df.rds")
 
-unrare_ak_full_mat <-
-  readRDS("../intermediate_files/rds/unrare_ak_full_mat.rds")
+ak_barplot_df <- readRDS("../intermediate_files/rds/ak_barplot_df.rds")
 
 # taxonomy table from full unrarefied physeq object 
 full_tax_table_df <- readRDS("../intermediate_files/rds/full_tax_table_df.rds")
@@ -36,20 +34,6 @@ host_names <- readRDS("../intermediate_files/rds/host_names.rds")
 
 ```
 
-## Data Formatting
-
-```{r}
-
-# rename and convert matrices to data frames
-ro_barplot_df <- as.data.frame(unrare_ro_full_mat)
-ak_barplot_df <- as.data.frame(unrare_ak_full_mat)
-
-
-saveRDS(ro_barplot_df, "../intermediate_files/rds/ro_barplot_df.rds")
-saveRDS(ak_barplot_df, "../intermediate_files/rds/ak_barplot_df.rds")
-
-
-```
 
 ## Prepare data frames for host- and soil-specific ASVs
 
@@ -65,7 +49,7 @@ get_unique_asvs <- function (a_host, barplot_df, taxonomy_df) {
   unique_subset <- rownames_to_column(unique_subset, "ASV")
   
   # make a new df with asv names and host sample asv counts as columns
-  unique_subset <- select(unique_subset, ASV, a_host)
+  unique_subset <- dplyr::select(unique_subset, ASV, a_host)
   
   # take sum of all unique host sample sequences
   total_host_sum <- sum(barplot_df[[a_host]])
