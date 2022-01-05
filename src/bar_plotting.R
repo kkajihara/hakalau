@@ -15,6 +15,25 @@ colors_ten_families <-   c("Acaulosporaceae" = "#9e0142",
                            "Glomeromycotina" = "#66c2a5",
                            "Paraglomeraceae" = "#3288bd")
 
+colors_nine_families <-   c("Acaulosporaceae" = "#9e0142",
+                           "Ambisporaceae" = "#d53e4f",
+                           "Archaeosporaceae" = "#f46d43",
+                           "Claroideoglomeraceae" = "#fdae61",
+                           "Diversisporaceae" = "#fee08b",
+                           "Gigasporaceae" = "#daeb7f",
+                           "Glomeraceae" = "#abdda4",
+                           "Glomeromycotina" = "#66c2a5",
+                           "Paraglomeraceae" = "#3288bd")
+
+colors_eight_families <-   c("Acaulosporaceae" = "#9e0142",
+                            "Ambisporaceae" = "#d53e4f",
+                            "Archaeosporaceae" = "#f46d43",
+                            "Claroideoglomeraceae" = "#fdae61",
+                            "Gigasporaceae" = "#daeb7f",
+                            "Glomeraceae" = "#abdda4",
+                            "Glomeromycotina" = "#66c2a5",
+                            "Paraglomeraceae" = "#3288bd")
+
 
 make_barplot <- function (rbind_df, upper_limit, color_vector, title) {
   
