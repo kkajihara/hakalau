@@ -66,7 +66,6 @@ unrarefied_physeq <- qza_to_phyloseq(
   metadata="../data/haka-metadata.tsv")
 
 
-
 ```
 
 
@@ -106,8 +105,14 @@ sd_df <- sd_df %>%
 # in the physeq object
 sample_data(unrarefied_physeq)$NewSampleType <- sample_data(sd_df)$NewSampleType
 
-## Remove ASVs present with 1 or 0 reads
+## test - remove only those ASVs with 0 reads - 1973 ASVs
+# test_physeq <- prune_taxa(taxa_sums(unrarefied_physeq) > 0, unrarefied_physeq)
+
+## Remove ASVs present with 1 or 0 reads - 1932 ASVs
 unrarefied_physeq <- prune_taxa(taxa_sums(unrarefied_physeq) > 1, unrarefied_physeq)
+
+## test - remove only those ASVs with 0 reads
+test_physeq <- prune_taxa(taxa_sums(unrarefied_physeq) > 0, unrarefied_physeq)
 
 # Change the taxa names to "ASV1, ASV2, etc." for working convenience
 taxa_names(unrarefied_physeq) <- paste0("ASV", seq(ntaxa(unrarefied_physeq)))

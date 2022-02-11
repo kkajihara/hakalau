@@ -59,6 +59,8 @@ hist(rowSums(all_sample_nmds_data))
 # this leaves us with 800 samples out of 1108
 all_sample_nmds_data <- all_sample_nmds_data[rowSums(all_sample_nmds_data) >= 1000 , ]
 
+all_sample_nmds_data <- all_sample_nmds_data[,colSums(all_sample_nmds_data)>0]
+
 # rarefy
 rarefied_nmds_data <-rrarefy(all_sample_nmds_data, sample = 1000)
 
@@ -140,7 +142,7 @@ saveRDS(rare_nmds_scores, "../intermediate_files/rds/rare_nmds_scores.rds")
 ```{r}
 
 # geo
-samdat_geo_nosoil <- samdat[row.names(samdat) %in% rarefied_nmds_data$SampleID,]
+samdat_geo <- samdat[row.names(samdat) %in% rarefied_nmds_data$SampleID,]
 
 # Jack's function
 library(fields)
@@ -154,37 +156,37 @@ distcalc <- function(lat, lng, sampIDs) {
 }
 
 set.seed(123)
-geo_distmat_nosoil <- distcalc(as.numeric(samdat_geo_nosoil$lat), as.numeric(samdat_geo_nosoil$lon), row.names(samdat_geo_nosoil))
+geo_distmat <- distcalc(as.numeric(samdat_geo$lat), as.numeric(samdat_geo$lon), row.names(samdat_geo))
 
 # pcnm
 set.seed(123)
-pcnm_nosoil <- pcnm(geo_distmat_nosoil)
+my_pcnm <- pcnm(geo_distmat)
 # get top 6 vectors
-pcnm_varExp_nosoil <- (pcnm_nosoil$values / sum(pcnm_nosoil$values))[1:6]
-pcnm_vecs_nosoil <- pcnm_nosoil$vectors[,1:6]
-colnames(pcnm_vecs_nosoil) <- paste0("Geo", 1:6)
+pcnm_varExp <- (my_pcnm$values / sum(my_pcnm$values))[1:6]
+pcnm_vecs <- my_pcnm$vectors[,1:6]
+colnames(pcnm_vecs) <- paste0("Geo", 1:6)
 
 # check
 # all(row.names(rare_nmds_scores) == row.names(pcnm_vecs_nosoil))
-vars_nosoil <- data.frame(rare_nmds_scores[,c("Host", "Habitat")], pcnm_vecs_nosoil)
+vars <- data.frame(rare_nmds_scores[,c("Host", "Habitat")], pcnm_vecs)
 # names(vars_nosoil)[1] <- "HabitatType"
 
 set.seed(123)
-fit_nosoil <- envfit(rare_nmds_scores[,c("NMDS1", "NMDS2")], vars_nosoil, nperm=1000)
+nmds_fit <- envfit(rare_nmds_scores[,c("NMDS1", "NMDS2")], vars, nperm=1000)
 
 # drop non-significant variables and re-fit_nosoil
-while(sum(fit_nosoil$vectors$pvals > 0.05) >= 1){
-  todrop <- names(fit_nosoil$vectors$pvals)[which.max(fit_nosoil$vectors$pvals)]
-  vars_nosoil <- vars_nosoil[, ! colnames(vars_nosoil) %in% todrop]
+while(sum(nmds_fit$vectors$pvals > 0.05) >= 1){
+  todrop <- names(nmds_fit$vectors$pvals)[which.max(nmds_fit$vectors$pvals)]
+  vars <- vars[, ! colnames(vars) %in% todrop]
   set.seed(123)
-  fit_nosoil <- envfit(rare_nmds_scores[,c("NMDS1", "NMDS2")], vars_nosoil, permutations=1000)
+  nmds_fit <- envfit(rare_nmds_scores[,c("NMDS1", "NMDS2")], vars, permutations=1000)
 }
 
-capture.output(fit_nosoil, file="../outputs/nmds_envfit.txt")
-saveRDS(fit_nosoil, "../intermediate_files/nmds_envfit.rds")
+capture.output(nmds_fit, file="../outputs/nmds_envfit.txt")
+saveRDS(nmds_fit, "../intermediate_files/nmds_envfit.rds")
 
 # extract data for ggplot
-continuous <- as.data.frame(scores(fit_nosoil, "vectors"))
+continuous <- as.data.frame(scores(nmds_fit, "vectors"))
 #categorical <- as.data.frame(scores(fit_nosoil, "factors"))
 
 
@@ -221,10 +223,10 @@ nmds_plot <- ggplot(rare_nmds_scores, aes(x = NMDS1, y = NMDS2)) +
     panel.background = element_blank(), 
     panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
     legend.key=element_blank()) + 
-    annotate("text", label="stress=0.261", x=0.75, y=-0.53, colour="black", size = 7) +
+    annotate("text", label="stress=0.261", x=0.82, y=-0.53, colour="black", size = 7) +
     labs(x = "NMDS1", y = "NMDS2", shape = "Habitat", colour = "Host") +
     theme(legend.text=element_markdown()) +
-    scale_color_brewer(palette = "Set2")+
+    scale_color_brewer(palette = "Set2") +
     # add envfit data
     geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2),
       data = continuous, size = 1, colour = "grey30", arrow = arrow(length = unit(0.25, "cm"))) +
@@ -237,7 +239,7 @@ nmds_plot <- ggplot(rare_nmds_scores, aes(x = NMDS1, y = NMDS2)) +
       fontface = "bold", label = row.names(continuous), size = 6.5, 
       box.padding = 1, min.segment.length = 10, seed = 42074)
 
-ggsave("../figures/Fig_S5_nmds.png", width=14, height=9)
+ggsave("../figures/Fig_S5_nmds_FIXED.png", width=14, height=9)
   
 
 

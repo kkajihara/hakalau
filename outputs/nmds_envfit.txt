@@ -2,11 +2,11 @@
 ***VECTORS
 
         NMDS1    NMDS2     r2   Pr(>r)    
-Geo1  0.20347  0.97908 0.0245 0.000999 ***
-Geo2  0.26934  0.96305 0.0167 0.000999 ***
-Geo3  0.90811  0.41872 0.1219 0.000999 ***
-Geo4  0.75065 -0.66070 0.0630 0.000999 ***
-Geo6 -0.92710  0.37482 0.0649 0.000999 ***
+Geo1  0.26865  0.96324 0.0248 0.000999 ***
+Geo2  0.25420  0.96715 0.0220 0.000999 ***
+Geo3  0.91832  0.39583 0.1382 0.000999 ***
+Geo4  0.78264 -0.62248 0.0550 0.000999 ***
+Geo6 -0.93638  0.35100 0.0609 0.000999 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -16,20 +16,20 @@ Number of permutations: 1000
 
 Centroids:
                          NMDS1   NMDS2
-HostA. koa             -0.0058 -0.0501
-HostC. trigynum         0.1106 -0.1002
-HostGrass              -0.0600 -0.0146
-HostM. lessertiana      0.0056 -0.1182
-HostM. polymorpha       0.0525 -0.0734
-HostR. hawaiensis      -0.0924  0.0155
-HostSoil                0.0059  0.0752
-HabitatRemnant Forest   0.1211 -0.0134
-HabitatRestored Forest -0.1074  0.0119
+HostA. koa             -0.0080 -0.0448
+HostC. trigynum         0.1124 -0.0829
+HostGrass              -0.0595 -0.0147
+HostM. lessertiana     -0.0100 -0.0935
+HostM. polymorpha       0.0510 -0.0576
+HostR. hawaiensis      -0.0972  0.0501
+HostSoil                0.0107  0.0523
+HabitatRemnant Forest   0.1318 -0.0107
+HabitatRestored Forest -0.1168  0.0095
 
 Goodness of fit:
             r2   Pr(>r)    
-Host    0.0864 0.000999 ***
-Habitat 0.1445 0.000999 ***
+Host    0.0602 0.000999 ***
+Habitat 0.1520 0.000999 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free

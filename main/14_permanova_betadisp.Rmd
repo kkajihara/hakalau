@@ -34,7 +34,7 @@ rare_nmds_scores <- readRDS("../intermediate_files/rds/rare_nmds_scores.rds")
 
 ```
 
-## PERMANOVA
+## PERMANOVA - no longer needed
 
 ```{r}
 

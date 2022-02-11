@@ -8,9 +8,9 @@ No. of Negative Eigenvalues: 521
 
 Average distance to median:
  Remnant Forest Restored Forest 
-         0.6008          0.5807 
+         0.6009          0.5808 
 
 Eigenvalues for PCoA axes:
 (Showing 8 of 799 eigenvalues)
 PCoA1 PCoA2 PCoA3 PCoA4 PCoA5 PCoA6 PCoA7 PCoA8 
-50.97 37.32 29.76 23.51 21.80 15.44 11.90 10.49 
+51.01 37.32 29.71 23.23 21.87 15.38 11.95 10.58 
